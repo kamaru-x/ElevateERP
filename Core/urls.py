@@ -3,4 +3,23 @@ from Core import views
 
 urlpatterns = [
     path('',views.dashboard,name='dashboard'),
+
+    path('places/',views.places,name='places'),
+    path('place/add/',views.add_place,name='add-place'),
+    path('place/delete/',views.delete_place,name='delete-place'),
+
+    path('agents/',views.agents,name='agents'),
+    path('agent/delete/',views.delete_agent,name='delete-agent'),
+    path('agent/add/',views.add_agent,name='add-agent'),
+    path('agent/edit/<str:agent_id>/',views.edit_agent,name='edit-agent'),
+
+    path('courses/',views.courses,name='courses'),
+    path('course/add/',views.add_course,name='add-course'),
+    path('course/delete/',views.delete_course,name='delete-course'),
+
+    path('collages/',views.collages,name='collages'),
+    path('collage/add/',views.add_collage,name='add-collage'),
+    path('collage/edit/<str:collage_id>/',views.edit_collage,name='edit-collage'),
+    path('collage/view/<str:collage_id>/',views.view_collage,name='view-collage'),
+    path('collage/delete/',views.delete_collage,name='delete-collage'),
 ]
