@@ -13,12 +13,14 @@ def dashboard(request):
     places = Place.objects.all()
     collages = Collage.objects.all()
     courses = Course.objects.all()
+    students = Student.objects.all()
     
     context = {
         'page' : 'dashboard',
         'places' : places,
         'collages' : collages,
-        'courses' : courses
+        'courses' : courses,
+        'students' : students
     }
     return render(request,'Dashboard/Core/dashboard.html',context)
 
