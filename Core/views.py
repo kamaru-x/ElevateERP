@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from Core.models import Place,Agents,Course,Collage
+from Core.models import Place,Agents,Course,Collage,Student
 from django.contrib import messages
 
 # Create your views here.
@@ -149,7 +149,7 @@ def courses(request):
         'page' : 'masters',
         'courses' : courses
     }
-    return render(request,'Dashboard/Core/Courses.html',context)
+    return render(request,'Dashboard/Core/courses.html',context)
 
 #----------------------------------- ADD COURSE -----------------------------------#
 
@@ -289,3 +289,109 @@ def delete_collage(request):
             messages.warning(request,exception)
 
     return redirect('collages')
+
+#----------------------------------- STUDENTS -----------------------------------#
+
+@login_required
+def students(request):
+    students = Student.objects.all().order_by('-id')
+    context = {
+        'page' : 'students',
+        'students' : students
+    }
+    return render(request,'Dashboard/Students/students.html',context)
+
+#----------------------------------- ADD STUDENT -----------------------------------#
+
+@login_required
+def add_student(request):
+    collages = Collage.objects.all().order_by('-id')
+    courses = Course.objects.all().order_by('-id')
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        mobile = request.POST.get('mobile')
+        email = request.POST.get('email')
+        place = request.POST.get('place')
+
+        collage_id = request.POST.get('collage')
+        collage = Collage.objects.get(id=collage_id)
+
+        course_id = request.POST.get('course')
+        course = Course.objects.get(id=course_id)
+
+        try:
+            Student.objects.create(Name=name,Mobile=mobile,Email=email,Place=place,Collage=collage,Course=course)
+            messages.success(request,'New student addedd successfully ... !')
+            return redirect('students')
+        
+        except Exception as exception:
+            messages.warning(request,exception)
+            return redirect('add-student')
+
+    context = {
+        'collages' : collages,
+        'courses' : courses
+    } 
+    return render(request,'Dashboard/Students/student-add.html',context)
+
+#----------------------------------- EDIT STUDENT -----------------------------------#
+
+@login_required
+def edit_student(request,student_id):
+    student = Student.objects.get(id=student_id)
+    collages = Collage.objects.all().order_by('-id')
+    courses = Course.objects.all().order_by('-id')
+
+    if request.method == 'POST':
+        student.Name = request.POST.get('name')
+        student.Mobile = request.POST.get('mobile')
+        student.Email = request.POST.get('email')
+        student.Place = request.POST.get('place')
+
+        collage_id = request.POST.get('collage')
+        student.Collage = Collage.objects.get(id=collage_id)
+
+        course_id = request.POST.get('course')
+        student.Course = Course.objects.get(id=course_id)
+
+        try:
+            student.save()
+            messages.success(request,'Student details edited successfully ... !')
+            return redirect('students')
+        
+        except Exception as exception:
+            messages.warning(request,exception)
+            return redirect('edit-student',student_id=student.id)
+
+    context = {
+        'student' : student,
+        'collages' : collages,
+        'courses' : courses,
+    }
+    return render(request,'Dashboard/Students/student-edit.html',context)
+
+#----------------------------------- EDIT STUDENT -----------------------------------#
+
+@login_required
+def student_details(request,student_id):
+    student = Student.objects.get(id=student_id)
+    context = {
+        'student' : student
+    }
+    return render(request,'Dashboard/Students/student-details.html',context)
+
+#----------------------------------- DELETE STUDENT -----------------------------------#
+
+@login_required
+def delete_student(request):
+    if request.method == 'POST':
+        student_id = request.POST.get('student_id')
+        student = Student.objects.get(id=student_id)
+
+        try:
+            student.delete()
+            messages.success(request,'Student deleated successfully ... !')
+        except Exception as exception:
+            messages.warning(request,exception)
+    return redirect('students')

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from Core.models import Place,Agents,Course,Collage
+from Core.models import Place,Agents,Course,Collage,Student
 
 # Register your models here.
 
@@ -18,3 +18,7 @@ class CourseModelAdmin(admin.ModelAdmin):
 @admin.register(Collage)
 class CollageModelAdmin(admin.ModelAdmin):
     list_display = ['Name','Mobile','Email','Place','Agent']
+
+@admin.register(Student)
+class StudentModelAdmin(admin.ModelAdmin):
+    list_display = ['Name','Mobile','Email','Place','Collage','Course']

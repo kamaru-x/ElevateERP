@@ -69,6 +69,20 @@
                         </ul>
                     </li>
 
+                    <li>
+                        <a href="{% url 'collages' %}" class="menu {% if page == 'collage' %} menu--active {% endif %}">
+                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__title"> Collages </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'students' %}" class="menu {% if page == 'students' %} menu--active {% endif %}">
+                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__title"> Students </div>
+                        </a>
+                    </li>
+
                     <!-- <li>
                         <a href="javascript:;" class="menu">
                             <div class="menu__icon"> <i data-lucide="box"></i> </div>
@@ -271,6 +285,13 @@
                         <a href="{% url 'collages' %}" class="side-menu {% if page == 'collage' %} side-menu--active {% endif %}">
                             <div class="side-menu__icon"> <i data-lucide="box"></i> </div>
                             <div class="side-menu__title"> Collages </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'students' %}" class="side-menu {% if page == 'students' %} side-menu--active {% endif %}">
+                            <div class="side-menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="side-menu__title"> Students </div>
                         </a>
                     </li>
 

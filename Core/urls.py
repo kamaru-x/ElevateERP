@@ -22,4 +22,10 @@ urlpatterns = [
     path('collage/edit/<str:collage_id>/',views.edit_collage,name='edit-collage'),
     path('collage/view/<str:collage_id>/',views.view_collage,name='view-collage'),
     path('collage/delete/',views.delete_collage,name='delete-collage'),
+
+    path('students/',views.students,name='students'),
+    path('student/add/',views.add_student,name='add-student'),
+    path('student/edit/<str:student_id>/',views.edit_student,name='edit-student'),
+    path('student/details/<str:student_id>/',views.student_details,name='student-details'),
+    path('student/delete/',views.delete_student,name='delete-student')
 ]

@@ -40,3 +40,16 @@ class Collage(models.Model):
 
     def __str__(self):
         return self.Name
+    
+
+class Student(models.Model):
+    Name = models.CharField(max_length=100)
+    Mobile = models.CharField(max_length=15)
+    Email = models.EmailField()
+    Place = models.CharField(max_length=50)
+
+    Collage = models.ForeignKey(Collage,on_delete=models.DO_NOTHING)
+    Course = models.ForeignKey(Course,on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.Name
