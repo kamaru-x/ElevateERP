@@ -1,8 +1,14 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from Core.models import Place,Agents,Course,Collage,Student
+from Core.models import Place,Agents,Course,Course_Addon,Collage,Student
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from Accounts.models import Entry,Entry_Categories
+from datetime import datetime
+
+now = datetime.now()
 
 # Create your views here.
 
@@ -70,11 +76,12 @@ def delete_place(request):
 #----------------------------------- PLACES -----------------------------------#
 
 @login_required
-def agents(request):
-    agents = Agents.objects.all().order_by('-id')
+def agents(request,rank):
+    agents = Agents.objects.filter(Rank=rank).order_by('-id')
     context = {
-        'page' : 'masters',
-        'agents' : agents
+        'page' : 'agents',
+        'agents' : agents,
+        'rank' : rank
     }
     return render(request,'Dashboard/Core/Agent/agents-list.html',context)
 
@@ -86,18 +93,23 @@ def add_agent(request):
         name = request.POST.get('name')
         mobile = request.POST.get('mobile')
         email = request.POST.get('email')
-        place = request.POST.get('place')
+        rank = request.POST.get('rank')
+        # place = request.POST.get('place')
 
         try:
-            Agents.objects.create(Name=name,Mobile=mobile,Email=email,Place=place)
+            Agents.objects.create(Name=name,Mobile=mobile,Email=email,Rank=rank)
             messages.success(request,'Agent added successfully ... !')
-            return redirect('agents')
+            return redirect('agents',rank=rank)
         
         except Exception as exception:
             messages.warning(request,exception)
             return redirect('add-agent')
+        
+    context = {
+        'page' : 'agents'
+    }
 
-    return render(request,'Dashboard/Core/Agent/agent-add.html')
+    return render(request,'Dashboard/Core/Agent/agent-add.html',context)
 
 #----------------------------------- EDIT AGENT -----------------------------------#
 
@@ -108,19 +120,19 @@ def edit_agent(request,agent_id):
         agent.Name = request.POST.get('name')
         agent.Mobile = request.POST.get('mobile')
         agent.Email = request.POST.get('email')
-        agent.Place = request.POST.get('place')
+        agent.Rank = request.POST.get('rank')
 
         try:
             agent.save()
             messages.success(request,'Agent detals edited successfully ... !')
-            return redirect('agents')
+            return redirect('agents',rank=agent.Rank)
         
         except Exception as exception:
             messages.warning(request,exception)
             return redirect('edit-agent',agent_id=agent.id)
         
     context = {
-        'page' : 'masters',
+        'page' : 'agents',
         'agent' : agent
     }
 
@@ -148,7 +160,7 @@ def delete_agent(request):
 def courses(request):
     courses = Course.objects.all().order_by('-id')
     context = {
-        'page' : 'masters',
+        'page' : 'courses',
         'courses' : courses
     }
     return render(request,'Dashboard/Core/courses.html',context)
@@ -184,6 +196,55 @@ def delete_course(request):
             messages.warning(request,exception)
 
     return redirect('courses')
+
+#----------------------------------- COURSE ADDONS -----------------------------------#
+
+@login_required
+def course_addons(request,course_id):
+    course = Course.objects.get(id=course_id)
+    addons = Course_Addon.objects.filter(Course=course)
+    context = {
+        'page' : 'courses',
+        'course' : course,
+        'addons' : addons
+    }
+    return render(request,'Dashboard/Core/course-details.html',context)
+
+#----------------------------------- ADD ADDON -----------------------------------#
+
+@login_required
+def add_addon(request):
+    if request.method == 'POST':
+        course_id = request.POST.get('course')
+        course = Course.objects.get(id=course_id)
+        title = request.POST.get('name')
+
+        try:
+            Course_Addon.objects.create(Course=course,Title=title)
+            messages.success(request,'New addon created ... !')
+            return redirect('course-addons',course_id=course.id)
+
+        except Exception as exception:
+            messages.warning(request,exception)
+            return redirect('course-addons',course_id=course.id)
+        
+
+#----------------------------------- DELETE ADDON -----------------------------------#
+        
+@login_required
+def delete_addon(request):
+    if request.method == 'POST':
+        addon_id = request.POST.get('addon_id')
+        addon = Course_Addon.objects.get(id=addon_id)
+        c_id = addon.Course.id
+
+        try:
+            addon.delete()
+            messages.success(request,'Addon deleated successfully ... !')
+        except Exception as exception:
+            messages.warning(request,exception)
+
+    return redirect('course-addons',course_id=c_id)
 
 #----------------------------------- COLLAGES -----------------------------------#
 
@@ -309,6 +370,7 @@ def students(request):
 def add_student(request):
     collages = Collage.objects.all().order_by('-id')
     courses = Course.objects.all().order_by('-id')
+    agents = Agents.objects.all().order_by('-id')
 
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -322,8 +384,32 @@ def add_student(request):
         course_id = request.POST.get('course')
         course = Course.objects.get(id=course_id)
 
+        addon_id = request.POST.get('addon')
+        addon = Course_Addon.objects.get(id=addon_id)
+
+        agent_id = request.POST.get('agent')
+        agent = Agents.objects.get(id=agent_id)
+
+        fees = request.POST.get('fees')
+        donation = request.POST.get('donation')
+        discount = request.POST.get('discount')
+        total = request.POST.get('total')
+        first_payment = request.POST.get('first_payment')
+        service = request.POST.get('service')
+        collage_payment = request.POST.get('collage_payment')
+
         try:
-            Student.objects.create(Name=name,Mobile=mobile,Email=email,Place=place,Collage=collage,Course=course)
+            student = Student.objects.create(
+                Name=name,Mobile=mobile,Email=email,Place=place,Collage=collage,Course=course,
+                Addon=addon,Agent=agent,Fees=fees,Donation=donation,Discount=discount,Total=total,
+                First_Payment=first_payment,Service=service,Collage_Payment=collage_payment
+            )
+            
+            title = f'1st Payment from {name}'
+            category = Entry_Categories.objects.get(CATID='SFPTOES')
+
+            Entry.objects.create(Title=title,Category=category,Date=now,Amount=first_payment,Student=student)
+
             messages.success(request,'New student addedd successfully ... !')
             return redirect('students')
         
@@ -332,10 +418,25 @@ def add_student(request):
             return redirect('add-student')
 
     context = {
+        'page' : 'students',
         'collages' : collages,
-        'courses' : courses
+        'courses' : courses,
+        'agents' : agents
     } 
     return render(request,'Dashboard/Students/student-add.html',context)
+
+#----------------------------------- GET ADDONS -----------------------------------#
+
+@csrf_exempt
+def get_addons(request):
+    if request.method == 'POST':
+        course_id = request.POST.get('course_id')
+        course = Course.objects.get(id=course_id)
+
+        addons = Course_Addon.objects.filter(Course=course)
+        addon_list = list(addons.values())
+
+        return JsonResponse({'status':'success','addons':addon_list})
 
 #----------------------------------- EDIT STUDENT -----------------------------------#
 
@@ -344,6 +445,8 @@ def edit_student(request,student_id):
     student = Student.objects.get(id=student_id)
     collages = Collage.objects.all().order_by('-id')
     courses = Course.objects.all().order_by('-id')
+    agents = Agents.objects.all().order_by('-id')
+    addons = Course_Addon.objects.filter(Course=student.Course)
 
     if request.method == 'POST':
         student.Name = request.POST.get('name')
@@ -356,6 +459,20 @@ def edit_student(request,student_id):
 
         course_id = request.POST.get('course')
         student.Course = Course.objects.get(id=course_id)
+
+        addon_id = request.POST.get('addon')
+        student.Addon = Course_Addon.objects.get(id=addon_id)
+
+        agent_id = request.POST.get('agent')
+        student.Agent = Agents.objects.get(id=agent_id)
+
+        student.Fees = request.POST.get('fees')
+        student.Donation = request.POST.get('donation')
+        student.Discount = request.POST.get('discount')
+        student.Total = request.POST.get('total')
+        student.First_Payment = request.POST.get('first_payment')
+        student.Service = request.POST.get('service')
+        student.Collage_Payment = request.POST.get('collage_payment')
 
         try:
             student.save()
@@ -370,6 +487,8 @@ def edit_student(request,student_id):
         'student' : student,
         'collages' : collages,
         'courses' : courses,
+        'addons' : addons,
+        'agents' : agents
     }
     return render(request,'Dashboard/Students/student-edit.html',context)
 

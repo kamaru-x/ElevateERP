@@ -16,6 +16,14 @@
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{% static 'dashboard/css/app.css' %}" />
         <!-- END: CSS Assets-->
+
+        <style>
+            .file {
+                border: solid 1px;
+                padding: 5px;
+                border-color: rgb(var(--color-slate-200) / var(--tw-border-opacity));
+            }
+        </style>
     </head>
     <!-- END: Head -->
 
@@ -50,20 +58,6 @@
                                 <a href="{% url 'places' %}" class="menu">
                                     <div class="menu__icon"> <i data-lucide="activity"></i> </div>
                                     <div class="menu__title"> Places </div>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="{% url 'agents' %}" class="menu">
-                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
-                                    <div class="menu__title"> Agents </div>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="{% url 'courses' %}" class="menu">
-                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
-                                    <div class="menu__title"> Courses </div>
                                 </a>
                             </li>
                         </ul>
@@ -249,6 +243,7 @@
                             <div class="side-menu__title"> Dashboard </div>
                         </a>
                     </li>
+
                     <li>
                         <a href="javascript:;" class="side-menu {% if page == 'masters' %} side-menu--active {% endif %}">
                             <div class="side-menu__icon"> <i data-lucide="box"></i> </div>
@@ -266,16 +261,52 @@
                             </li>
 
                             <li>
-                                <a href="{% url 'agents' %}" class="side-menu">
+                                <a href="{% url 'staffs' %}" class="side-menu">
                                     <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
-                                    <div class="side-menu__title"> Agents </div>
+                                    <div class="side-menu__title"> Staffs </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" class="side-menu {% if page == 'agents' %} side-menu--active {% endif %}">
+                            <div class="side-menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="side-menu__title">
+                                Agents
+                                <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="{% url 'agents' 'Main' %}" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="side-menu__title"> Main Agents </div>
                                 </a>
                             </li>
 
                             <li>
+                                <a href="{% url 'agents' 'Sub' %}" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="side-menu__title"> Sub Agents </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" class="side-menu {% if page == 'courses' %} side-menu--active {% endif %}">
+                            <div class="side-menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="side-menu__title">
+                                Courses
+                                <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
                                 <a href="{% url 'courses' %}" class="side-menu">
                                     <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
-                                    <div class="side-menu__title"> Courses </div>
+                                    <div class="side-menu__title"> Programs </div>
                                 </a>
                             </li>
                         </ul>
@@ -292,6 +323,13 @@
                         <a href="{% url 'students' %}" class="side-menu {% if page == 'students' %} side-menu--active {% endif %}">
                             <div class="side-menu__icon"> <i data-lucide="box"></i> </div>
                             <div class="side-menu__title"> Students </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'accounts' %}" class="side-menu {% if page == 'accounts' %} side-menu--active {% endif %}">
+                            <div class="side-menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="side-menu__title"> Accounts </div>
                         </a>
                     </li>
 

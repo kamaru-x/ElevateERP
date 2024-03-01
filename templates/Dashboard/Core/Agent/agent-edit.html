@@ -45,8 +45,12 @@
                 </div>
 
                 <div class="intro-y col-span-12 sm:col-span-6">
-                    <label for="input-wizard-2" class="form-label">Agent Place</label>
-                    <input value="{{ agent.Place }}" name="place" type="text" class="form-control" placeholder="Enter Agent Place Here" required maxlength="50">
+                    <label for="input-wizard-2" class="form-label">Agent Rank</label>
+                    <select name="rank" id="" class="form-control">
+                        <option value="{{ agent.Rank }}">{{ agent.Rank }}</option>
+                        <option value="Main">Main</option>
+                        <option value="Sub">Sub</option>
+                    </select>
                 </div>
 
                 <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">

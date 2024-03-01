@@ -1,0 +1,182 @@
+{% extends 'Dashboard/base.html' %}
+{% load static %}
+
+{% block page %} 
+    <li class="breadcrumb-item" aria-current="page">Accounts</li>
+    <li class="breadcrumb-item active" aria-current="page">Overview</li>
+{% endblock page %}
+
+{% block content %}
+
+<!-- BEGIN: Notification -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="intro-y col-span-11 alert alert-{{ message.tags }} alert-dismissible show flex items-center mb-6 mt-5 text-white" role="alert">
+            <span><i data-lucide="info" class="w-4 h-4 mr-2"></i></span>
+            <span>{{ message }}</span>
+            <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close"> <i data-lucide="x" class="w-4 h-4"></i> </button>
+        </div>
+    {% endfor %}
+{% endif %}
+<!-- BEGIN: Notification -->
+
+<!-- BEGIN: Profile Info -->
+<div class="intro-y box px-5 pt-5 mt-10">
+    <div class="flex flex-col lg:flex-row border-b border-slate-200/60 dark:border-darkmode-400 pb-5 -mx-5 justify-center">
+        <h1 class="text-primary font-medium my-5" style="font-size: 35px;">Accounts</h1>
+    </div>
+    <ul class="nav nav-link-tabs flex-col sm:flex-row justify-center lg:justify-start text-center" role="tablist" >
+        <li id="profile-tab" class="nav-item" role="presentation">
+            <a href="javascript:;" class="nav-link py-4 flex items-center active" data-tw-target="#overall" aria-controls="profile" aria-selected="true" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Overall </a>
+        </li>
+        <li id="account-tab" class="nav-item" role="presentation">
+            <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#account" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Collage Wise </a>
+        </li>
+        <li id="change-password-tab" class="nav-item" role="presentation">
+            <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#change-password" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Agents Wise </a>
+        </li>
+        <li id="settings-tab" class="nav-item" role="presentation">
+            <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#settings" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Students Wise </a>
+        </li>
+    </ul>
+</div>
+<!-- END: Profile Info -->
+
+<div class="grid grid-cols-12 gap-4 gap-y-5 mt-5"> 
+    <div class="intro-y box col-span-12 sm:col-span-4">
+        <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : 00.00</div>
+    </div>
+
+    <div class="intro-y box col-span-12 sm:col-span-4">
+        <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : 00.00</div>
+    </div>
+
+    <div class="intro-y box col-span-12 sm:col-span-4">
+        <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : 00.00</div>
+    </div>
+</div>
+
+<div class="tab-content mt-5">
+    <div id="overall" class="tab-pane active" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="grid grid-cols-12 gap-6">
+            <!-- BEGIN: Daily Sales -->
+            <div class="intro-y box col-span-12 lg:col-span-12">
+                <div class="flex items-center px-5 py-5 sm:py-3 border-b border-slate-200/60 dark:border-darkmode-400">
+                    <h2 class="font-medium text-base mr-auto">
+                        All Transactions
+                    </h2>
+                    <!-- <div class="dropdown ml-auto sm:hidden">
+                        <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown"> <i data-lucide="more-horizontal" class="w-5 h-5 text-slate-500"></i> </a>
+                        <div class="dropdown-menu w-40">
+                            <ul class="dropdown-content">
+                                <li>
+                                    <a href="javascript:;" class="dropdown-item"> <i data-lucide="file" class="w-4 h-4 mr-2"></i> Download Excel </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> -->
+                    <button class="btn btn-success text-white hidden sm:flex mx-1"> <i data-lucide="corner-left-up" class="w-4 h-4 mr-2"></i> Add Income </button>
+                    <button class="btn btn-danger hidden sm:flex mx-1"> Add Expense <i data-lucide="corner-right-down" class="w-4 h-4 ml-2"></i></button>
+                </div>
+                <div class="p-5">
+                    {% if transactions %}
+                        <table class="table table-report -mt-2">
+                            <thead>
+                                <tr>
+                                    <th class="text-center whitespace-nowrap">SL. NO.</th>
+                                    <th class="text-center whitespace-nowrap">TITLE</th>
+                                    <th class="text-center whitespace-nowrap">DATE</th>
+                                    <th class="text-center whitespace-nowrap">TYPE</th>
+                                    <th class="text-center whitespace-nowrap">FROM</th>
+                                    <th class="text-center whitespace-nowrap">TO</th>
+                                    <th class="text-center whitespace-nowrap">AMOUNT</th>
+                                    <th class="text-center whitespace-nowrap">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for transaction in transactions %}
+                                    <tr class="intro-x">
+
+                                        <td class="text-center whitespace-nowrap">
+                                            {{ forloop.counter }}
+                                        </td>
+
+                                        <td class="text-center whitespace-nowrap">
+                                            <a href="" class="font-medium whitespace-nowrap">{{ transaction.Title }}</a> 
+                                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category }}</div>   
+                                        </td>
+
+                                        <td class="text-center whitespace-nowrap">
+                                            {{ transaction.Date | date:'d M Y' }}  
+                                        </td>
+
+                                        <td class="text-center whitespace-nowrap">
+                                            {% if transaction.Category.Type == 'Income' %}
+                                                <span class="text-success font-medium">{{ transaction.Category.Type }}</span>
+                                            {% elif transaction.Category.Type == 'Expense' %}
+                                                <span class="text-danger font-medium">{{ transaction.Category.Type }}</span>
+                                            {% endif %}
+                                        </td>
+
+                                        <td class="text-center whitespace-nowrap">
+                                            {% if transaction.Category.Type == 'Expense' %}
+                                                <span class="text-success font-medium">Elevate</span>
+                                            {% elif transaction.Category.Type == 'Income' %}
+                                                <span class="font-medium">
+                                                    {% if transaction.Student %}
+                                                        <a href="" class="font-medium whitespace-nowrap">{{ transaction.Student }}</a> 
+                                                        <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">Student</div> 
+                                                    {% endif %}
+                                                </span>
+                                            {% endif %}
+                                        </td>
+
+                                        <td class="text-center whitespace-nowrap">
+                                            {% if transaction.Category.Type == 'Income' %}
+                                                <span class="text-primary font-medium">Elevate</span>
+                                            {% elif transaction.Category.Type == 'Expense' %}
+                                                <span class="text-danger font-medium">{{ transaction.Category.Type }}</span>
+                                            {% endif %}
+                                        </td>
+
+                                        <td class="text-center whitespace-nowrap">
+                                            {{ transaction.Amount }}
+                                        </td>
+                                        
+                                        <td class="table-report__action">
+                                            <div class="flex justify-center items-center">
+                                                <a class="flex items-center text-warning whitespace-nowrap mr-5" href="" title="view">
+                                                    <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                                                </a>
+                                                <a onclick="delete_place('{{place.id}}')" class="flex items-center text-danger whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" title="delete">
+                                                    <i data-lucide="trash" class="w-4 h-4 mr-1"></i> 
+                                                </a>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <table class="table table-report -mt-2">
+                            <tbody>
+                                <tr class="intro-x width"> 
+                                    <td class=" width" style="width:100%;">
+                                        <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; padding: 10px; border-radius: 50%;
+                                            background: #e8e4e4;" class="w-4 h-4 mr-2 text-primary">  
+                                        </i>
+                                    <div style="text-align: center;">No data available!</div>
+                                    </td>   
+                                </tr>    
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- END: Daily Sales -->
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

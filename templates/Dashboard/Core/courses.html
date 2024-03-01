@@ -65,7 +65,7 @@
                                 
                                 <td class="table-report__action">
                                     <div class="flex justify-center items-center">
-                                        <a class="flex items-center text-warning whitespace-nowrap mr-5" href="" title="view">
+                                        <a class="flex items-center text-warning whitespace-nowrap mr-5" href="{% url 'course-addons' course.id %}" title="view">
                                             <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
                                         </a>
                                         <a onclick="delete_course('{{course.id}}')" class="flex items-center text-danger whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" title="delete">
@@ -137,7 +137,7 @@
                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                     <div class="col-span-12 sm:col-span-12"> 
                         <label for="modal-form-1" class="form-label">Course Name</label> 
-                        <input id="" name="name" type="text" class="form-control" courseholder="Enter course Here"> 
+                        <input id="" name="name" type="text" class="form-control" placeholder="Enter course Here"> 
                     </div>
                 </div> 
                 <!-- END: Modal Body -->
