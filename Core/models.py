@@ -64,7 +64,8 @@ class Student(models.Model):
     Collage = models.ForeignKey(Collage,on_delete=models.DO_NOTHING)
     Course = models.ForeignKey(Course,on_delete=models.DO_NOTHING)
     Addon = models.ForeignKey(Course_Addon,on_delete=models.DO_NOTHING,null=True)
-    Agent = models.ForeignKey(Agents,on_delete=models.DO_NOTHING,null=True)
+    Sub_Agent = models.ForeignKey(Agents,on_delete=models.DO_NOTHING,null=True,related_name='sub_agent')
+    Main_Agent = models.ForeignKey(Agents,on_delete=models.DO_NOTHING,null=True,related_name='main_agent') 
 
     Fees = models.FloatField(default=0.00)
     Donation = models.FloatField(default=0.00)
@@ -73,6 +74,7 @@ class Student(models.Model):
     First_Payment = models.FloatField(default=0.00)
     Service = models.FloatField(default=0.00)
     Collage_Payment = models.FloatField(default=0.00)
+    Agent_Commission = models.FloatField(default=0.00)
 
     def __str__(self):
         return self.Name

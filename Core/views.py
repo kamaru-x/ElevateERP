@@ -370,7 +370,8 @@ def students(request):
 def add_student(request):
     collages = Collage.objects.all().order_by('-id')
     courses = Course.objects.all().order_by('-id')
-    agents = Agents.objects.all().order_by('-id')
+    sub_agents = Agents.objects.filter(Rank='Sub').order_by('-id')
+    main_agents = Agents.objects.filter(Rank='Main').order_by('-id')
 
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -387,8 +388,11 @@ def add_student(request):
         addon_id = request.POST.get('addon')
         addon = Course_Addon.objects.get(id=addon_id)
 
-        agent_id = request.POST.get('agent')
-        agent = Agents.objects.get(id=agent_id)
+        sub_agent_id = request.POST.get('sub_agent')
+        sub_agent = Agents.objects.get(id=sub_agent_id)
+
+        main_agent_id = request.POST.get('main_agent')
+        main_agent = Agents.objects.get(id=main_agent_id)
 
         fees = request.POST.get('fees')
         donation = request.POST.get('donation')
@@ -397,18 +401,14 @@ def add_student(request):
         first_payment = request.POST.get('first_payment')
         service = request.POST.get('service')
         collage_payment = request.POST.get('collage_payment')
+        commission = request.POST.get('commission')
 
         try:
-            student = Student.objects.create(
+            Student.objects.create(
                 Name=name,Mobile=mobile,Email=email,Place=place,Collage=collage,Course=course,
-                Addon=addon,Agent=agent,Fees=fees,Donation=donation,Discount=discount,Total=total,
-                First_Payment=first_payment,Service=service,Collage_Payment=collage_payment
+                Addon=addon,Sub_Agent=sub_agent,Main_Agent=main_agent,Fees=fees,Donation=donation,Discount=discount,Total=total,
+                First_Payment=first_payment,Service=service,Collage_Payment=collage_payment,Agent_Commission=commission
             )
-            
-            title = f'1st Payment from {name}'
-            category = Entry_Categories.objects.get(CATID='SFPTOES')
-
-            Entry.objects.create(Title=title,Category=category,Date=now,Amount=first_payment,Student=student)
 
             messages.success(request,'New student addedd successfully ... !')
             return redirect('students')
@@ -421,7 +421,8 @@ def add_student(request):
         'page' : 'students',
         'collages' : collages,
         'courses' : courses,
-        'agents' : agents
+        'sub_agents' : sub_agents,
+        'main_agents' : main_agents
     } 
     return render(request,'Dashboard/Students/student-add.html',context)
 
@@ -445,7 +446,8 @@ def edit_student(request,student_id):
     student = Student.objects.get(id=student_id)
     collages = Collage.objects.all().order_by('-id')
     courses = Course.objects.all().order_by('-id')
-    agents = Agents.objects.all().order_by('-id')
+    sub_agents = Agents.objects.filter(Rank='Sub').order_by('-id')
+    main_agents = Agents.objects.filter(Rank='Main').order_by('-id')
     addons = Course_Addon.objects.filter(Course=student.Course)
 
     if request.method == 'POST':
@@ -463,8 +465,11 @@ def edit_student(request,student_id):
         addon_id = request.POST.get('addon')
         student.Addon = Course_Addon.objects.get(id=addon_id)
 
-        agent_id = request.POST.get('agent')
-        student.Agent = Agents.objects.get(id=agent_id)
+        sub_agent_id = request.POST.get('sub_agent')
+        student.Sub_Agent = Agents.objects.get(id=sub_agent_id)
+
+        main_agent_id = request.POST.get('main_agent')
+        student.Main_Agent = Agents.objects.get(id=main_agent_id)
 
         student.Fees = request.POST.get('fees')
         student.Donation = request.POST.get('donation')
@@ -473,6 +478,7 @@ def edit_student(request,student_id):
         student.First_Payment = request.POST.get('first_payment')
         student.Service = request.POST.get('service')
         student.Collage_Payment = request.POST.get('collage_payment')
+        student.Agent_Commission = request.POST.get('commission')
 
         try:
             student.save()
@@ -484,11 +490,13 @@ def edit_student(request,student_id):
             return redirect('edit-student',student_id=student.id)
 
     context = {
+        'page' : 'students',
         'student' : student,
         'collages' : collages,
         'courses' : courses,
         'addons' : addons,
-        'agents' : agents
+        'sub_agents' : sub_agents,
+        'main_agents' : main_agents,
     }
     return render(request,'Dashboard/Students/student-edit.html',context)
 

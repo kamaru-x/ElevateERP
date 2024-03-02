@@ -44,15 +44,15 @@
 
 <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5"> 
     <div class="intro-y box col-span-12 sm:col-span-4">
-        <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : 00.00</div>
+        <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : {{ income_total | floatformat:2 }}</div>
     </div>
 
     <div class="intro-y box col-span-12 sm:col-span-4">
-        <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : 00.00</div>
+        <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : {{ expense_total | floatformat:2 }}</div>
     </div>
 
     <div class="intro-y box col-span-12 sm:col-span-4">
-        <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : 00.00</div>
+        <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : {{ balance | floatformat:2 }}</div>
     </div>
 </div>
 
@@ -75,10 +75,10 @@
                             </ul>
                         </div>
                     </div> -->
-                    <button class="btn btn-success text-white hidden sm:flex mx-1"> <i data-lucide="corner-left-up" class="w-4 h-4 mr-2"></i> Add Income </button>
-                    <button class="btn btn-danger hidden sm:flex mx-1"> Add Expense <i data-lucide="corner-right-down" class="w-4 h-4 ml-2"></i></button>
+                    <button class="btn btn-success text-white hidden sm:flex mx-1" data-tw-toggle="modal" data-tw-target="#add-entry"> <i data-lucide="corner-left-up" class="w-4 h-4 mr-2"></i> Add Income </button>
+                    <button class="btn btn-danger hidden sm:flex mx-1" data-tw-toggle="modal" data-tw-target="#add-entry"> Add Expense <i data-lucide="corner-right-down" class="w-4 h-4 ml-2"></i></button>
                 </div>
-                <div class="p-5">
+                <div class="p-5 overflow-auto 2xl:overflow-visible">
                     {% if transactions %}
                         <table class="table table-report -mt-2">
                             <thead>
@@ -178,5 +178,77 @@
         </div>
     </div>
 </div>
+
+<!-- BEGIN: Entry Add Modal Content -->
+<div id="add-entry" class="modal" tabindex="-1" aria-hidden="true">
+    <form method="post" action="{% url 'add-entry' %}" class="modal-dialog modal-xl">
+        {% csrf_token %}
+        <div class="modal-content">
+            <!-- BEGIN: Modal Header -->
+            <div class="modal-header">
+                <h2 class="font-medium text-base mx-auto my-2">Add Transaction Details</h2>
+            </div> 
+            <!-- END: Modal Header -->
+
+            <!-- BEGIN: Modal Body -->
+            <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                <div class="col-span-12 sm:col-span-6"> 
+                    <label for="modal-form-1" class="form-label">Transaction Type</label> 
+                    <select name="transaction_type" id="transaction_type" class="form-control">
+                        <option value="">Select Expense Type</option>
+                        <option value="Income">Income</option>
+                        <option value="Expense">Expense</option>
+                    </select>
+                </div>
+
+                <div class="col-span-12 sm:col-span-6"> 
+                    <label for="modal-form-1" class="form-label">Entry Categories</label> 
+                    <select name="entry_category" id="entry_category" class="form-control">
+                        <option value="">Select Entry Category</option>
+                    </select>
+                </div>
+
+                <div class="col-span-12 sm:col-span-6" style="display: none;" id="students-div"> 
+                    <label for="modal-form-1" class="form-label">Students</label> 
+                    <select name="student" id="" class="form-control">
+                        <option value="">Select Student</option>
+                        {% for student in students %}
+                            <option value="{{ student.id }}">{{ student.Name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-span-12 sm:col-span-6" style="display: none;" id="staff-div"> 
+                    <label for="modal-form-1" class="form-label">Staffs</label> 
+                    <select name="staff" id="" class="form-control">
+                        <option value="">Select Staff</option>
+                        {% for staff in staffs %}
+                            <option value="{{ staff.id }}">{{ staff.first_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-span-12 sm:col-span-6" id="title-div" style="display: none;"> 
+                    <label for="modal-form-1" class="form-label">Title</label> 
+                    <input type="text" name="title" id="" class="form-control" placeholder="Enter Entry Title Here">
+                </div>
+
+                <div class="col-span-12 sm:col-span-6" id="amount-div" style="display: none;"> 
+                    <label for="modal-form-1" class="form-label">Amount</label> 
+                    <input type="number" step="0.01" name="amount" id="" class="form-control" placeholder="Enter Entry Amount Here">
+                </div>
+            </div> 
+            <!-- END: Modal Body -->
+
+            <!-- BEGIN: Modal Footer -->
+            <div class="modal-footer text-center"> 
+                <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20">Cancel</button> 
+                <button type="submit" class="btn btn-primary w-20">Submit</button> 
+            </div> 
+            <!-- END: Modal Footer -->
+        </div>
+    </form>
+</div> 
+<!-- END: Entry Add Modal Content --
 
 {% endblock content %}
