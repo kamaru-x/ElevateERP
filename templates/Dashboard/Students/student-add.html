@@ -35,22 +35,22 @@
 
                 <div class="intro-y col-span-12 sm:col-span-6">
                     <label for="input-wizard-2" class="form-label">Student Name</label>
-                    <input name="name" type="text" class="form-control" placeholder="Enter Collage Name Here" required maxlength="50">
+                    <input name="name" type="text" class="form-control" placeholder="Enter Student Name Here" required maxlength="50">
                 </div>
 
                 <div class="intro-y col-span-12 sm:col-span-6">
                     <label for="input-wizard-2" class="form-label">Contact Number</label>
-                    <input name="mobile" type="text" class="form-control" placeholder="Enter Collage Contact Number Here" required maxlength="15">
+                    <input name="mobile" type="text" class="form-control" placeholder="Enter Student Contact Number Here" required maxlength="15">
                 </div>
 
                 <div class="intro-y col-span-12 sm:col-span-6">
                     <label for="input-wizard-2" class="form-label">Contact Email</label>
-                    <input name="email" type="email" class="form-control" placeholder="Enter Collage Email Here" required>
+                    <input name="email" type="email" class="form-control" placeholder="Enter Student Email Here">
                 </div>
 
                 <div class="intro-y col-span-12 sm:col-span-6">
                     <label for="input-wizard-2" class="form-label">Place</label>
-                    <input name="place" type="text" class="form-control" placeholder="Enter Student Place Here" required>
+                    <input name="place" type="text" class="form-control" placeholder="Enter Student Place Here">
                 </div>
 
                 <div class="col-span-12 text-center mt-3">
@@ -59,7 +59,7 @@
 
                 <div class="intro-y col-span-12 sm:col-span-4">
                     <label for="input-wizard-2" class="form-label">Collage</label>
-                    <select name="collage" id="" class="form-control">
+                    <select name="collage" id="" class="form-control" required>
                         <option value="">Select Collage</option>
                         {% for collage in collages %}
                             <option value="{{ collage.id }}">{{ collage }}</option>
@@ -69,7 +69,7 @@
 
                 <div class="intro-y col-span-12 sm:col-span-4">
                     <label for="input-wizard-2" class="form-label">Course</label>
-                    <select name="course" id="course" class="form-control">
+                    <select name="course" id="course" class="form-control" required>
                         <option value="">Select Course</option>
                         {% for course in courses %}
                             <option value="{{ course.id }}">{{ course }}</option>
@@ -129,7 +129,7 @@
 
                 <div class="intro-y col-span-12 sm:col-span-4">
                     <label for="input-wizard-2" class="form-label">Sub Agent</label>
-                    <select name="sub_agent" id="" class="form-control">
+                    <select name="sub_agent" id="" class="form-control" required>
                         <option value="">Select Sub Agent</option>
                         {% for agent in sub_agents %}
                             <option value="{{ agent.id }}">{{ agent.Name }}</option>
@@ -144,7 +144,7 @@
 
                 <div class="intro-y col-span-12 sm:col-span-4">
                     <label for="input-wizard-2" class="form-label">Main Agent</label>
-                    <select name="main_agent" id="" class="form-control">
+                    <select name="main_agent" id="" class="form-control" required>
                         <option value="">Select Main Agent</option>
                         {% for agent in main_agents %}
                             <option value="{{ agent.id }}">{{ agent.Name }}</option>

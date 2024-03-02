@@ -17,7 +17,7 @@ class CourseModelAdmin(admin.ModelAdmin):
 
 @admin.register(Collage)
 class CollageModelAdmin(admin.ModelAdmin):
-    list_display = ['Name','Mobile','Email','Place','Agent']
+    list_display = ['Name','Place']
 
 @admin.register(Student)
 class StudentModelAdmin(admin.ModelAdmin):

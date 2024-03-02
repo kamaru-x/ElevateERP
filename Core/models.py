@@ -46,10 +46,7 @@ class Course_Addon(models.Model):
 class Collage(models.Model):
     Status = models.IntegerField(default=1)
     Name = models.CharField(max_length=100)
-    Mobile = models.CharField(max_length=25)
-    Email = models.EmailField(null=True)
     Place = models.ForeignKey(Place,on_delete=models.DO_NOTHING)
-    Agent = models.ForeignKey(Agents,on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.Name
@@ -58,8 +55,8 @@ class Collage(models.Model):
 class Student(models.Model):
     Name = models.CharField(max_length=100)
     Mobile = models.CharField(max_length=15)
-    Email = models.EmailField()
-    Place = models.CharField(max_length=50)
+    Email = models.EmailField(null=True)
+    Place = models.CharField(max_length=50,null=True)
 
     Collage = models.ForeignKey(Collage,on_delete=models.DO_NOTHING)
     Course = models.ForeignKey(Course,on_delete=models.DO_NOTHING)

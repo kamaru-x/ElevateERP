@@ -266,17 +266,12 @@ def add_collage(request):
 
     if request.method == 'POST':
         name = request.POST.get('name')
-        mobile = request.POST.get('mobile')
-        email = request.POST.get('email')
 
         place_id = request.POST.get('place')
         place = Place.objects.get(id=place_id)
 
-        agent_id = request.POST.get('agent')
-        agent = Agents.objects.get(id=agent_id)
-
         try:
-            Collage.objects.create(Name=name,Mobile=mobile,Email=email,Place=place,Agent=agent)
+            Collage.objects.create(Name=name,Place=place)
             messages.success(request,'Collage added successfully ... !')
             return redirect('collages')
         
@@ -301,14 +296,9 @@ def edit_collage(request,collage_id):
 
     if request.method == 'POST':
         collage.Name = request.POST.get('name')
-        collage.Mobile = request.POST.get('mobile')
-        collage.Email = request.POST.get('email')
 
         place_id = request.POST.get('place')
         collage.Place = Place.objects.get(id=place_id)
-
-        agent_id = request.POST.get('agent')
-        collage.Agent = Agents.objects.get(id=agent_id)
 
         try:
             collage.save()
@@ -386,7 +376,11 @@ def add_student(request):
         course = Course.objects.get(id=course_id)
 
         addon_id = request.POST.get('addon')
-        addon = Course_Addon.objects.get(id=addon_id)
+
+        try:
+            addon = Course_Addon.objects.get(id=addon_id)
+        except:
+            addon = None
 
         sub_agent_id = request.POST.get('sub_agent')
         sub_agent = Agents.objects.get(id=sub_agent_id)
@@ -394,14 +388,14 @@ def add_student(request):
         main_agent_id = request.POST.get('main_agent')
         main_agent = Agents.objects.get(id=main_agent_id)
 
-        fees = request.POST.get('fees')
-        donation = request.POST.get('donation')
-        discount = request.POST.get('discount')
-        total = request.POST.get('total')
-        first_payment = request.POST.get('first_payment')
-        service = request.POST.get('service')
-        collage_payment = request.POST.get('collage_payment')
-        commission = request.POST.get('commission')
+        fees = request.POST.get('fees') or 0.00
+        donation = request.POST.get('donation') or 0.00
+        discount = request.POST.get('discount') or 0.00
+        total = request.POST.get('total') or 0.00
+        first_payment = request.POST.get('first_payment') or 0.00
+        service = request.POST.get('service') or 0.00
+        collage_payment = request.POST.get('collage_payment') or 0.00
+        commission = request.POST.get('commission') or 0.00
 
         try:
             Student.objects.create(
@@ -463,7 +457,10 @@ def edit_student(request,student_id):
         student.Course = Course.objects.get(id=course_id)
 
         addon_id = request.POST.get('addon')
-        student.Addon = Course_Addon.objects.get(id=addon_id)
+        try:
+            student.Addon = Course_Addon.objects.get(id=addon_id)
+        except:
+            pass
 
         sub_agent_id = request.POST.get('sub_agent')
         student.Sub_Agent = Agents.objects.get(id=sub_agent_id)
@@ -471,14 +468,14 @@ def edit_student(request,student_id):
         main_agent_id = request.POST.get('main_agent')
         student.Main_Agent = Agents.objects.get(id=main_agent_id)
 
-        student.Fees = request.POST.get('fees')
-        student.Donation = request.POST.get('donation')
-        student.Discount = request.POST.get('discount')
-        student.Total = request.POST.get('total')
-        student.First_Payment = request.POST.get('first_payment')
-        student.Service = request.POST.get('service')
-        student.Collage_Payment = request.POST.get('collage_payment')
-        student.Agent_Commission = request.POST.get('commission')
+        student.Fees = request.POST.get('fees') or 0.00
+        student.Donation = request.POST.get('donation') or 0.00
+        student.Discount = request.POST.get('discount') or 0.00
+        student.Total = request.POST.get('total') or 0.00
+        student.First_Payment = request.POST.get('first_payment') or 0.00
+        student.Service = request.POST.get('service') or 0.00
+        student.Collage_Payment = request.POST.get('collage_payment') or 0.00
+        student.Agent_Commission = request.POST.get('commission') or 0.00
 
         try:
             student.save()
