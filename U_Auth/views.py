@@ -50,7 +50,7 @@ def signout(request):
 
 @login_required
 def staffs(request):
-    staffs = User.objects.all()
+    staffs = User.objects.filter(is_telecaller=True)
     context = {
         'page' : 'masters',
         'staffs' : staffs
