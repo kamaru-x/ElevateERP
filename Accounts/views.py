@@ -18,6 +18,9 @@ def accounts(request):
     transactions = Entry.objects.all()
     students = Student.objects.all()
     staffs = User.objects.filter(is_telecaller=True)
+    collages = Collage.objects.all()
+    main_agents = Agents.objects.filter(Rank='Main')
+    sub_agents = Agents.objects.filter(Rank='Sub')
 
     expense_total = transactions.filter(Category__Type='Expense').aggregate(Sum('Amount'))['Amount__sum'] or 0
     income_total = transactions.filter(Category__Type='Income').aggregate(Sum('Amount'))['Amount__sum'] or 0
@@ -31,7 +34,10 @@ def accounts(request):
         'expense_total' : expense_total,
         'income_total' : income_total,
         'balance' : balance,
-        'staffs' : staffs
+        'staffs' : staffs,
+        'collages' : collages,
+        'main_agents' : main_agents,
+        'sub_agents' : sub_agents
     }
     return render(request,'Dashboard/Accounts/accounts.html',context)
 
@@ -50,23 +56,63 @@ def get_entry_categories(request):
 @login_required
 def entry_add(request):
     if request.method == 'POST':
-        entry_category_cid = request.POST.get('entry_category')
-        entry_category = Entry_Categories.objects.get(CATID=entry_category_cid)
+        category_cid = request.POST.get('entry_category')
+        category = Entry_Categories.objects.get(id=category_cid)
 
         student_id = request.POST.get('student')
+        staff_id = request.POST.get('staff')
+        collage_id = request.POST.get('collage')
+        main_agent = request.POST.get('main_agent')
+        sub_agent = request.POST.get('sub_agent')
         
         if student_id:
             student = Student.objects.get(id=student_id)
         else:
             student = None
 
+        if staff_id:
+            staff = User.objects.get(id=staff_id)
+        else:
+            staff = None
+
+        if collage_id:
+            collage = Collage.objects.get(id=collage_id)
+        else:
+            collage = None
+
+        if main_agent:
+            agent = Agents.objects.get(id=main_agent)
+        elif sub_agent:
+            agent = Agents.objects.get(id=sub_agent)
+        else:
+            agent = None
+
         title = request.POST.get('title')
         amount = request.POST.get('amount')
 
         try:
-            Entry.objects.create(Title=title,Category=entry_category,Date=now,Amount=amount,Student=student)
+            Entry.objects.create(
+                Title=title,Category=category,Date=now,Amount=amount,Student=student,Staff=staff,
+                Collage=collage,Agents=agent
+            )
             messages.success(request,'Entry added successfully ... !')
         except Exception as exception:
             messages.warning(request,exception)
             
+    return redirect('accounts')
+
+@csrf_exempt
+def get_fot(request):
+    if request.method == 'POST':
+        cat_id = request.POST.get('id')
+        category = Entry_Categories.objects.get(id=cat_id)
+    return JsonResponse({'fot':category.FOT})
+
+@login_required
+def delete_transaction(request):
+    if request.method == 'POST':
+        transaction_id = request.POST.get('transaction_id')
+        trasaction = Entry.objects.get(id=transaction_id)
+        trasaction.delete()
+        messages.warning(request,'transaction entry deleted successfully ... !')
     return redirect('accounts')

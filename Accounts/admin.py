@@ -5,7 +5,7 @@ from Accounts.models import Entry_Categories,Entry
 
 @admin.register(Entry_Categories)
 class Entry_CategoriesModelAdmin(admin.ModelAdmin):
-    list_display = ['Title','Type']
+    list_display = ['Title','Type','FOT']
 
 @admin.register(Entry)
 class EntryModelAdmin(admin.ModelAdmin):

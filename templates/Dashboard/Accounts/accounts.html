@@ -26,11 +26,11 @@
         <h1 class="text-primary font-medium my-5" style="font-size: 35px;">Accounts</h1>
     </div>
     <ul class="nav nav-link-tabs flex-col sm:flex-row justify-center lg:justify-start text-center" role="tablist" >
-        <li id="profile-tab" class="nav-item" role="presentation">
+        <li id="overall-tab" class="nav-item" role="presentation">
             <a href="javascript:;" class="nav-link py-4 flex items-center active" data-tw-target="#overall" aria-controls="profile" aria-selected="true" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Overall </a>
         </li>
-        <li id="account-tab" class="nav-item" role="presentation">
-            <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#account" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Collage Wise </a>
+        <li id="" class="nav-item" role="presentation">
+            <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#collage-tab" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Collage Wise </a>
         </li>
         <li id="change-password-tab" class="nav-item" role="presentation">
             <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#change-password" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Agents Wise </a>
@@ -42,22 +42,21 @@
 </div>
 <!-- END: Profile Info -->
 
-<div class="grid grid-cols-12 gap-4 gap-y-5 mt-5"> 
-    <div class="intro-y box col-span-12 sm:col-span-4">
-        <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : {{ income_total | floatformat:2 }}</div>
-    </div>
-
-    <div class="intro-y box col-span-12 sm:col-span-4">
-        <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : {{ expense_total | floatformat:2 }}</div>
-    </div>
-
-    <div class="intro-y box col-span-12 sm:col-span-4">
-        <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : {{ balance | floatformat:2 }}</div>
-    </div>
-</div>
-
 <div class="tab-content mt-5">
     <div id="overall" class="tab-pane active" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5 mb-5"> 
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : {{ income_total | floatformat:2 }}</div>
+            </div>
+        
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : {{ expense_total | floatformat:2 }}</div>
+            </div>
+        
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : {{ balance | floatformat:2 }}</div>
+            </div>
+        </div>
         <div class="grid grid-cols-12 gap-6">
             <!-- BEGIN: Daily Sales -->
             <div class="intro-y box col-span-12 lg:col-span-12">
@@ -75,8 +74,8 @@
                             </ul>
                         </div>
                     </div> -->
-                    <button class="btn btn-success text-white hidden sm:flex mx-1" data-tw-toggle="modal" data-tw-target="#add-entry"> <i data-lucide="corner-left-up" class="w-4 h-4 mr-2"></i> Add Income </button>
-                    <button class="btn btn-danger hidden sm:flex mx-1" data-tw-toggle="modal" data-tw-target="#add-entry"> Add Expense <i data-lucide="corner-right-down" class="w-4 h-4 ml-2"></i></button>
+                    <button class="btn btn-success text-white hidden sm:flex mx-1" data-tw-toggle="modal" data-tw-target="#add-entry" onclick="set_type('Income')"> <i data-lucide="corner-left-up" class="w-4 h-4 mr-2"></i> Add Income </button>
+                    <button class="btn btn-danger hidden sm:flex mx-1" data-tw-toggle="modal" data-tw-target="#add-entry" onclick="set_type('Expense')"> Add Expense <i data-lucide="corner-right-down" class="w-4 h-4 ml-2"></i></button>
                 </div>
                 <div class="p-5 overflow-auto 2xl:overflow-visible">
                     {% if transactions %}
@@ -120,22 +119,47 @@
 
                                         <td class="text-center whitespace-nowrap">
                                             {% if transaction.Category.Type == 'Expense' %}
-                                                <span class="text-success font-medium">Elevate</span>
+                                                <span class="text-warning font-medium">Elevate</span>
                                             {% elif transaction.Category.Type == 'Income' %}
                                                 <span class="font-medium">
-                                                    {% if transaction.Student %}
-                                                        <a href="" class="font-medium whitespace-nowrap">{{ transaction.Student }}</a> 
-                                                        <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">Student</div> 
-                                                    {% endif %}
+                                                    <a href="" class="font-medium whitespace-nowrap">
+                                                        {% if transaction.Student %}
+                                                            {{ transaction.Student }}
+                                                        {% elif transaction.Staff %}
+                                                            {{ transaction.Staff.first_name }}
+                                                        {% elif transaction.Collage %}
+                                                            {{ transaction.Collage }}
+                                                        {% elif transaction.Agents %}
+                                                            {{ transaction.Agents }}
+                                                        {% else %}
+                                                            {{ transaction.Title }}
+                                                        {% endif %}
+                                                    </a> 
+                                                    <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category.FOT }}</div> 
                                                 </span>
                                             {% endif %}
                                         </td>
 
                                         <td class="text-center whitespace-nowrap">
                                             {% if transaction.Category.Type == 'Income' %}
-                                                <span class="text-primary font-medium">Elevate</span>
+                                                <span class="text-warning font-medium">Elevate</span>
                                             {% elif transaction.Category.Type == 'Expense' %}
-                                                <span class="text-danger font-medium">{{ transaction.Category.Type }}</span>
+                                                <span class="font-medium">
+                                                    <a href="" class="font-medium whitespace-nowrap">
+                                                        {% if transaction.Student %}
+                                                            {{ transaction.Student }}
+                                                        {% elif transaction.Staff %}
+                                                            {{ transaction.Staff.first_name }}
+                                                        {% elif transaction.Collage %}
+                                                            {{ transaction.Collage }}
+                                                        {% elif transaction.Agents %}
+                                                            {{ transaction.Agents }}
+                                                        {% else %}
+                                                            {{ transaction.Title }}
+                                                        {% endif %}
+                                                    </a> 
+                                                    <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category.FOT }}</div> 
+                                                </span>
                                             {% endif %}
                                         </td>
 
@@ -145,10 +169,10 @@
                                         
                                         <td class="table-report__action">
                                             <div class="flex justify-center items-center">
-                                                <a class="flex items-center text-warning whitespace-nowrap mr-5" href="" title="view">
+                                                <!-- <a class="flex items-center text-warning whitespace-nowrap mr-5" href="" title="view">
                                                     <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
-                                                </a>
-                                                <a onclick="delete_place('{{place.id}}')" class="flex items-center text-danger whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" title="delete">
+                                                </a> -->
+                                                <a onclick="delete_transaction('{{transaction.id}}')" class="flex items-center text-danger whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" title="delete">
                                                     <i data-lucide="trash" class="w-4 h-4 mr-1"></i> 
                                                 </a>
                                             </div>
@@ -177,6 +201,10 @@
             <!-- END: Daily Sales -->
         </div>
     </div>
+
+    <div id="collage-tab" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
+
+    </div>
 </div>
 
 <!-- BEGIN: Entry Add Modal Content -->
@@ -192,14 +220,15 @@
 
             <!-- BEGIN: Modal Body -->
             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                <div class="col-span-12 sm:col-span-6"> 
+                <input type="hidden" name="transaction_type" id="transaction_type">
+                <!-- <div class="col-span-12 sm:col-span-6"> 
                     <label for="modal-form-1" class="form-label">Transaction Type</label> 
                     <select name="transaction_type" id="transaction_type" class="form-control">
                         <option value="">Select Expense Type</option>
                         <option value="Income">Income</option>
                         <option value="Expense">Expense</option>
                     </select>
-                </div>
+                </div> -->
 
                 <div class="col-span-12 sm:col-span-6"> 
                     <label for="modal-form-1" class="form-label">Entry Categories</label> 
@@ -210,7 +239,7 @@
 
                 <div class="col-span-12 sm:col-span-6" style="display: none;" id="students-div"> 
                     <label for="modal-form-1" class="form-label">Students</label> 
-                    <select name="student" id="" class="form-control">
+                    <select name="student" id="student" class="form-control">
                         <option value="">Select Student</option>
                         {% for student in students %}
                             <option value="{{ student.id }}">{{ student.Name }}</option>
@@ -218,9 +247,9 @@
                     </select>
                 </div>
 
-                <div class="col-span-12 sm:col-span-6" style="display: none;" id="staff-div"> 
+                <div class="col-span-12 sm:col-span-6" style="display: none;" id="staffs-div"> 
                     <label for="modal-form-1" class="form-label">Staffs</label> 
-                    <select name="staff" id="" class="form-control">
+                    <select name="staff" id="staff" class="form-control">
                         <option value="">Select Staff</option>
                         {% for staff in staffs %}
                             <option value="{{ staff.id }}">{{ staff.first_name }}</option>
@@ -228,12 +257,42 @@
                     </select>
                 </div>
 
-                <div class="col-span-12 sm:col-span-6" id="title-div" style="display: none;"> 
+                <div class="col-span-12 sm:col-span-6" style="display: none;" id="collages-div"> 
+                    <label for="modal-form-1" class="form-label">Collages</label> 
+                    <select name="collage" id="collage" class="form-control">
+                        <option value="">Select Collage</option>
+                        {% for collage in collages %}
+                            <option value="{{ collage.id }}">{{ collage.Name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-span-12 sm:col-span-6" style="display: none;" id="main-agents-div"> 
+                    <label for="modal-form-1" class="form-label">Main Agents</label> 
+                    <select name="main_agent" id="main_agent" class="form-control">
+                        <option value="">Select Main Agent</option>
+                        {% for main_agent in main_agents %}
+                            <option value="{{ main_agent.id }}">{{ main_agent.Name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-span-12 sm:col-span-6" style="display: none;" id="sub-agents-div"> 
+                    <label for="modal-form-1" class="form-label">Sub Agents</label> 
+                    <select name="sub_agent" id="sub_agent" class="form-control">
+                        <option value="">Select Sub Agent</option>
+                        {% for sub_agent in sub_agents %}
+                            <option value="{{ sub_agent.id }}">{{ sub_agent.Name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-span-12 sm:col-span-6" style="display: none;" id="title-div"> 
                     <label for="modal-form-1" class="form-label">Title</label> 
                     <input type="text" name="title" id="" class="form-control" placeholder="Enter Entry Title Here">
                 </div>
 
-                <div class="col-span-12 sm:col-span-6" id="amount-div" style="display: none;"> 
+                <div class="col-span-12 sm:col-span-6" style="display: none;" id="amount-div"> 
                     <label for="modal-form-1" class="form-label">Amount</label> 
                     <input type="number" step="0.01" name="amount" id="" class="form-control" placeholder="Enter Entry Amount Here">
                 </div>
@@ -249,6 +308,54 @@
         </div>
     </form>
 </div> 
-<!-- END: Entry Add Modal Content --
+<!-- END: Entry Add Modal Content -->
+
+<!-- BEGIN: Delete Confirmation Modal -->
+<div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="{% url 'delete-transaction' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="transaction_id" id="transaction_id">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="p-5 text-center">
+                        <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                        <div class="text-3xl mt-5">Are you sure?</div>
+                        <div class="text-slate-500 mt-2">Do you really want to delete these records? <br>This process cannot be undone.</div>
+                    </div>
+                    <div class="px-5 pb-8 text-center">
+                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                        <button type="submit" class="btn btn-danger w-24">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END: Delete Confirmation Modal -->
+
+<script>
+    function set_type(type){
+        $.ajax({
+            url : '/Accounts/get/entry-categories/',
+            type : 'POST',
+            data : {'type':type},
+
+            success : function(response){
+                html = '<option value="">Select Category</option>'
+                categories = response.categories 
+                for (let i = 0; i < response.categories.length; i++) {
+                    html += '<option value="'+categories[i].id+'">'+categories[i].Title+'</option>'
+                }
+
+                $('#entry_category').html(html)
+            }
+        })
+    }
+
+    function delete_transaction(transaction_id){
+        $('#transaction_id').val(transaction_id)
+    }
+</script>
 
 {% endblock content %}

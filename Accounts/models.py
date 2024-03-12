@@ -9,7 +9,7 @@ TYPE = (('Income','Income'),('Expense','Expense'))
 class Entry_Categories(models.Model):
     Title = models.CharField(max_length=100)
     Type = models.CharField(max_length=50,choices=TYPE)
-    CATID = models.CharField(max_length=10)
+    FOT = models.CharField(max_length=10,default='Elevate')
 
     def __str__(self):
         return self.Title

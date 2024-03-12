@@ -38,35 +38,60 @@ $(document).ready(function(){
         $('#collage_payment').val(parseFloat(collage_payment))
     });
 
-    $('#transaction_type').on('change',function(){
-        var type = $('#transaction_type').val()
+    // $('#transaction_type').on('change',function(){
+    //     var type = $('#transaction_type').val()
+
+    //     $.ajax({
+    //         url : '/Accounts/get/entry-categories/',
+    //         type : 'POST',
+    //         data : {'type':type},
+
+    //         success : function(response){
+    //             html = '<option value="">Select Category</option>'
+    //             categories = response.categories 
+    //             for (let i = 0; i < response.categories.length; i++) {
+    //                 html += '<option value="'+categories[i].CATID+'">'+categories[i].Title+'</option>'
+    //             }
+
+    //             $('#entry_category').html(html)
+    //         }
+    //     })
+    // })
+
+    $('#entry_category').on('change',function(){
+        var id = $('#entry_category').val()
 
         $.ajax({
-            url : '/Accounts/get/entry-categories/',
+            url : '/Accounts/get/fot/',
             type : 'POST',
-            data : {'type':type},
+            data : {'id':id},
 
             success : function(response){
-                html = '<option value="">Select Category</option>'
-                categories = response.categories 
-                for (let i = 0; i < response.categories.length; i++) {
-                    html += '<option value="'+categories[i].CATID+'">'+categories[i].Title+'</option>'
+                if(response.fot == 'STUDENT'){
+                    $('#students-div').show();
+                    $('#staffs-div, #collages-div, #main-agents-div, #sub-agents-div, #title-div, #amount-div').hide();
+                }else if(response.fot == 'COLLAGE'){
+                    $('#collages-div').show();
+                    $('#staffs-div, #students-div, #main-agents-div, #sub-agents-div, #title-div, #amount-div').hide();
+                }else if(response.fot == 'STAFF'){
+                    $('#staffs-div').show();
+                    $('#collages-div, #students-div, #main-agents-div, #sub-agents-div, #title-div, #amount-div').hide();
+                }else if(response.fot == 'SUBAGENT'){
+                    $('#sub-agents-div').show();
+                    $('#collages-div, #students-div, #main-agents-div, #staffs-div, #title-div, #amount-div').hide();
+                }else if(response.fot == 'MAINAGENT'){
+                    $('#main-agents-div').show();
+                    $('#collages-div, #students-div, #sub-agents-div, #staffs-div, #title-div, #amount-div').hide();
+                }else if(response.fot == 'OTHER'){
+                    $('#title-div, #amount-div').show();
+                    $('#collages-div, #students-div, #main-agents-div, #staffs-div, #sub-agents-div').hide();
                 }
-
-                $('#entry_category').html(html)
             }
         })
     })
 
-    $('#entry_category').on('change',function(){
-        var catid = $('#entry_category').val()
-        if (catid == 'SFPTOES'){
-            $('#students-div').show()
-        }else if(catid == 'SLRY'){
-            $('#staff-div').show()
-        }
-
-        $('#title-div').show()
+    $('#student, #staff, #collage, #main_agent, #sub_agent').on('change' , function(){
         $('#amount-div').show()
+        $('#title-div').show()
     })
 })
