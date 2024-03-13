@@ -15,7 +15,7 @@ now = datetime.now()
 
 @login_required
 def accounts(request):
-    transactions = Entry.objects.all()
+    transactions = Entry.objects.all().order_by('-Date').order_by('-id')
     students = Student.objects.all()
     staffs = User.objects.filter(is_telecaller=True)
     collages = Collage.objects.all()
@@ -24,8 +24,13 @@ def accounts(request):
 
     expense_total = transactions.filter(Category__Type='Expense').aggregate(Sum('Amount'))['Amount__sum'] or 0
     income_total = transactions.filter(Category__Type='Income').aggregate(Sum('Amount'))['Amount__sum'] or 0
-
     balance = int(income_total) - int(expense_total)
+
+    collage_transactions = transactions.exclude(Collage=None)
+    agent_transactions = transactions.exclude(Agents=None)
+    student_transactions = transactions.exclude(Student=None)
+    staff_transactions = transactions.exclude(Staff=None)
+    other_transactions = transactions.filter(Staff=None,Collage=None,Agents=None,Student=None)
     
     context = {
         'page' : 'accounts',
@@ -37,10 +42,14 @@ def accounts(request):
         'staffs' : staffs,
         'collages' : collages,
         'main_agents' : main_agents,
-        'sub_agents' : sub_agents
+        'sub_agents' : sub_agents,
+        'collage_transactions' : collage_transactions,
+        'agent_transactions' : agent_transactions,
+        'student_transactions' : student_transactions,
+        'staff_transactions' : staff_transactions,
+        'other_transactions' : other_transactions
     }
     return render(request,'Dashboard/Accounts/accounts.html',context)
-
 
 @csrf_exempt
 def get_entry_categories(request):

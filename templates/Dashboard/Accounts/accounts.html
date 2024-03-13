@@ -32,11 +32,17 @@
         <li id="" class="nav-item" role="presentation">
             <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#collage-tab" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Collage Wise </a>
         </li>
-        <li id="change-password-tab" class="nav-item" role="presentation">
-            <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#change-password" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Agents Wise </a>
+        <li id="" class="nav-item" role="presentation">
+            <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#agent-tab" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Agents Wise </a>
         </li>
-        <li id="settings-tab" class="nav-item" role="presentation">
-            <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#settings" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Students Wise </a>
+        <li id="" class="nav-item" role="presentation">
+            <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#student-tab" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Students Wise </a>
+        </li>
+        <li id="" class="nav-item" role="presentation">
+            <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#staff-tab" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Staff Wise </a>
+        </li>
+        <li id="" class="nav-item" role="presentation">
+            <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#other-tab" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Other </a>
         </li>
     </ul>
 </div>
@@ -203,7 +209,683 @@
     </div>
 
     <div id="collage-tab" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5 mb-5"> 
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : 0.00</div>
+            </div>
+        
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : 0.00</div>
+            </div>
+        
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : 0.00</div>
+            </div>
+        </div>
+        <div class="p-5 overflow-auto 2xl:overflow-visible">
+            {% if collage_transactions %}
+                <table class="table table-report -mt-2">
+                    <thead>
+                        <tr>
+                            <th class="text-center whitespace-nowrap">SL. NO.</th>
+                            <th class="text-center whitespace-nowrap">TITLE</th>
+                            <th class="text-center whitespace-nowrap">DATE</th>
+                            <th class="text-center whitespace-nowrap">TYPE</th>
+                            <th class="text-center whitespace-nowrap">FROM</th>
+                            <th class="text-center whitespace-nowrap">TO</th>
+                            <th class="text-center whitespace-nowrap">AMOUNT</th>
+                            <th class="text-center whitespace-nowrap">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in collage_transactions %}
+                            <tr class="intro-x">
 
+                                <td class="text-center whitespace-nowrap">
+                                    {{ forloop.counter }}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    <a href="" class="font-medium whitespace-nowrap">{{ transaction.Title }}</a> 
+                                    <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category }}</div>   
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ transaction.Date | date:'d M Y' }}  
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Income' %}
+                                        <span class="text-success font-medium">{{ transaction.Category.Type }}</span>
+                                    {% elif transaction.Category.Type == 'Expense' %}
+                                        <span class="text-danger font-medium">{{ transaction.Category.Type }}</span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Expense' %}
+                                        <span class="text-warning font-medium">Elevate</span>
+                                    {% elif transaction.Category.Type == 'Income' %}
+                                        <span class="font-medium">
+                                            <a href="" class="font-medium whitespace-nowrap">
+                                                {% if transaction.Student %}
+                                                    {{ transaction.Student }}
+                                                {% elif transaction.Staff %}
+                                                    {{ transaction.Staff.first_name }}
+                                                {% elif transaction.Collage %}
+                                                    {{ transaction.Collage }}
+                                                {% elif transaction.Agents %}
+                                                    {{ transaction.Agents }}
+                                                {% else %}
+                                                    {{ transaction.Title }}
+                                                {% endif %}
+                                            </a> 
+                                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category.FOT }}</div> 
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Income' %}
+                                        <span class="text-warning font-medium">Elevate</span>
+                                    {% elif transaction.Category.Type == 'Expense' %}
+                                        <span class="font-medium">
+                                            <a href="" class="font-medium whitespace-nowrap">
+                                                {% if transaction.Student %}
+                                                    {{ transaction.Student }}
+                                                {% elif transaction.Staff %}
+                                                    {{ transaction.Staff.first_name }}
+                                                {% elif transaction.Collage %}
+                                                    {{ transaction.Collage }}
+                                                {% elif transaction.Agents %}
+                                                    {{ transaction.Agents }}
+                                                {% else %}
+                                                    {{ transaction.Title }}
+                                                {% endif %}
+                                            </a> 
+                                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category.FOT }}</div> 
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ transaction.Amount }}
+                                </td>
+                                
+                                <td class="table-report__action">
+                                    <div class="flex justify-center items-center">
+                                        <!-- <a class="flex items-center text-warning whitespace-nowrap mr-5" href="" title="view">
+                                            <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                                        </a> -->
+                                        <a onclick="delete_transaction('{{transaction.id}}')" class="flex items-center text-danger whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" title="delete">
+                                            <i data-lucide="trash" class="w-4 h-4 mr-1"></i> 
+                                        </a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <table class="table table-report -mt-2">
+                    <tbody>
+                        <tr class="intro-x width"> 
+                            <td class=" width" style="width:100%;">
+                                <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; padding: 10px; border-radius: 50%;
+                                    background: #e8e4e4;" class="w-4 h-4 mr-2 text-primary">  
+                                </i>
+                            <div style="text-align: center;">No data available!</div>
+                            </td>   
+                        </tr>    
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="agent-tab" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5 mb-5"> 
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : 0.00</div>
+            </div>
+        
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : 0.00</div>
+            </div>
+        
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : 0.00</div>
+            </div>
+        </div>
+        <div class="p-5 overflow-auto 2xl:overflow-visible">
+            {% if agent_transactions %}
+                <table class="table table-report -mt-2">
+                    <thead>
+                        <tr>
+                            <th class="text-center whitespace-nowrap">SL. NO.</th>
+                            <th class="text-center whitespace-nowrap">TITLE</th>
+                            <th class="text-center whitespace-nowrap">DATE</th>
+                            <th class="text-center whitespace-nowrap">TYPE</th>
+                            <th class="text-center whitespace-nowrap">FROM</th>
+                            <th class="text-center whitespace-nowrap">TO</th>
+                            <th class="text-center whitespace-nowrap">AMOUNT</th>
+                            <th class="text-center whitespace-nowrap">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in agent_transactions %}
+                            <tr class="intro-x">
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ forloop.counter }}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    <a href="" class="font-medium whitespace-nowrap">{{ transaction.Title }}</a> 
+                                    <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category }}</div>   
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ transaction.Date | date:'d M Y' }}  
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Income' %}
+                                        <span class="text-success font-medium">{{ transaction.Category.Type }}</span>
+                                    {% elif transaction.Category.Type == 'Expense' %}
+                                        <span class="text-danger font-medium">{{ transaction.Category.Type }}</span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Expense' %}
+                                        <span class="text-warning font-medium">Elevate</span>
+                                    {% elif transaction.Category.Type == 'Income' %}
+                                        <span class="font-medium">
+                                            <a href="" class="font-medium whitespace-nowrap">
+                                                {% if transaction.Student %}
+                                                    {{ transaction.Student }}
+                                                {% elif transaction.Staff %}
+                                                    {{ transaction.Staff.first_name }}
+                                                {% elif transaction.Collage %}
+                                                    {{ transaction.Collage }}
+                                                {% elif transaction.Agents %}
+                                                    {{ transaction.Agents }}
+                                                {% else %}
+                                                    {{ transaction.Title }}
+                                                {% endif %}
+                                            </a> 
+                                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category.FOT }}</div> 
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Income' %}
+                                        <span class="text-warning font-medium">Elevate</span>
+                                    {% elif transaction.Category.Type == 'Expense' %}
+                                        <span class="font-medium">
+                                            <a href="" class="font-medium whitespace-nowrap">
+                                                {% if transaction.Student %}
+                                                    {{ transaction.Student }}
+                                                {% elif transaction.Staff %}
+                                                    {{ transaction.Staff.first_name }}
+                                                {% elif transaction.Collage %}
+                                                    {{ transaction.Collage }}
+                                                {% elif transaction.Agents %}
+                                                    {{ transaction.Agents }}
+                                                {% else %}
+                                                    {{ transaction.Title }}
+                                                {% endif %}
+                                            </a> 
+                                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category.FOT }}</div> 
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ transaction.Amount }}
+                                </td>
+                                
+                                <td class="table-report__action">
+                                    <div class="flex justify-center items-center">
+                                        <!-- <a class="flex items-center text-warning whitespace-nowrap mr-5" href="" title="view">
+                                            <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                                        </a> -->
+                                        <a onclick="delete_transaction('{{transaction.id}}')" class="flex items-center text-danger whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" title="delete">
+                                            <i data-lucide="trash" class="w-4 h-4 mr-1"></i> 
+                                        </a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <table class="table table-report -mt-2">
+                    <tbody>
+                        <tr class="intro-x width"> 
+                            <td class=" width" style="width:100%;">
+                                <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; padding: 10px; border-radius: 50%;
+                                    background: #e8e4e4;" class="w-4 h-4 mr-2 text-primary">  
+                                </i>
+                            <div style="text-align: center;">No data available!</div>
+                            </td>   
+                        </tr>    
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="student-tab" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5 mb-5"> 
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : 0.00</div>
+            </div>
+        
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : 0.00</div>
+            </div>
+        
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : 0.00</div>
+            </div>
+        </div>
+        <div class="p-5 overflow-auto 2xl:overflow-visible">
+            {% if student_transactions %}
+                <table class="table table-report -mt-2">
+                    <thead>
+                        <tr>
+                            <th class="text-center whitespace-nowrap">SL. NO.</th>
+                            <th class="text-center whitespace-nowrap">TITLE</th>
+                            <th class="text-center whitespace-nowrap">DATE</th>
+                            <th class="text-center whitespace-nowrap">TYPE</th>
+                            <th class="text-center whitespace-nowrap">FROM</th>
+                            <th class="text-center whitespace-nowrap">TO</th>
+                            <th class="text-center whitespace-nowrap">AMOUNT</th>
+                            <th class="text-center whitespace-nowrap">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in student_transactions %}
+                            <tr class="intro-x">
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ forloop.counter }}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    <a href="" class="font-medium whitespace-nowrap">{{ transaction.Title }}</a> 
+                                    <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category }}</div>   
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ transaction.Date | date:'d M Y' }}  
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Income' %}
+                                        <span class="text-success font-medium">{{ transaction.Category.Type }}</span>
+                                    {% elif transaction.Category.Type == 'Expense' %}
+                                        <span class="text-danger font-medium">{{ transaction.Category.Type }}</span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Expense' %}
+                                        <span class="text-warning font-medium">Elevate</span>
+                                    {% elif transaction.Category.Type == 'Income' %}
+                                        <span class="font-medium">
+                                            <a href="" class="font-medium whitespace-nowrap">
+                                                {% if transaction.Student %}
+                                                    {{ transaction.Student }}
+                                                {% elif transaction.Staff %}
+                                                    {{ transaction.Staff.first_name }}
+                                                {% elif transaction.Collage %}
+                                                    {{ transaction.Collage }}
+                                                {% elif transaction.Agents %}
+                                                    {{ transaction.Agents }}
+                                                {% else %}
+                                                    {{ transaction.Title }}
+                                                {% endif %}
+                                            </a> 
+                                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category.FOT }}</div> 
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Income' %}
+                                        <span class="text-warning font-medium">Elevate</span>
+                                    {% elif transaction.Category.Type == 'Expense' %}
+                                        <span class="font-medium">
+                                            <a href="" class="font-medium whitespace-nowrap">
+                                                {% if transaction.Student %}
+                                                    {{ transaction.Student }}
+                                                {% elif transaction.Staff %}
+                                                    {{ transaction.Staff.first_name }}
+                                                {% elif transaction.Collage %}
+                                                    {{ transaction.Collage }}
+                                                {% elif transaction.Agents %}
+                                                    {{ transaction.Agents }}
+                                                {% else %}
+                                                    {{ transaction.Title }}
+                                                {% endif %}
+                                            </a> 
+                                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category.FOT }}</div> 
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ transaction.Amount }}
+                                </td>
+                                
+                                <td class="table-report__action">
+                                    <div class="flex justify-center items-center">
+                                        <!-- <a class="flex items-center text-warning whitespace-nowrap mr-5" href="" title="view">
+                                            <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                                        </a> -->
+                                        <a onclick="delete_transaction('{{transaction.id}}')" class="flex items-center text-danger whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" title="delete">
+                                            <i data-lucide="trash" class="w-4 h-4 mr-1"></i> 
+                                        </a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <table class="table table-report -mt-2">
+                    <tbody>
+                        <tr class="intro-x width"> 
+                            <td class=" width" style="width:100%;">
+                                <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; padding: 10px; border-radius: 50%;
+                                    background: #e8e4e4;" class="w-4 h-4 mr-2 text-primary">  
+                                </i>
+                            <div style="text-align: center;">No data available!</div>
+                            </td>   
+                        </tr>    
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="staff-tab" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5 mb-5"> 
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : 0.00</div>
+            </div>
+        
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : 0.00</div>
+            </div>
+        
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : 0.00</div>
+            </div>
+        </div>
+        <div class="p-5 overflow-auto 2xl:overflow-visible">
+            {% if staff_transactions %}
+                <table class="table table-report -mt-2">
+                    <thead>
+                        <tr>
+                            <th class="text-center whitespace-nowrap">SL. NO.</th>
+                            <th class="text-center whitespace-nowrap">TITLE</th>
+                            <th class="text-center whitespace-nowrap">DATE</th>
+                            <th class="text-center whitespace-nowrap">TYPE</th>
+                            <th class="text-center whitespace-nowrap">FROM</th>
+                            <th class="text-center whitespace-nowrap">TO</th>
+                            <th class="text-center whitespace-nowrap">AMOUNT</th>
+                            <th class="text-center whitespace-nowrap">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in staff_transactions %}
+                            <tr class="intro-x">
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ forloop.counter }}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    <a href="" class="font-medium whitespace-nowrap">{{ transaction.Title }}</a> 
+                                    <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category }}</div>   
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ transaction.Date | date:'d M Y' }}  
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Income' %}
+                                        <span class="text-success font-medium">{{ transaction.Category.Type }}</span>
+                                    {% elif transaction.Category.Type == 'Expense' %}
+                                        <span class="text-danger font-medium">{{ transaction.Category.Type }}</span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Expense' %}
+                                        <span class="text-warning font-medium">Elevate</span>
+                                    {% elif transaction.Category.Type == 'Income' %}
+                                        <span class="font-medium">
+                                            <a href="" class="font-medium whitespace-nowrap">
+                                                {% if transaction.Student %}
+                                                    {{ transaction.Student }}
+                                                {% elif transaction.Staff %}
+                                                    {{ transaction.Staff.first_name }}
+                                                {% elif transaction.Collage %}
+                                                    {{ transaction.Collage }}
+                                                {% elif transaction.Agents %}
+                                                    {{ transaction.Agents }}
+                                                {% else %}
+                                                    {{ transaction.Title }}
+                                                {% endif %}
+                                            </a> 
+                                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category.FOT }}</div> 
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Income' %}
+                                        <span class="text-warning font-medium">Elevate</span>
+                                    {% elif transaction.Category.Type == 'Expense' %}
+                                        <span class="font-medium">
+                                            <a href="" class="font-medium whitespace-nowrap">
+                                                {% if transaction.Student %}
+                                                    {{ transaction.Student }}
+                                                {% elif transaction.Staff %}
+                                                    {{ transaction.Staff.first_name }}
+                                                {% elif transaction.Collage %}
+                                                    {{ transaction.Collage }}
+                                                {% elif transaction.Agents %}
+                                                    {{ transaction.Agents }}
+                                                {% else %}
+                                                    {{ transaction.Title }}
+                                                {% endif %}
+                                            </a> 
+                                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category.FOT }}</div> 
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ transaction.Amount }}
+                                </td>
+                                
+                                <td class="table-report__action">
+                                    <div class="flex justify-center items-center">
+                                        <!-- <a class="flex items-center text-warning whitespace-nowrap mr-5" href="" title="view">
+                                            <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                                        </a> -->
+                                        <a onclick="delete_transaction('{{transaction.id}}')" class="flex items-center text-danger whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" title="delete">
+                                            <i data-lucide="trash" class="w-4 h-4 mr-1"></i> 
+                                        </a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <table class="table table-report -mt-2">
+                    <tbody>
+                        <tr class="intro-x width"> 
+                            <td class=" width" style="width:100%;">
+                                <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; padding: 10px; border-radius: 50%;
+                                    background: #e8e4e4;" class="w-4 h-4 mr-2 text-primary">  
+                                </i>
+                            <div style="text-align: center;">No data available!</div>
+                            </td>   
+                        </tr>    
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="other-tab" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5 mb-5"> 
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : 0.00</div>
+            </div>
+        
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : 0.00</div>
+            </div>
+        
+            <div class="intro-y box col-span-12 sm:col-span-4">
+                <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : 0.00</div>
+            </div>
+        </div>
+        <div class="p-5 overflow-auto 2xl:overflow-visible">
+            {% if other_transactions %}
+                <table class="table table-report -mt-2">
+                    <thead>
+                        <tr>
+                            <th class="text-center whitespace-nowrap">SL. NO.</th>
+                            <th class="text-center whitespace-nowrap">TITLE</th>
+                            <th class="text-center whitespace-nowrap">DATE</th>
+                            <th class="text-center whitespace-nowrap">TYPE</th>
+                            <th class="text-center whitespace-nowrap">FROM</th>
+                            <th class="text-center whitespace-nowrap">TO</th>
+                            <th class="text-center whitespace-nowrap">AMOUNT</th>
+                            <th class="text-center whitespace-nowrap">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in other_transactions %}
+                            <tr class="intro-x">
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ forloop.counter }}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    <a href="" class="font-medium whitespace-nowrap">{{ transaction.Title }}</a> 
+                                    <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category }}</div>   
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ transaction.Date | date:'d M Y' }}  
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Income' %}
+                                        <span class="text-success font-medium">{{ transaction.Category.Type }}</span>
+                                    {% elif transaction.Category.Type == 'Expense' %}
+                                        <span class="text-danger font-medium">{{ transaction.Category.Type }}</span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Expense' %}
+                                        <span class="text-warning font-medium">Elevate</span>
+                                    {% elif transaction.Category.Type == 'Income' %}
+                                        <span class="font-medium">
+                                            <a href="" class="font-medium whitespace-nowrap">
+                                                {% if transaction.Student %}
+                                                    {{ transaction.Student }}
+                                                {% elif transaction.Staff %}
+                                                    {{ transaction.Staff.first_name }}
+                                                {% elif transaction.Collage %}
+                                                    {{ transaction.Collage }}
+                                                {% elif transaction.Agents %}
+                                                    {{ transaction.Agents }}
+                                                {% else %}
+                                                    {{ transaction.Title }}
+                                                {% endif %}
+                                            </a> 
+                                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category.FOT }}</div> 
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {% if transaction.Category.Type == 'Income' %}
+                                        <span class="text-warning font-medium">Elevate</span>
+                                    {% elif transaction.Category.Type == 'Expense' %}
+                                        <span class="font-medium">
+                                            <a href="" class="font-medium whitespace-nowrap">
+                                                {% if transaction.Student %}
+                                                    {{ transaction.Student }}
+                                                {% elif transaction.Staff %}
+                                                    {{ transaction.Staff.first_name }}
+                                                {% elif transaction.Collage %}
+                                                    {{ transaction.Collage }}
+                                                {% elif transaction.Agents %}
+                                                    {{ transaction.Agents }}
+                                                {% else %}
+                                                    {{ transaction.Title }}
+                                                {% endif %}
+                                            </a> 
+                                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ transaction.Category.FOT }}</div> 
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ transaction.Amount }}
+                                </td>
+                                
+                                <td class="table-report__action">
+                                    <div class="flex justify-center items-center">
+                                        <!-- <a class="flex items-center text-warning whitespace-nowrap mr-5" href="" title="view">
+                                            <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                                        </a> -->
+                                        <a onclick="delete_transaction('{{transaction.id}}')" class="flex items-center text-danger whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" title="delete">
+                                            <i data-lucide="trash" class="w-4 h-4 mr-1"></i> 
+                                        </a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <table class="table table-report -mt-2">
+                    <tbody>
+                        <tr class="intro-x width"> 
+                            <td class=" width" style="width:100%;">
+                                <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; padding: 10px; border-radius: 50%;
+                                    background: #e8e4e4;" class="w-4 h-4 mr-2 text-primary">  
+                                </i>
+                            <div style="text-align: center;">No data available!</div>
+                            </td>   
+                        </tr>    
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
     </div>
 </div>
 
