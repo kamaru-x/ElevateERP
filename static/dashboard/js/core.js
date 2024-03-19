@@ -29,11 +29,11 @@ $(document).ready(function(){
         $('#total').val(parseFloat(total))
     });
 
-    $('#total, #service').on('keyup change paste', function() {
-        var total = $('#total').val() || 0
+    $('#first_payment, #service').on('keyup change paste', function() {
+        var first_payment = $('#first_payment').val() || 0
         var service = $('#service').val() || 0
 
-        var collage_payment = parseFloat(total) - parseFloat(service)
+        var collage_payment = parseFloat(first_payment) - parseFloat(service)
 
         $('#collage_payment').val(parseFloat(collage_payment))
     });

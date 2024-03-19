@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from Accounts.models import Entry,Entry_Categories
 from datetime import datetime
+from django.db.models import Sum
 
 now = datetime.now()
 
@@ -321,9 +322,13 @@ def edit_collage(request,collage_id):
 @login_required
 def view_collage(request,collage_id):
     collage = Collage.objects.get(id=collage_id)
+    students = Student.objects.filter(Collage=collage)
+    transactions = Entry.objects.filter(Collage=collage)
     context = {
         'page' : 'collage',
-        'collage' : collage
+        'collage' : collage,
+        'students' : students,
+        'transactions' : transactions,
     }
     return render(request,'Dashboard/Collages/collage-view.html',context)
 
@@ -502,8 +507,17 @@ def edit_student(request,student_id):
 @login_required
 def student_details(request,student_id):
     student = Student.objects.get(id=student_id)
+    transactions = Entry.objects.filter(Student=student)
+
+    amount_received = transactions.aggregate(total_amount=Sum('Amount'))['total_amount']
+    balance_amount = float(student.First_Payment) - float(amount_received)
+
     context = {
-        'student' : student
+        'student' : student,
+        'page' : 'students',
+        'amount_received' : amount_received,
+        'balance_amount' : balance_amount,
+        'transactions' : transactions
     }
     return render(request,'Dashboard/Students/student-details.html',context)
 
