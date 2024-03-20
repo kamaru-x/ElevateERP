@@ -52,7 +52,7 @@
     <div id="overall" class="tab-pane active" role="tabpanel" aria-labelledby="profile-tab">
         <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5 mb-5"> 
             <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : {{ income_total | floatformat:2 }}</div>
+                <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revenue : {{ income_total | floatformat:2 }}</div>
             </div>
         
             <div class="intro-y box col-span-12 sm:col-span-4">
@@ -209,19 +209,6 @@
     </div>
 
     <div id="collage-tab" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
-        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5 mb-5"> 
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : 0.00</div>
-            </div>
-        
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : 0.00</div>
-            </div>
-        
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : 0.00</div>
-            </div>
-        </div>
         <div class="p-5 overflow-auto 2xl:overflow-visible">
             {% if collage_transactions %}
                 <table class="table table-report -mt-2">
@@ -345,19 +332,6 @@
     </div>
 
     <div id="agent-tab" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
-        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5 mb-5"> 
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : 0.00</div>
-            </div>
-        
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : 0.00</div>
-            </div>
-        
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : 0.00</div>
-            </div>
-        </div>
         <div class="p-5 overflow-auto 2xl:overflow-visible">
             {% if agent_transactions %}
                 <table class="table table-report -mt-2">
@@ -481,19 +455,6 @@
     </div>
 
     <div id="student-tab" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
-        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5 mb-5"> 
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : 0.00</div>
-            </div>
-        
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : 0.00</div>
-            </div>
-        
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : 0.00</div>
-            </div>
-        </div>
         <div class="p-5 overflow-auto 2xl:overflow-visible">
             {% if student_transactions %}
                 <table class="table table-report -mt-2">
@@ -617,19 +578,6 @@
     </div>
 
     <div id="staff-tab" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
-        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5 mb-5"> 
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : 0.00</div>
-            </div>
-        
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : 0.00</div>
-            </div>
-        
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : 0.00</div>
-            </div>
-        </div>
         <div class="p-5 overflow-auto 2xl:overflow-visible">
             {% if staff_transactions %}
                 <table class="table table-report -mt-2">
@@ -753,19 +701,6 @@
     </div>
 
     <div id="other-tab" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
-        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5 mb-5"> 
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-success py-3">Revanue : 0.00</div>
-            </div>
-        
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-danger py-3">Expense : 0.00</div>
-            </div>
-        
-            <div class="intro-y box col-span-12 sm:col-span-4">
-                <div style="text-align: center; font-weight: 900;" class="text-warning py-3">P / L : 0.00</div>
-            </div>
-        </div>
         <div class="p-5 overflow-auto 2xl:overflow-visible">
             {% if other_transactions %}
                 <table class="table table-report -mt-2">
