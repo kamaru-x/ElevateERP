@@ -60,6 +60,48 @@
                                     <div class="menu__title"> Places </div>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{% url 'staffs' %}" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__title"> Staffs </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" class="menu">
+                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__title"> Agents <i data-lucide="chevron-down" class="menu__sub-icon "></i> </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="{% url 'agents' 'Main' %}" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__title"> Main Agents </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'agents' 'Sub' %}" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__title"> Sub Agents </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" class="menu">
+                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__title"> Courses <i data-lucide="chevron-down" class="menu__sub-icon "></i> </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="{% url 'courses' %}" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__title"> Programs </div>
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
@@ -74,6 +116,13 @@
                         <a href="{% url 'students' %}" class="menu {% if page == 'students' %} menu--active {% endif %}">
                             <div class="menu__icon"> <i data-lucide="box"></i> </div>
                             <div class="menu__title"> Students </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'accounts' %}" class="menu {% if page == 'students' %} menu--active {% endif %}">
+                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__title"> Accounts </div>
                         </a>
                     </li>
 
