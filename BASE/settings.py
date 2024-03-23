@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'U_Auth', # app for authentication
     'ErrHandler', # app for error handling 
     'Core', # to handle functionalities
-    'Accounts' # to handle accounts functionalities
+    'Accounts', # to handle accounts functionalities
+    'Frontpage', # to handle frontpage website 
 ]
 
 MIDDLEWARE = [

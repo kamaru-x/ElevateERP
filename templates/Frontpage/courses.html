@@ -1,0 +1,113 @@
+{% extends 'Frontpage/base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'frontpage/css/course.css' %}" />
+    <link rel="stylesheet" href="{% static 'frontpage/css/index.css' %}" />
+    <link rel="stylesheet" href="{% static 'frontpage/css/custome.css' %}">
+{% endblock css %}
+
+{% block content %}
+<main>
+    <!-- hero section start -->
+    <section class="hero" style="padding: 50px !important">
+        <div class="underlay">
+            <div class="underlay_bg rellax"></div>
+        </div>
+        <div class="container d-flex flex-column align-items-center">
+            <h2 class="hero_header">{{ department }} Courses</h2>
+            <p class="hero_text">
+                Donec accumsan, dolor ac malesuada rhoncus, leo arcu pellentesque dolor, nec tristique diam neque vitae sem. Nulla a
+                lectus sollicitudin, volutpat lacus id, eleifend ipsum. Etiam sollicitudin faucibus nibh sed ultrices
+            </p>
+            <div class="hero_info d-sm-flex align-items-center justify-content-center">
+                <div class="hero_info-block d-flex flex-column align-items-center align-items-sm-end">
+                    <span class="hero_info-block_title">Start at March 24, 2021</span>
+                    <span class="hero_info-block_text">1,152,628 already registered</span>
+                </div>
+                <div class="hero_info-block d-flex flex-column align-items-center align-items-sm-start">
+                    <ul class="rating d-flex align-items-center">
+                        <li class="rating_star">
+                            <i class="icon-star icon"></i>
+                        </li>
+                        <li class="rating_star">
+                            <i class="icon-star icon"></i>
+                        </li>
+                        <li class="rating_star">
+                            <i class="icon-star icon"></i>
+                        </li>
+                        <li class="rating_star">
+                            <i class="icon-star icon"></i>
+                        </li>
+                        <li class="rating_star">
+                            <i class="icon-star icon"></i>
+                        </li>
+                    </ul>
+                    <span class="hero_info-block_text"
+                        >more than 99% of students rate this course content and results as Super</span
+                    >
+                </div>
+            </div>
+            <a class="hero_btn btn btn--gradient" href="contact.html">
+                <span class="text">Register</span>
+            </a>
+        </div>
+    </section>
+    <!-- hero section end -->
+
+    <!-- popular courses section start -->
+    <section class="popular mt-5">
+        <div class="container">
+            <div class="popular_header">
+                <h2 class="popular_header-title" data-aos="fade-up">Popular Programs</h2>
+                <p class="popular_header-text" data-aos="fade-down">
+                    Successfully gain admissions to various courses with the guidance and expertise of Elevate Studylinks.
+                </p>
+            </div>
+            <ul class="popular_list d-md-flex flex-wrap">
+
+                <li class="popular_list-card course-card col-12 col-md-6 col-lg-4" data-aos="fade-up">
+                    <div class="course-card_wrapper">
+                        <div class="top d-flex align-items-start">
+                            <span class="top_icon top_icon--blue">
+                                <i class="icon-code-solid icon"></i>
+                            </span>
+                            <div class="wrapper d-flex flex-column">
+                                <h5 class="top_title" style="margin-top: 15px; margin-bottom: auto;">BBA</h5>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="popular_list-card course-card col-12 col-md-6 col-lg-4" data-aos="fade-up">
+                    <div class="course-card_wrapper">
+                        <div class="top d-flex align-items-start">
+                            <span class="top_icon top_icon--blue">
+                                <i class="icon-code-solid icon"></i>
+                            </span>
+                            <div class="wrapper d-flex flex-column">
+                                <h5 class="top_title" style="margin-top: 15px; margin-bottom: auto;">BBA Aviation</h5>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="popular_list-card course-card col-12 col-md-6 col-lg-4" data-aos="fade-up">
+                    <div class="course-card_wrapper">
+                        <div class="top d-flex align-items-start">
+                            <span class="top_icon top_icon--blue">
+                                <i class="icon-code-solid icon"></i>
+                            </span>
+                            <div class="wrapper d-flex flex-column">
+                                <h5 class="top_title">BBA TOURISM & TRAVEL</h5>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </section>
+    <!-- popular courses section end -->
+</main>
+{% endblock content %}

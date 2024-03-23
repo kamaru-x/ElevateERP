@@ -1,0 +1,33 @@
+.floating-whatsapp {
+    position: fixed;
+    bottom: 50px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    z-index: 1000;
+  }
+  
+  .floating-whatsapp .call-button,
+  .floating-whatsapp .whatsapp-button {
+    position: relative;
+    display: block;
+  }
+
+  .call-button img{
+    width: 50px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .floating-whatsapp img {
+    width: 60px; /* Adjust as needed */
+    height: auto;
+    border-radius: 20%;
+    /* box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2); Optional: Add shadow */
+  }
+  
+  .floating-whatsapp .call-button::after {
+    /* content: "Call"; */
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+  }

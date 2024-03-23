@@ -1,0 +1,287 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Elevate Studylinks</title>
+        <script id="www-widgetapi-script" src="https://s.ytimg.com/yts/jsbin/www-widgetapi-vflS50iB-/www-widgetapi.js" async=""></script>
+        <script src="https://www.youtube.com/player_api"></script>
+        <link rel="stylesheet preload" as="style" href="{% static 'frontpage/css/preload.min.css' %}" />
+        <link rel="stylesheet preload" as="style" href="{% static 'frontpage/css/icomoon.css' %}" />
+        <link rel="stylesheet preload" as="style" href="{% static 'frontpage/css/libs.min.css' %}" />
+        <link rel="icon" type="image/x-icon" href="frontpage/images/logos/logo-icon.png">
+
+        {% block css %}
+            
+        {% endblock css %}
+    </head>
+
+    <style>
+        @media screen and (min-width: 991.98px) {
+            .reviews {
+                padding: 0px 0 120px!important
+            }
+        }
+        @media only screen and (max-width: 600px) {
+            .promobar {
+                display: none !important;
+            }
+        }
+    </style>
+
+    <body>
+        
+        <div class="promobar d-flex align-items-center">
+            <div class="container d-flex align-items-center justify-content-between">
+                <ul class="promobar_socials d-flex align-items-center">
+                    <li class="promobar_socials-item">
+                        <a class="link" href="https://wa.me/+917994244469" target="_blank" rel="noopener noreferrer">
+                            <i class="icon-whatsapp"></i>
+                        </a>
+                    </li>
+                    <li class="promobar_socials-item">
+                        <a class="link" href="https://www.instagram.com/elevatestudylinks/" target="_blank" rel="noopener noreferrer">
+                            <i class="icon-instagram"></i>
+                        </a>
+                    </li>
+                    <li class="promobar_socials-item">
+                        <a class="link" href="" target="_blank" rel="noopener noreferrer">
+                            <i class="icon-facebook"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="promobar_main d-flex align-items-center">
+                    <a href="tel:+917994244469" class="promobar_main-text"><i class="icon-phone-solid pe-2"></i><span class="">+91 799 42 444 69</span></a>
+                    <a href="tel:+917994244463" class="promobar_main-text"><i class="icon-phone-solid pe-2"></i><span class="hide">+91 799 42 444 63</span></a>
+                </div>
+            </div>
+        </div>
+
+        <header class="header" data-page="home">
+            <div class="container d-flex flex-wrap justify-content-between align-items-center">
+                <div class="logo header_logo">
+                    <a class="d-inline-flex align-items-center" href="{% url 'home' %}">
+                        <span class="logo_picture">
+                            <img src="{% static 'frontpage/images/logos/logo.png' %}" alt="Edison" style="width: 200px;"/>
+                        </span>
+                    </a>
+                </div>
+                <button
+                    class="header_trigger"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#headerMenu"
+                    aria-controls="headerMenu"
+                >
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </button>
+                <nav class="header_nav collapse" id="headerMenu">
+                    <ul class="header_nav-list">
+                        <li class="header_nav-list_item">
+                            <a class="nav-item" href="{% url 'home' %}" data-page="home">Home</a>
+                        </li>
+                        <li class="header_nav-list_item">
+                            <a class="nav-item" href="{% url 'about' %}" data-page="about">About Us</a>
+                        </li>
+                        <li class="header_nav-list_item dropdown">
+                            <a class="nav-link nav-item dropdown-toggle d-inline-flex align-items-center" href="" data-bs-toggle="collapse" data-bs-target="#coursesMenu" data-trigger="dropdown" aria-expanded="false" aria-controls="coursesMenu" data-page="courses">Courses<i class="icon-angle-down icon"></i></a>
+                            <div class="dropdown-menu collapse" id="coursesMenu">
+                                <ul class="dropdown-list">
+                                    <li class="list-item">
+                                        <a class="dropdown-item nav-item" data-page="course" href="{% url 'courses' 'UG' %}">UG Courses</a>
+                                    </li>
+                                    <li class="list-item">
+                                        <a class="dropdown-item nav-item" data-page="course" href="{% url 'courses' 'PG' %}">PG Courses</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="header_nav-list_item">
+                           <a class="nav-item" href="{% url 'study-india' %}" data-page="services">Study in India</a>
+                        </li>
+                        <li class="header_nav-list_item">
+                            <a class="nav-item" href="{% url 'study-abroad' %}" data-page="services">Study Abroad</a>
+                        </li>
+                        <li class="header_nav-list_item">
+                            <a class="nav-item" href="{% url 'contact' %}" data-page="contact">Contact Us</a>
+                        </li>
+                    </ul>
+                    <ul class="promobar_socials d-flex align-items-center justify-content-center">
+                        <li class="promobar_socials-item">
+                            <a class="link" href="#" target="_blank" rel="noopener noreferrer">
+                                <i class="icon-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="promobar_socials-item">
+                            <a class="link" href="#" target="_blank" rel="noopener noreferrer">
+                                <i class="icon-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="promobar_socials-item">
+                            <a class="link" href="#" target="_blank" rel="noopener noreferrer">
+                                <i class="icon-instagram"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        {% block content %}
+
+        {% endblock content %}
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer_wrapper d-sm-flex flex-wrap flex-lg-nowrap justify-content-lg-between">
+                    <div class="footer_block col-sm-6 col-lg-auto" data-order="1">
+                        <div class="logo logo--footer">
+                            <a class="d-inline-flex align-items-center" href="{% url 'home' %}">
+                                <span class="logo_picture">
+                                    <img src="{% static 'frontpage/images/logos/logo.png' %}" alt="Edison"  style="width: 200px;"/>
+                                </span>
+                            </a>
+                        </div>
+                        <p class="footer_block-text">
+                            Curabitur non libero at lorem finibus lobortis. Ut auctor egestas pretium. Proin nunc ligula, venenatis tempor
+                        </p>
+                        <ul class="footer_block-socials d-flex align-items-center">
+                            <li class="footer_block-socials_item">
+                                <a class="link" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                                    <i class="icon-facebook"></i>
+                                </a>
+                            </li>
+                            <li class="footer_block-socials_item">
+                                <a class="link" href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+                                    <i class="icon-twitter"></i>
+                                </a>
+                            </li>
+                            <li class="footer_block-socials_item">
+                                <a class="link" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                                    <i class="icon-instagram"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer_block col-sm-6 col-lg-auto" data-order="2">
+                        <h5 class="footer_block-header">Information:</h5>
+                        <ul class="footer_block-nav">
+                            <li class="footer_block-nav_item">
+                                <a class="link" href="{% url 'about' %}">Home</a>
+                            </li>
+                            <li class="footer_block-nav_item">
+                                <a class="link" href="contacts.html">About Us</a>
+                            </li>
+                            <li class="footer_block-nav_item">
+                                <a class="link" href="{% url 'courses' %}">Services</a>
+                            </li>
+                            <li class="footer_block-nav_item">
+                                <a class="link" href="journal.html">Countries To Study</a>
+                            </li>
+                            <li class="footer_block-nav_item">
+                                <a class="link" href="library.html">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer_block col-sm-6 col-lg-auto m-sm-0" data-order="3">
+                        <h5 class="footer_block-header">Popular Courses:</h5>
+                        <ul class="footer_block-list">
+                            <li class="footer_block-list_item d-flex align-items-baseline">
+                                <span class="marker"></span>
+                                <a class="link" href="course.html">BCA</a>
+                            </li>
+                            <li class="footer_block-list_item d-flex align-items-baseline">
+                                <span class="marker"></span>
+                                <a class="link" href="course.html">BBA</a>
+                            </li>
+                            <li class="footer_block-list_item d-flex align-items-baseline">
+                                <span class="marker"></span>
+                                <a class="link" href="course.html">MBA</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer_block col-sm-6 col-lg-auto" data-order="4">
+                        <h5 class="footer_block-header">Gallery:</h5>
+                        <ul class="footer_block-instagram d-grid">
+                            <li class="footer_block-instagram_item">
+                                <a class="link" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                                    <picture>
+                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
+                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
+                                    </picture>
+                                </a>
+                            </li>
+                            <li class="footer_block-instagram_item">
+                                <a class="link" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                                    <picture>
+                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
+                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
+                                    </picture>
+                                </a>
+                            </li>
+                            <li class="footer_block-instagram_item">
+                                <a class="link" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                                    <picture>
+                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
+                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
+                                    </picture>
+                                </a>
+                            </li>
+                            <li class="footer_block-instagram_item">
+                                <a class="link" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                                    <picture>
+                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
+                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
+                                    </picture>
+                                </a>
+                            </li>
+                            <li class="footer_block-instagram_item">
+                                <a class="link" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                                    <picture>
+                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
+                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
+                                    </picture>
+                                </a>
+                            </li>
+                            <li class="footer_block-instagram_item">
+                                <a class="link" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                                    <picture>
+                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
+                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
+                                    </picture>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer_secondary">
+                <!-- <div class="container d-flex flex-column flex-sm-row align-items-center justify-content-sm-between">
+                    <a class="footer_secondary-scroll" id="scrollToTop" href="#">
+                        <i class="icon-angle-up icon"></i>
+                    </a>
+                    <p class="footer_secondary-copyright">Developed By @ <span id="currentYear"></span> Thycha Technologies</p>
+                </div> -->
+            </div>
+        </footer>
+
+        <div class="floating-whatsapp">
+            <a href="tel:+917994244463" class="call-button" target="_blank">
+              <img src="https://static.vecteezy.com/system/resources/previews/014/441/078/original/phone-call-icon-design-in-blue-circle-png.png" alt="Call">
+            </a>
+            <a href="https://wa.me/+917994244463" class="whatsapp-button" target="_blank">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/479px-WhatsApp_icon.png" alt="WhatsApp">
+            </a>
+        </div>
+
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <script src="{% static 'frontpage/js/common.min.js' %}"></script>
+        <script src="{% static 'frontpage/js/reviews.min.js' %}"></script>
+        <script src="js/map.min.js"></script>
+    </body>
+</html>

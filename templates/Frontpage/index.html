@@ -1,0 +1,491 @@
+{% extends 'Frontpage/base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'frontpage/css/index.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'frontpage/css/about.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'frontpage/css/events.css' %}">
+    <link rel="stylesheet" href="{% static 'frontpage/css/custome.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <!-- homepage content start -->
+    <main>
+
+        <!-- hero section start -->
+        <div class="underlay"></div>
+        <section class="hero">
+            <div class="container d-lg-flex align-items-center">
+                <div class="hero_content">
+                    <h1 class="hero_content-header" data-aos="fade-up" style="font-size: 58px;">Your Education Journey Begins Here!</h1>
+                    <div class="hero_content-rating d-flex flex-column flex-sm-row align-items-center">
+                        <p class="text" data-aos="fade-left">Our course is rated excellent by over 4,000+ people</p>
+                        <div class="wrapper" data-aos="fade-left" data-aos-delay="50">
+                            <ul class="rating d-flex align-items-center">
+                                <li class="rating_star">
+                                    <i class="icon-star icon"></i>
+                                </li>
+                                <li class="rating_star">
+                                    <i class="icon-star icon"></i>
+                                </li>
+                                <li class="rating_star">
+                                    <i class="icon-star icon"></i>
+                                </li>
+                                <li class="rating_star">
+                                    <i class="icon-star icon"></i>
+                                </li>
+                                <li class="rating_star">
+                                    <i class="icon-star icon"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="hero_content-text" data-aos="fade-up" data-aos-delay="50">
+                        Our team of experienced consultants is dedicated to helping individuals unlock their full potential and achieve their academic and professional goals. 
+                    </p>
+                    <div class="hero_content-action d-flex flex-wrap">
+                        <a class="btn" target="_blank" href="https://wa.me/+917994244469" data-aos="fade-left" style="background-color: #25d366;">
+                            <span class="text" style="color: white;"><i class="icon-whatsapp pe-2"></i>Let's Talk</span>
+                        </a>
+                        <!-- <a class="btn btn--highlight" href="pricing.html" data-aos="fade-left" data-aos-delay="50">
+                            <span class="text">See Pricing Plans</span>
+                        </a> -->
+                    </div>
+                </div>
+                <div class="hero_media col-lg-6">
+                    <lottie-player
+                        src="{% static 'frontpage/lottie/hero.json' %}"
+                        background="transparent"
+                        speed="1"
+                        style="width: 100%; height: 100%"
+                        loop
+                        autoplay
+                    ></lottie-player>
+                </div>
+            </div>
+        </section>
+        <!-- hero section end -->
+
+        <!-- features section start -->
+        <div class="features">
+            <div class="container">
+                <ul class="features_list d-md-flex flex-wrap">
+                    <li class="features_list-item col-md-4" data-order="1" data-aos="fade-up">
+                        <div class="card">
+                            <div class="content">
+                                <div class="card_media">
+                                    <i class="icon-user-graduate-solid icon"></i>
+                                </div>
+                                <div class="card_main">
+                                    <h5 class="card_main-title">Educational Planning</h5>
+                                    <p class="card_main-text">
+                                        Whether students are planning to study abroad or pursue higher education in their home country, we provide comprehensive educational planning services.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="features_list-item col-md-4" data-order="2" data-aos="fade-up">
+                        <div class="card">
+                            <div class="content">
+                                <div class="card_media">
+                                    <i class="icon-globe-solid icon"></i>
+                                </div>
+                                <div class="card_main">
+                                    <h5 class="card_main-title">Visa Guidance</h5>
+                                    <p class="card_main-text">
+                                        Navigating the visa application process can be complex and daunting. Our team provides expert guidance on visa requirements
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="features_list-item col-md-4" data-order="2" data-aos="fade-up">
+                        <div class="card">
+                            <div class="content">
+                                <div class="card_media">
+                                    <i class="icon-headset-solid icon"></i>
+                                </div>
+                                <div class="card_main">
+                                    <h5 class="card_main-title">Career Guidance</h5>
+                                    <p class="card_main-text">
+                                        Our career counseling services help students explore potential career paths, identify their strengths and interests, and make informed decisions about their future.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+        <!-- features section end -->
+
+        <!-- promo section start -->
+        <section class="promo">
+            <div class="container d-flex flex-column-reverse flex-lg-row justify-content-lg-end">
+                <div class="promo_media">
+                    <lottie-player
+                        src="{% static 'frontpage/lottie/scene.json' %}"
+                        background="transparent"
+                        speed="1"
+                        style="width: 100%; height: 100%"
+                        loop
+                        autoplay
+                    ></lottie-player>
+                </div>
+                <div class="promo_content">
+                    <h2 class="promo_content-header" data-aos="fade-left">Your Bridge to Success: Expert Guidance, Personalized Support</h2>
+                    <p class="promo_content-text" data-aos="fade-up" data-aos-delay="50">
+                        Are you looking to pursue higher education but feeling overwhelmed by the admission process? Look no further! At Elevate, we specialize in guiding students like you navigate the complex landscape of college admissions. Whether you're seeking admission to undergraduate, graduate, or professional courses, we're here to simplify the process and help you secure a spot in your dream institution.
+                    </p>
+                    <a class="promo_content-btn btn btn--gradient" href="contact.html" data-aos="fade-up" data-aos-delay="100">
+                        <span class="text">Contact</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- promo section end -->
+        
+        <!-- about section start -->
+        <section class="about">
+            <div class="container">
+                <div class="about_deco">
+                    <lottie-player
+                        src="{% static 'frontpage/lottie/wave.json' %}"
+                        background="transparent"
+                        speed="1"
+                        style="width: 100%; height: 100%"
+                        loop
+                        autoplay
+                    ></lottie-player>
+                </div>
+                <div class="about_main">
+                    <div class="content">
+                        <h2 class="about_main-header" data-aos="fade-in">Our Specialities</h2>
+                        <ul class="about_main-list">
+                            <li class="about_main-list_item" data-aos="fade-up">
+                                <i class="icon-check icon"></i>
+                                <div class="content">
+                                    <h5 class="title">Over 3 years of experience</h5>
+                                    <p class="text">Quisque eget porta mauris. Praesent eu tincidunt nulla, suscipit lobortis est.</p>
+                                </div>
+                            </li>
+                            <li class="about_main-list_item" data-aos="fade-up" data-aos-delay="50">
+                                <i class="icon-check icon"></i>
+                                <div class="content">
+                                    <h5 class="title">4,000+ Successful Admissions</h5>
+                                    <p class="text">Quisque eget porta mauris. Praesent eu tincidunt nulla, suscipit lobortis est.</p>
+                                </div>
+                            </li>
+                            <li class="about_main-list_item" data-aos="fade-up" data-aos-delay="100">
+                                <i class="icon-check icon"></i>
+                                <div class="content">
+                                    <h5 class="title">Easy Migration</h5>
+                                    <p class="text">Quisque eget porta mauris. Praesent eu tincidunt nulla, suscipit lobortis est.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="about_review" data-aos="zoom-in">
+                    <div class="about_review-wrapper">
+                        <div class="main">
+                            <h5 class="main_name">Diana Gloster</h5>
+                            <ul class="rating d-flex align-items-center">
+                                <li class="rating_star">
+                                    <i class="icon-star icon"></i>
+                                </li>
+                                <li class="rating_star">
+                                    <i class="icon-star icon"></i>
+                                </li>
+                                <li class="rating_star">
+                                    <i class="icon-star icon"></i>
+                                </li>
+                                <li class="rating_star">
+                                    <i class="icon-star icon"></i>
+                                </li>
+                                <li class="rating_star">
+                                    <i class="icon-star icon"></i>
+                                </li>
+                            </ul>
+                            <q class="main_review quote">
+                                “Mauris tellus lorem, tempus sed nibh at, varius convallis mi. sed scelerisque odio neque a lacus. Ut
+                                consectetur ligula. ed rhoncus sapien eget feugiat.”
+                            </q>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- about section end -->
+
+        <!-- popular courses section start -->
+        <section class="popular">
+            <div class="container">
+                <div class="popular_header">
+                    <h2 class="popular_header-title" data-aos="fade-up">Popular Programs</h2>
+                    <p class="popular_header-text" data-aos="fade-down">
+                        Successfully gain admissions to various courses with the guidance and expertise of Elevate Studylinks.
+                    </p>
+                </div>
+                <ul class="popular_list d-md-flex flex-wrap">
+                    <li class="popular_list-card course-card col-12 col-md-6 col-lg-4" data-aos="fade-up">
+                        <div class="course-card_wrapper">
+                            <div class="top d-flex align-items-start">
+                                <span class="top_icon top_icon--blue">
+                                    <i class="icon-code-solid icon"></i>
+                                </span>
+                                <div class="wrapper d-flex flex-column">
+                                    <h5 class="top_title">Arts & Designs Programs</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="popular_list-card course-card col-12 col-md-6 col-lg-4" data-aos="fade-up">
+                        <div class="course-card_wrapper">
+                            <div class="top d-flex align-items-start">
+                                <span class="top_icon top_icon--blue">
+                                    <i class="icon-code-solid icon"></i>
+                                </span>
+                                <div class="wrapper d-flex flex-column">
+                                    <h5 class="top_title">Medical <br> Programs</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="popular_list-card course-card col-12 col-md-6 col-lg-4" data-aos="fade-up">
+                        <div class="course-card_wrapper">
+                            <div class="top d-flex align-items-start">
+                                <span class="top_icon top_icon--blue">
+                                    <i class="icon-code-solid icon"></i>
+                                </span>
+                                <div class="wrapper d-flex flex-column">
+                                    <h5 class="top_title">Nusring <br> Programs</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="popular_list d-md-flex flex-wrap mt-3">
+                    <li class="popular_list-card course-card col-12 col-md-6 col-lg-4" data-aos="fade-up">
+                        <div class="course-card_wrapper">
+                            <div class="top d-flex align-items-start">
+                                <span class="top_icon top_icon--blue">
+                                    <i class="icon-code-solid icon"></i>
+                                </span>
+                                <div class="wrapper d-flex flex-column">
+                                    <h5 class="top_title">Pharmacy <br> Programs</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="popular_list-card course-card col-12 col-md-6 col-lg-4" data-aos="fade-up">
+                        <div class="course-card_wrapper">
+                            <div class="top d-flex align-items-start">
+                                <span class="top_icon top_icon--blue">
+                                    <i class="icon-code-solid icon"></i>
+                                </span>
+                                <div class="wrapper d-flex flex-column">
+                                    <h5 class="top_title">Engineering <br> Programs</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="popular_list-card course-card col-12 col-md-6 col-lg-4" data-aos="fade-up">
+                        <div class="course-card_wrapper">
+                            <div class="top d-flex align-items-start">
+                                <span class="top_icon top_icon--blue">
+                                    <i class="icon-code-solid icon"></i>
+                                </span>
+                                <div class="wrapper d-flex flex-column">
+                                    <h5 class="top_title">physiotherapy <br> Programs</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <a class="popular_btn btn btn--gradient" href="courses.html" style="display: flex; justify-items: center;">
+                    <span class="text">More Programs</span>
+                </a>
+            </div>
+        </section>
+        <!-- popular courses section end -->
+
+        <!-- reviews section start -->
+        <section class="reviews" id="reviews">
+            <div class="container">
+                <h2 class="reviews_header">What our students say</h2>
+
+                <div class="reviews_slider">
+                    <i class="icon-quote-left-solid icon"></i>
+                    <div class="swiper-wrapper">
+                        <div class="reviews_slider-slide swiper-slide">
+                            <q class="quote">
+                                “Nulla sed suscipit lectus. Phasellus rhoncus vulputate odio et placerat. Aenean ut aliquam erat.
+                                Integer rutrum eleifend ante, a bibendum leo tristique id. Phasellus euismod sapien non ornare sagittis.
+                                Donec molestie eros dolor. Curabitur laoreet neque at magna pulvinar cursus. Nulla euismod orci in
+                                varius mollis”
+                            </q>
+                            <div class="author d-flex flex-column align-items-center">
+                                <span class="avatar">
+                                    <picture>
+                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
+                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
+                                    </picture>
+                                </span>
+                                <span class="name h5"> Milagros Bueno </span>
+                                <ul class="rating d-flex align-items-center">
+                                    <li class="rating_star">
+                                        <i class="icon-star icon"></i>
+                                    </li>
+                                    <li class="rating_star">
+                                        <i class="icon-star icon"></i>
+                                    </li>
+                                    <li class="rating_star">
+                                        <i class="icon-star icon"></i>
+                                    </li>
+                                    <li class="rating_star">
+                                        <i class="icon-star icon"></i>
+                                    </li>
+                                    <li class="rating_star">
+                                        <i class="icon-star icon"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reviews_slider-controls d-flex align-items-center justify-content-between">
+                        <a class="swiper-button-prev" href="#">
+                            <i class="icon-angle-left icon"></i>
+                        </a>
+                        <a class="swiper-button-next" href="#">
+                            <i class="icon-angle-right icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- reviews section end -->
+
+        <!-- Events Section Start -->
+        <section class="popular" style="padding-bottom: 0px !important;">
+            <div class="container">
+                <div class="popular_header">
+                    <h2 class="popular_header-title" data-aos="fade-up">Latest News & Events</h2>
+                </div>
+                <div class="container">
+                    <ul class="list_events d-md-flex flex-wrap mt-5">
+                        <li class="list_events-card col-md-6 col-lg-4" data-aos="fade-up" data-order="6">
+                            <div class="card-wrapper d-flex flex-column">
+                                <div class="media">
+                                    <picture>
+                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
+                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
+                                    </picture>
+                                    <span class="event-date">
+                                        <span class="day">18</span>
+                                        <span class="month">Feb</span>
+                                    </span>
+                                </div>
+                                <div class="main d-flex flex-column justify-content-between">
+                                    <span class="main_price event-price">Free for subscribers</span>
+                                    <h4 class="main_title">Machine learning is the science of getting computers to act</h4>
+                                    <p class="main_text">
+                                        Vestibulum eget magna aliquet, ultrices arcu non, suscipit urna. Aliquam porta, lorem eu dictum
+                                        rutrum
+                                    </p>
+                                    <a class="main_btn btn btn--bordered btn--arrow" href="#">
+                                        sign up for a course <i class="icon-arrow-right-solid icon"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list_events-card col-md-6 col-lg-4" data-aos="fade-up" data-order="6">
+                            <div class="card-wrapper d-flex flex-column">
+                                <div class="media">
+                                    <picture>
+                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
+                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
+                                    </picture>
+                                    <span class="event-date">
+                                        <span class="day">18</span>
+                                        <span class="month">Feb</span>
+                                    </span>
+                                </div>
+                                <div class="main d-flex flex-column justify-content-between">
+                                    <span class="main_price event-price">Free for subscribers</span>
+                                    <h4 class="main_title">Machine learning is the science of getting computers to act</h4>
+                                    <p class="main_text">
+                                        Vestibulum eget magna aliquet, ultrices arcu non, suscipit urna. Aliquam porta, lorem eu dictum
+                                        rutrum
+                                    </p>
+                                    <a class="main_btn btn btn--bordered btn--arrow" href="#">
+                                        sign up for a course <i class="icon-arrow-right-solid icon"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list_events-card col-md-6 col-lg-4" data-aos="fade-up" data-order="6">
+                            <div class="card-wrapper d-flex flex-column">
+                                <div class="media">
+                                    <picture>
+                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
+                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
+                                    </picture>
+                                    <span class="event-date">
+                                        <span class="day">18</span>
+                                        <span class="month">Feb</span>
+                                    </span>
+                                </div>
+                                <div class="main d-flex flex-column justify-content-between">
+                                    <span class="main_price event-price">Free for subscribers</span>
+                                    <h4 class="main_title">Machine learning is the science of getting computers to act</h4>
+                                    <p class="main_text">
+                                        Vestibulum eget magna aliquet, ultrices arcu non, suscipit urna. Aliquam porta, lorem eu dictum
+                                        rutrum
+                                    </p>
+                                    <a class="main_btn btn btn--bordered btn--arrow" href="#">
+                                        sign up for a course <i class="icon-arrow-right-solid icon"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li style="display: none;"></li>
+                        <a class="popular_btn btn btn--gradient" href="{% url 'events' %}" style="display: flex; justify-items: center; margin: 0px auto !important;">
+                            <span class="text">More News</span>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- Enents Section End -->
+
+        <!-- banner section start -->
+        <div class="banner">
+            <div class="underlay"></div>
+            <div class="container d-lg-flex align-items-center">
+                <div class="banner_content">
+                    <h4 class="banner_content-title" data-aos="fade-up" style="margin-bottom: 10px;">Admission Open for 2023-24</h4>
+                    <p data-aos="fade-up" class="mb-3" style="color: white;">We are thrilled to announce that admissions for the academic year 2023-24 are now open! This is an exciting opportunity for aspiring students to embark on their educational journey and unlock new possibilities for a successful future.</p>
+                    <div class="wrapper" data-aos="fade-up" data-aos-delay="50">
+                        <a class="banner_content-btn btn btn--yellow" href="contact.html">Contact Now</a>
+                    </div>
+                </div>
+                <div class="banner_media">
+                    <picture>
+                        <source data-srcset="{% static 'frontpage/img/index.webp' %}" srcset="{% static 'frontpage/img/index.webp' %}" />
+                        <img class="lazy" data-src="{% static 'frontpage/img/index.webp' %}" src="{% static 'frontpage/img/index.webp' %}" alt="media" />
+                    </picture>
+                </div>
+            </div>
+        </div>
+        <!-- banner section end -->
+
+    </main>
+    <!-- homepage content end -->
+{% endblock content %}
