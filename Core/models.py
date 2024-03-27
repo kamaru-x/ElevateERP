@@ -18,6 +18,15 @@ DEGREE = (
     ('PG','PG')
 )
 
+DEPARTMENT = (
+    ('Arts','Arts'),
+    ('Medical','Medical'),
+    ('Nusring','Nusring'),
+    ('Pharmacy','Pharmacy'),
+    ('Engineering','Engineering'),
+    ('Physiotherapy','Physiotherapy'),
+)
+
 class Place(models.Model):
     Status = models.IntegerField(default=1)
     Name = models.CharField(max_length=100)
@@ -43,6 +52,7 @@ class Course(models.Model):
     Status = models.IntegerField(default=1)
     Added_Date = models.DateField(auto_now_add=True)
     Degree = models.CharField(max_length=50,choices=DEGREE)
+    Department = models.CharField(max_length=50,choices=DEPARTMENT,default='Arts')
     Name = models.CharField(max_length=50)
 
     def __str__(self):

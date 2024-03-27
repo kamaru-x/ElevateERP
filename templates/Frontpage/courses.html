@@ -56,7 +56,7 @@
     <!-- hero section end -->
 
     <!-- popular courses section start -->
-    <section class="popular mt-5">
+    <!-- <section class="popular mt-5">
         <div class="container">
             <div class="popular_header">
                 <h2 class="popular_header-title" data-aos="fade-up">Programs</h2>
@@ -83,7 +83,72 @@
 
             </ul>
         </div>
-    </section>
+    </section> -->
     <!-- popular courses section end -->
+
+    <section class="list mt-5">
+        <div class="container">
+            <ul class="list_tags courses-tags d-flex flex-wrap align-items-center justify-content-center mb-5">
+                <li class="list-item" data-aos="fade-left">
+                    <a data-target="all" class="list_tags-tag tag current" href="#">all</a>
+                </li>
+                <li class="list-item" data-aos="fade-left" data-aos-delay="50">
+                    <a data-target="Arts" class="list_tags-tag tag" href="#">Arts & Designs</a>
+                </li>
+                <li class="list-item" data-aos="fade-left" data-aos-delay="100">
+                    <a data-target="Medical" class="list_tags-tag tag" href="#">Medical</a>
+                </li>
+                <li class="list-item" data-aos="fade-left" data-aos-delay="150">
+                    <a data-target="Nusring" class="list_tags-tag tag" href="#">Nusring</a>
+                </li>
+                <li class="list-item" data-aos="fade-left" data-aos-delay="200">
+                    <a data-target="Pharmacy" class="list_tags-tag tag" href="#">Pharmacy</a>
+                </li>
+                <li class="list-item" data-aos="fade-left" data-aos-delay="250">
+                    <a data-target="Engineering" class="list_tags-tag tag" href="#">Engineering</a>
+                </li>
+                <li class="list-item" data-aos="fade-left" data-aos-delay="300">
+                    <a data-target="Physiotherapy" class="list_tags-tag tag" href="#">Physiotherapy</a>
+                </li>
+            </ul>
+            <ul class="list_courses d-md-flex flex-wrap">
+
+                {% for course in courses %}
+                    <li class="list_courses-card course-card col-12 col-md-6 col-xl-4 my-2 p-3" data-groups='["{{ course.Course.Department }}"]'>
+                        <div class="course-card_wrapper">
+                            <div class="top d-flex align-items-start">
+                                <span class="top_icon top_icon--blue">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </span>
+                                <div class="wrapper d-flex flex-column my-auto">
+                                    <h5 class="top_title">{{ course.Course }} {{ course.Title }}</h5>
+                                    <ul class="rating d-flex align-items-center">
+                                        <li class="rating_star">
+                                            <i class="icon-star icon"></i>
+                                        </li>
+                                        <li class="rating_star">
+                                            <i class="icon-star icon"></i>
+                                        </li>
+                                        <li class="rating_star">
+                                            <i class="icon-star icon"></i>
+                                        </li>
+                                        <li class="rating_star">
+                                            <i class="icon-star icon"></i>
+                                        </li>
+                                        <li class="rating_star">
+                                            <i class="icon-star icon"></i>
+                                        </li>
+                                    </ul>
+                                    <!-- <span class="top_author">by Adrian Dawson school</span>
+                                    <span class="top_details">48 lectures ( 280 Hours)</span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </section>
 </main>
 {% endblock content %}

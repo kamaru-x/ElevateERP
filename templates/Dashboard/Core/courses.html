@@ -38,6 +38,7 @@
                         <tr>
                             <th class="text-center whitespace-nowrap">SL. NO.</th>
                             <th class="text-center whitespace-nowrap">DEGREE</th>
+                            <th class="text-center whitespace-nowrap">DEPARTMENT</th>
                             <th class="text-center whitespace-nowrap">NAME</th>
                             <th class="text-center whitespace-nowrap">REFERENCE</th>
                             <th class="text-center whitespace-nowrap">ADDED ON</th>
@@ -54,6 +55,10 @@
 
                                 <td class="text-center whitespace-nowrap">
                                     {{ course.Degree }}
+                                </td>
+
+                                <td class="text-center whitespace-nowrap">
+                                    {{ course.Department }}
                                 </td>
 
                                 <td class="text-center whitespace-nowrap">
@@ -145,6 +150,18 @@
                         <select name="degree" id="" class="form-control">
                             <option value="UG">UG</option>
                             <option value="PG">PG</option>
+                        </select>
+                    </div>
+
+                    <div class="col-span-12 sm:col-span-12"> 
+                        <label for="modal-form-1" class="form-label">Department</label> 
+                        <select name="department" id="" class="form-control">
+                            <option value="Art">Art</option>
+                            <option value="Medical">Medical</option>
+                            <option value="Nusring">Nusring</option>
+                            <option value="Pharmacy">Pharmacy</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Physiotherapy">Physiotherapy</option>
                         </select>
                     </div>
 

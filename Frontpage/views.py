@@ -29,10 +29,9 @@ def courses(request,department):
     courses = []
 
     for program in programs:
-        courses.append(program)
         addons = Course_Addon.objects.filter(Course=program)
         for addon in addons:
-            courses.append(f'{program} {addon.Title}')
+            courses.append(addon)
 
     context = {
         'department' : department,

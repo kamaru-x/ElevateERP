@@ -206,10 +206,11 @@ def courses(request):
 def add_course(request):
     if request.method == 'POST':
         degree = request.POST.get('degree')
+        department = request.POST.get('department')
         name = request.POST.get('name')
 
         try:
-            Course.objects.create(Degree=degree,Name=name)
+            Course.objects.create(Degree=degree,Department=department,Name=name)
             messages.success(request,'New Course added Successfully ... !')
         
         except Exception as exception:
