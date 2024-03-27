@@ -9,4 +9,5 @@ urlpatterns = [
     path('study-india/',views.study_india,name='study-india'),
     path('study-abroad/',views.study_abroad,name='study-abroad'),
     path('events/',views.events,name='events'),
+    path('whychoose/<str:location>/',views.whychoose,name='whychoose'),
 ]

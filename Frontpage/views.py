@@ -92,3 +92,11 @@ def contact(request):
     }
     
     return render(request,'Frontpage/contact.html',context)
+
+def whychoose(request,location):
+    location = Place.objects.get(Name=location)
+
+    context = {
+        'location' : location
+    }
+    return render(request,'Frontpage/whychoose.html',context)
