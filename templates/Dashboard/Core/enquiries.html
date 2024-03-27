@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block page %} 
-    <li class="breadcrumb-item active" aria-current="page">Courses</li>
+    <li class="breadcrumb-item active" aria-current="page">Enquiries</li>
 {% endblock page %}
 
 {% block content %}
@@ -19,7 +19,7 @@
 {% endif %}
 <!-- BEGIN: Notification -->
 
-    <h2 class="intro-y text-lg font-medium mt-5 text-primary text-center pt-5 pb-5" style="font-size: 35px; border-bottom: solid 1px #bcbcbc;">Courses</h2>
+    <h2 class="intro-y text-lg font-medium mt-5 text-primary text-center pt-5 pb-5" style="font-size: 35px; border-bottom: solid 1px #bcbcbc;">Enquiries</h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap xl:flex-nowrap items-center mt-2">
             <div class="hidden xl:block mx-auto text-slate-500"></div>
@@ -27,25 +27,24 @@
                 <button class="btn btn-outline-secondary shadow-md mr-2">
                     <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export to Excel
                 </button>
-                <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#add-course"><button class="btn btn-primary shadow-md mr-2">Add New Course</button></a>
             </div>
         </div>
         <!-- BEGIN: Data List -->
-        {% if courses %}
+        {% if enquiries %}
             <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
                 <table class="table table-report -mt-2">
                     <thead>
                         <tr>
                             <th class="text-center whitespace-nowrap">SL. NO.</th>
-                            <th class="text-center whitespace-nowrap">DEGREE</th>
-                            <th class="text-center whitespace-nowrap">NAME</th>
-                            <th class="text-center whitespace-nowrap">REFERENCE</th>
                             <th class="text-center whitespace-nowrap">ADDED ON</th>
+                            <th class="text-center whitespace-nowrap">NAME</th>
+                            <th class="text-center whitespace-nowrap">MOBILE</th>
+                            <th class="text-center whitespace-nowrap">EMAIL</th>
                             <th class="text-center whitespace-nowrap">ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for course in courses %}
+                        {% for enquiry in enquiries %}
                             <tr class="intro-x">
 
                                 <td class="text-center whitespace-nowrap">
@@ -53,27 +52,24 @@
                                 </td>
 
                                 <td class="text-center whitespace-nowrap">
-                                    {{ course.Degree }}
+                                    <a href="" class="font-medium whitespace-nowrap">{{ enquiry.Date | date:'d M Y' }}</a>    
                                 </td>
 
                                 <td class="text-center whitespace-nowrap">
-                                    <a href="" class="font-medium whitespace-nowrap">{{ course.Name }}</a>    
+                                    <a href="" class="font-medium whitespace-nowrap">{{ enquiry.Name }}</a>    
                                 </td>
 
                                 <td class="text-center whitespace-nowrap">
-                                    CS-{{course.id}}
+                                    <a href="" class="font-medium whitespace-nowrap">{{ enquiry.Mobile }}</a>    
                                 </td>
 
                                 <td class="text-center whitespace-nowrap">
-                                    {{ course.Added_Date | date:"d M Y" }}
+                                    <a href="" class="font-medium whitespace-nowrap">{{ enquiry.Email }}</a>    
                                 </td>
                                 
                                 <td class="table-report__action">
                                     <div class="flex justify-center items-center">
-                                        <a class="flex items-center text-warning whitespace-nowrap mr-5" href="{% url 'course-addons' course.id %}" title="view">
-                                            <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
-                                        </a>
-                                        <a onclick="delete_course('{{course.id}}')" class="flex items-center text-danger whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" title="delete">
+                                        <a onclick="delete_place('{{place.id}}')" class="flex items-center text-danger whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" title="delete">
                                             <i data-lucide="trash" class="w-4 h-4 mr-1"></i> 
                                         </a>
                                     </div>
@@ -106,9 +102,9 @@
     <!-- BEGIN: Delete Confirmation Modal -->
     <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="{% url 'delete-course' %}" method="post">
+            <form action="" method="post">
                 {% csrf_token %}
-                <input type="hidden" name="course_id" id="course_id">
+                <input type="hidden" name="place_id" id="place_id">
                 <div class="modal-content">
                     <div class="modal-body p-0">
                         <div class="p-5 text-center">
@@ -127,48 +123,9 @@
     </div>
     <!-- END: Delete Confirmation Modal -->
 
-    <!-- BEGIN: course Add Modal Content -->
-    <div id="add-course" class="modal" tabindex="-1" aria-hidden="true">
-        <form method="post" action="{% url 'add-course' %}" class="modal-dialog modal-lg">
-            {% csrf_token %}
-            <div class="modal-content">
-                <!-- BEGIN: Modal Header -->
-                <div class="modal-header">
-                    <h2 class="font-medium text-base mx-auto my-2">Add New Course</h2>
-                </div> 
-                <!-- END: Modal Header -->
-
-                <!-- BEGIN: Modal Body -->
-                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                    <div class="col-span-12 sm:col-span-12"> 
-                        <label for="modal-form-1" class="form-label">Degree</label> 
-                        <select name="degree" id="" class="form-control">
-                            <option value="UG">UG</option>
-                            <option value="PG">PG</option>
-                        </select>
-                    </div>
-
-                    <div class="col-span-12 sm:col-span-12"> 
-                        <label for="modal-form-1" class="form-label">Course Name</label> 
-                        <input id="" name="name" type="text" class="form-control" placeholder="Enter course Here"> 
-                    </div>
-                </div> 
-                <!-- END: Modal Body -->
-
-                <!-- BEGIN: Modal Footer -->
-                <div class="modal-footer"> 
-                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button> 
-                    <button type="submit" class="btn btn-primary w-20">Submit</button> 
-                </div> 
-                <!-- END: Modal Footer -->
-            </div>
-        </form>
-    </div> 
-    <!-- END: course Add Modal Content -->
-
     <script>
-        function delete_course(course_id){
-            $('#course_id').val(course_id)
+        function delete_place(place_id){
+            $('#place_id').val(place_id)
         }
     </script>
 {% endblock content %}

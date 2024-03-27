@@ -126,6 +126,33 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="javascript:;" class="menu">
+                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__title"> Website <i data-lucide="chevron-down" class="menu__sub-icon "></i> </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="{% url 'news' %}" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__title"> News </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'enquiries' %}" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__title"> Enquiries </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'reviews' %}" class="menu">
+                                    <div class="menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="menu__title"> Reviews </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <!-- <li>
                         <a href="javascript:;" class="menu">
                             <div class="menu__icon"> <i data-lucide="box"></i> </div>
@@ -380,6 +407,36 @@
                             <div class="side-menu__icon"> <i data-lucide="box"></i> </div>
                             <div class="side-menu__title"> Accounts </div>
                         </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" class="side-menu {% if page == 'website' %} side-menu--active {% endif %}">
+                            <div class="side-menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="side-menu__title">
+                                Website
+                                <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="{% url 'news' %}" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="side-menu__title"> News </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'enquiries' %}" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="side-menu__title"> Enquiries </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'reviews' %}" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
+                                    <div class="side-menu__title"> Reviews </div>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
                     <!-- <li>

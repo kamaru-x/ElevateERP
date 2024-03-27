@@ -56,53 +56,27 @@
                     </li>
                 </ul> -->
                 <ul class="list_courses d-md-flex flex-wrap">
-                    <li class="list_courses-card course-card col-12 col-md-6 col-xl-4" data-groups='["gamedev", "programming"]'>
-                        <div class="course-card_wrapper">
-                            <div class="d-flex align-items-start">
-                                <img style="border-top-left-radius: 12px; border-top-right-radius: 12px;" src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcR1BcauGqVR99-DtU6D4avUcjDJN3sfF4Zav8Cta89z0vRTNeAc7nRqo2PCHIZ99n9yEcFOk-PNxg7tqv0HsO7gKZez03YOqodsTARl-3E" alt="">
+                    {% for place in places %}
+                        <li class="list_courses-card course-card col-12 col-md-6 col-xl-4" data-groups='["gamedev", "programming"]'>
+                            <div class="course-card_wrapper">
+                                <div class="d-flex align-items-start">
+                                    {% if place.Image %}
+                                        <img style="border-top-left-radius: 12px; border-top-right-radius: 12px; max-height: 200px; object-fit: cover;" src="{{ place.Image.url }}" alt="">
+                                    {% else %}
+                                        <img style="border-top-left-radius: 12px; border-top-right-radius: 12px; max-height: 200px; object-fit: cover;" src="{% static 'dashboard/images/no-image.jpg' %}" alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="pricing">
+                                    <span class="pricing_price h5">{{ place.Name }}</span>
+                                </div>
+                                <div class="bottom">
+                                    <a class="bottom_btn btn btn--bordered btn--arrow" href="">
+                                        Why Choose {{ place.Name }} <i class="icon-arrow-right-solid icon"></i>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="pricing">
-                                <span class="pricing_price h5">UK</span>
-                            </div>
-                            <div class="bottom">
-                                <a class="bottom_btn btn btn--bordered btn--arrow" href="whychoose.html">
-                                    Why Choose UK <i class="icon-arrow-right-solid icon"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="list_courses-card course-card col-12 col-md-6 col-xl-4" data-groups='["gamedev", "programming"]'>
-                        <div class="course-card_wrapper">
-                            <div class="d-flex align-items-start">
-                                <img style="border-top-left-radius: 12px; border-top-right-radius: 12px;" src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcRANdU42oU2d38nWPFQ-KCNzM97xv5ZTpnfIK7DJMAFp7OInXuhLn3fZU-HTJgHC_jIQTDi4zrfOFW3s1YH2h9LAMzZr-GEYgkWsONW9g" alt="">
-                            </div>
-                            <div class="pricing">
-                                <span class="pricing_price h5">kyrgyzstan</span>
-                            </div>
-                            <div class="bottom">
-                                <a class="bottom_btn btn btn--bordered btn--arrow" href="whychoose.html">
-                                    Why Choose kyrgyzstan <i class="icon-arrow-right-solid icon"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="list_courses-card course-card col-12 col-md-6 col-xl-4" data-groups='["gamedev", "programming"]'>
-                        <div class="course-card_wrapper">
-                            <div class="d-flex align-items-start">
-                                <img style="border-top-left-radius: 12px; border-top-right-radius: 12px;" src="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcRl-F5HHPXbodt1jTOdZaXPWpieCPACYonsmXtn31B7nEEQfOf03SH815M9_2H1x3pV53LmnqP2KzWK0mmx3xNOrDlbs0pjURCLxfEzBQ" alt="">
-                            </div>
-                            <div class="pricing">
-                                <span class="pricing_price h5">Poland</span>
-                            </div>
-                            <div class="bottom">
-                                <a class="bottom_btn btn btn--bordered btn--arrow" href="whychoose.html">
-                                    Why Choose Poland <i class="icon-arrow-right-solid icon"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    {% endfor %}
                     
                     <li style="display: none;"></li>
                 </ul>

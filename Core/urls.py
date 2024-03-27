@@ -6,6 +6,7 @@ urlpatterns = [
 
     path('places/',views.places,name='places'),
     path('place/add/',views.add_place,name='add-place'),
+    path('place/edit/<str:place_id>/',views.edit_place,name='edit-place'),
     path('place/delete/',views.delete_place,name='delete-place'),
 
     path('agents/<str:rank>/',views.agents,name='agents'),
@@ -31,5 +32,13 @@ urlpatterns = [
     path('get/addons/',views.get_addons,name='get-addons'),
     path('student/edit/<str:student_id>/',views.edit_student,name='edit-student'),
     path('student/details/<str:student_id>/',views.student_details,name='student-details'),
-    path('student/delete/',views.delete_student,name='delete-student')
+    path('student/delete/',views.delete_student,name='delete-student'),
+
+    path('news/',views.news,name='news'),
+    path('news/add/',views.add_news,name='add-news'),
+    path('news/edit/<news_id>/',views.edit_news,name='edit-news'),
+    path('news/delete/',views.delete_news,name='delete-news'),
+
+    path('enquiries/',views.enquiries,name='enquiries'),
+    path('reviews/',views.reviews,name='reviews')
 ]

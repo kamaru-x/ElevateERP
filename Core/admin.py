@@ -1,11 +1,11 @@
 from django.contrib import admin
-from Core.models import Place,Agents,Course,Course_Addon,Collage,Student
+from Core.models import Place,Agents,Course,Course_Addon,Collage,Student,News
 
 # Register your models here.
 
 @admin.register(Place)
 class PlaceModelAdmin(admin.ModelAdmin):
-    list_display = ['Name','Status','Added_Date']
+    list_display = ['Name','Location','Status','Added_Date']
 
 @admin.register(Agents)
 class AgentsModelAdmin(admin.ModelAdmin):
@@ -26,3 +26,7 @@ class StudentModelAdmin(admin.ModelAdmin):
 @admin.register(Course_Addon)
 class Course_AddonModelAdmin(admin.ModelAdmin):
     list_display = ['Course','Title']
+
+@admin.register(News)
+class Course_AddonModelAdmin(admin.ModelAdmin):
+    list_display = ['Date','Title','Sub_Title']

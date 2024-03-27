@@ -221,7 +221,7 @@
         <!-- about section end -->
 
         <!-- popular courses section start -->
-        <section class="popular">
+        <section class="popular programs">
             <div class="container">
                 <div class="popular_header">
                     <h2 class="popular_header-title" data-aos="fade-up">Popular Programs</h2>
@@ -234,7 +234,7 @@
                         <div class="course-card_wrapper">
                             <div class="top d-flex align-items-start">
                                 <span class="top_icon top_icon--blue">
-                                    <i class="icon-code-solid icon"></i>
+                                    <i class="fa-solid fa-palette"></i>
                                 </span>
                                 <div class="wrapper d-flex flex-column">
                                     <h5 class="top_title">Arts & Designs Programs</h5>
@@ -247,7 +247,7 @@
                         <div class="course-card_wrapper">
                             <div class="top d-flex align-items-start">
                                 <span class="top_icon top_icon--blue">
-                                    <i class="icon-code-solid icon"></i>
+                                    <i class="fa-solid fa-stethoscope"></i>
                                 </span>
                                 <div class="wrapper d-flex flex-column">
                                     <h5 class="top_title">Medical <br> Programs</h5>
@@ -260,7 +260,7 @@
                         <div class="course-card_wrapper">
                             <div class="top d-flex align-items-start">
                                 <span class="top_icon top_icon--blue">
-                                    <i class="icon-code-solid icon"></i>
+                                    <i class="fa-solid fa-syringe"></i>
                                 </span>
                                 <div class="wrapper d-flex flex-column">
                                     <h5 class="top_title">Nusring <br> Programs</h5>
@@ -274,7 +274,7 @@
                         <div class="course-card_wrapper">
                             <div class="top d-flex align-items-start">
                                 <span class="top_icon top_icon--blue">
-                                    <i class="icon-code-solid icon"></i>
+                                    <i class="fa-solid fa-pills"></i>
                                 </span>
                                 <div class="wrapper d-flex flex-column">
                                     <h5 class="top_title">Pharmacy <br> Programs</h5>
@@ -287,7 +287,7 @@
                         <div class="course-card_wrapper">
                             <div class="top d-flex align-items-start">
                                 <span class="top_icon top_icon--blue">
-                                    <i class="icon-code-solid icon"></i>
+                                    <i class="fa-solid fa-screwdriver-wrench"></i>
                                 </span>
                                 <div class="wrapper d-flex flex-column">
                                     <h5 class="top_title">Engineering <br> Programs</h5>
@@ -300,7 +300,7 @@
                         <div class="course-card_wrapper">
                             <div class="top d-flex align-items-start">
                                 <span class="top_icon top_icon--blue">
-                                    <i class="icon-code-solid icon"></i>
+                                    <i class="fa-solid fa-user-nurse"></i>
                                 </span>
                                 <div class="wrapper d-flex flex-column">
                                     <h5 class="top_title">physiotherapy <br> Programs</h5>
@@ -324,41 +324,25 @@
                 <div class="reviews_slider">
                     <i class="icon-quote-left-solid icon"></i>
                     <div class="swiper-wrapper">
-                        <div class="reviews_slider-slide swiper-slide">
-                            <q class="quote">
-                                “Nulla sed suscipit lectus. Phasellus rhoncus vulputate odio et placerat. Aenean ut aliquam erat.
-                                Integer rutrum eleifend ante, a bibendum leo tristique id. Phasellus euismod sapien non ornare sagittis.
-                                Donec molestie eros dolor. Curabitur laoreet neque at magna pulvinar cursus. Nulla euismod orci in
-                                varius mollis”
-                            </q>
-                            <div class="author d-flex flex-column align-items-center">
-                                <span class="avatar">
-                                    <picture>
-                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                                    </picture>
-                                </span>
-                                <span class="name h5"> Milagros Bueno </span>
-                                <ul class="rating d-flex align-items-center">
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                </ul>
+                        
+                        {% for review in reviews %}
+                            <div class="reviews_slider-slide swiper-slide">
+                                <q class="quote">
+                                    “{{ review.Description | slice:':200' }}”
+                                </q>
+                                <div class="author d-flex flex-column align-items-center">
+                                    <span class="avatar">
+                                        <picture>
+                                            <img class="lazy" data-src="{% static 'dashboard/images/user.png' %}" src="{% static 'dashboard/images/user.png' %}" alt="media" />
+                                        </picture>
+                                    </span>
+                                    <span class="name h5"> {{ review.Name }} </span>
+                                </div>
                             </div>
-                        </div>
+                        {% endfor %}
+
                     </div>
+                    
                     <div class="reviews_slider-controls d-flex align-items-center justify-content-between">
                         <a class="swiper-button-prev" href="#">
                             <i class="icon-angle-left icon"></i>
@@ -368,7 +352,11 @@
                         </a>
                     </div>
                 </div>
+                
             </div>
+            <!-- <a class="popular_btn btn btn--gradient" href="" style="margin: 0px; width: 250px;">
+                <span class="text">Write A Review</span>
+            </a> -->
         </section>
         <!-- reviews section end -->
 
@@ -379,87 +367,42 @@
                     <h2 class="popular_header-title" data-aos="fade-up">Latest News & Events</h2>
                 </div>
                 <div class="container">
-                    <ul class="list_events d-md-flex flex-wrap mt-5">
-                        <li class="list_events-card col-md-6 col-lg-4" data-aos="fade-up" data-order="6">
-                            <div class="card-wrapper d-flex flex-column">
-                                <div class="media">
-                                    <picture>
-                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                                    </picture>
-                                    <span class="event-date">
-                                        <span class="day">18</span>
-                                        <span class="month">Feb</span>
-                                    </span>
+                    <ul class="list_events d-md-flex flex-wrap mt-5" style="margin-bottom: -20px;">
+
+                        {% for news in newses %}
+                            <li class="list_events-card col-md-6 col-lg-4" data-aos="fade-up" data-order="6">
+                                <div class="card-wrapper d-flex flex-column">
+                                    <div class="media">
+                                        <picture>
+                                            {% if news.Image %}
+                                                <img class="lazy" data-src="{{ news.Image.url }}" src="{{ news.Image.url }}" alt="media" />
+                                            {% else %}
+                                                <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
+                                            {% endif %}
+                                        </picture>
+                                        <span class="event-date">
+                                            <span class="day">{{ news.Date | date:'d' }}</span>
+                                            <span class="month">{{ news.Date | date:'M' }}</span>
+                                        </span>
+                                    </div>
+                                    <div class="main d-flex flex-column justify-content-between">
+                                        <span class="main_price event-price">{{ news.Sub_Title }}</span>
+                                        <h4 class="main_title">{{ news.Title }}</h4>
+                                        <p class="main_text">{{ news.Description | slice:':75' }}...</p>
+                                        <a class="main_btn btn btn--bordered btn--arrow" href="">
+                                            Read More <i class="icon-arrow-right-solid icon"></i>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="main d-flex flex-column justify-content-between">
-                                    <span class="main_price event-price">Free for subscribers</span>
-                                    <h4 class="main_title">Machine learning is the science of getting computers to act</h4>
-                                    <p class="main_text">
-                                        Vestibulum eget magna aliquet, ultrices arcu non, suscipit urna. Aliquam porta, lorem eu dictum
-                                        rutrum
-                                    </p>
-                                    <a class="main_btn btn btn--bordered btn--arrow" href="#">
-                                        sign up for a course <i class="icon-arrow-right-solid icon"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list_events-card col-md-6 col-lg-4" data-aos="fade-up" data-order="6">
-                            <div class="card-wrapper d-flex flex-column">
-                                <div class="media">
-                                    <picture>
-                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                                    </picture>
-                                    <span class="event-date">
-                                        <span class="day">18</span>
-                                        <span class="month">Feb</span>
-                                    </span>
-                                </div>
-                                <div class="main d-flex flex-column justify-content-between">
-                                    <span class="main_price event-price">Free for subscribers</span>
-                                    <h4 class="main_title">Machine learning is the science of getting computers to act</h4>
-                                    <p class="main_text">
-                                        Vestibulum eget magna aliquet, ultrices arcu non, suscipit urna. Aliquam porta, lorem eu dictum
-                                        rutrum
-                                    </p>
-                                    <a class="main_btn btn btn--bordered btn--arrow" href="#">
-                                        sign up for a course <i class="icon-arrow-right-solid icon"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list_events-card col-md-6 col-lg-4" data-aos="fade-up" data-order="6">
-                            <div class="card-wrapper d-flex flex-column">
-                                <div class="media">
-                                    <picture>
-                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                                    </picture>
-                                    <span class="event-date">
-                                        <span class="day">18</span>
-                                        <span class="month">Feb</span>
-                                    </span>
-                                </div>
-                                <div class="main d-flex flex-column justify-content-between">
-                                    <span class="main_price event-price">Free for subscribers</span>
-                                    <h4 class="main_title">Machine learning is the science of getting computers to act</h4>
-                                    <p class="main_text">
-                                        Vestibulum eget magna aliquet, ultrices arcu non, suscipit urna. Aliquam porta, lorem eu dictum
-                                        rutrum
-                                    </p>
-                                    <a class="main_btn btn btn--bordered btn--arrow" href="#">
-                                        sign up for a course <i class="icon-arrow-right-solid icon"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        {% endfor %}
+                        
                         <li style="display: none;"></li>
-                        <a class="popular_btn btn btn--gradient" href="{% url 'events' %}" style="display: flex; justify-items: center; margin: 0px auto !important;">
-                            <span class="text">More News</span>
-                        </a>
+
                     </ul>
+                    <a class="popular_btn btn btn--gradient" href="{% url 'events' %}" style="display: flex; justify-items: center; margin: 0px auto !important; margin-bottom: 50px !important;">
+                        <span class="text">More News</span>
+                    </a>
                 </div>
             </div>
         </section>

@@ -12,7 +12,9 @@
         <link rel="stylesheet preload" as="style" href="{% static 'frontpage/css/preload.min.css' %}" />
         <link rel="stylesheet preload" as="style" href="{% static 'frontpage/css/icomoon.css' %}" />
         <link rel="stylesheet preload" as="style" href="{% static 'frontpage/css/libs.min.css' %}" />
+        <!-- <link rel="stylesheet preload" as="style" href="{% static 'frontpage/css/course.min.css' %}" /> -->
         <link rel="icon" type="image/x-icon" href="frontpage/images/logos/logo-icon.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         {% block css %}
             
@@ -83,13 +85,13 @@
                 <nav class="header_nav collapse" id="headerMenu">
                     <ul class="header_nav-list">
                         <li class="header_nav-list_item">
-                            <a class="nav-item" href="{% url 'home' %}" data-page="home">Home</a>
+                            <a class="nav-item" href="{% url 'home' %}" {% if page == 'home' %} data-page="home" {% endif %}>Home</a>
                         </li>
                         <li class="header_nav-list_item">
-                            <a class="nav-item" href="{% url 'about' %}" data-page="about">About Us</a>
+                            <a class="nav-item" href="{% url 'about' %}" {% if page == 'about' %} data-page="home" {% endif %}>About Us</a>
                         </li>
                         <li class="header_nav-list_item dropdown">
-                            <a class="nav-link nav-item dropdown-toggle d-inline-flex align-items-center" href="" data-bs-toggle="collapse" data-bs-target="#coursesMenu" data-trigger="dropdown" aria-expanded="false" aria-controls="coursesMenu" data-page="courses">Courses<i class="icon-angle-down icon"></i></a>
+                            <a class="nav-link nav-item dropdown-toggle d-inline-flex align-items-center" href="" data-bs-toggle="collapse" data-bs-target="#coursesMenu" data-trigger="dropdown" aria-expanded="false" aria-controls="coursesMenu" {% if page == 'courses' %} data-page="home" {% endif %}>Courses<i class="icon-angle-down icon"></i></a>
                             <div class="dropdown-menu collapse" id="coursesMenu">
                                 <ul class="dropdown-list">
                                     <li class="list-item">
@@ -102,13 +104,13 @@
                             </div>
                         </li>
                         <li class="header_nav-list_item">
-                           <a class="nav-item" href="{% url 'study-india' %}" data-page="services">Study in India</a>
+                           <a class="nav-item" href="{% url 'study-india' %}" {% if page == 'SI' %} data-page="home" {% endif %}>Study in India</a>
                         </li>
                         <li class="header_nav-list_item">
-                            <a class="nav-item" href="{% url 'study-abroad' %}" data-page="services">Study Abroad</a>
+                            <a class="nav-item" href="{% url 'study-abroad' %}" {% if page == 'SA' %} data-page="home" {% endif %}>Study Abroad</a>
                         </li>
                         <li class="header_nav-list_item">
-                            <a class="nav-item" href="{% url 'contact' %}" data-page="contact">Contact Us</a>
+                            <a class="nav-item" href="{% url 'contact' %}" {% if page == 'contact' %} data-page="home" {% endif %}>Contact Us</a>
                         </li>
                     </ul>
                     <ul class="promobar_socials d-flex align-items-center justify-content-center">
@@ -152,6 +154,11 @@
                         </p>
                         <ul class="footer_block-socials d-flex align-items-center">
                             <li class="footer_block-socials_item">
+                                <a class="link" href="https://www.instagram.com/elevatestudylinks" target="_blank" rel="noopener noreferrer">
+                                    <i class="icon-instagram"></i>
+                                </a>
+                            </li>
+                            <li class="footer_block-socials_item">
                                 <a class="link" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
                                     <i class="icon-facebook"></i>
                                 </a>
@@ -161,47 +168,42 @@
                                     <i class="icon-twitter"></i>
                                 </a>
                             </li>
-                            <li class="footer_block-socials_item">
-                                <a class="link" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-                                    <i class="icon-instagram"></i>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                     <div class="footer_block col-sm-6 col-lg-auto" data-order="2">
                         <h5 class="footer_block-header">Information:</h5>
                         <ul class="footer_block-nav">
                             <li class="footer_block-nav_item">
-                                <a class="link" href="{% url 'about' %}">Home</a>
+                                <a class="link" href="{% url 'home' %}">Home</a>
                             </li>
                             <li class="footer_block-nav_item">
-                                <a class="link" href="contacts.html">About Us</a>
+                                <a class="link" href="{% url 'about' %}">About Us</a>
                             </li>
                             <li class="footer_block-nav_item">
-                                <a class="link" href="{% url 'courses' %}">Services</a>
+                                <a class="link" href="{% url 'study-india' %}">Study India</a>
                             </li>
                             <li class="footer_block-nav_item">
-                                <a class="link" href="journal.html">Countries To Study</a>
+                                <a class="link" href="{% url 'study-abroad' %}">Study Abroad</a>
                             </li>
                             <li class="footer_block-nav_item">
-                                <a class="link" href="library.html">Contact</a>
+                                <a class="link" href="{% url 'contact' %}">Contact</a>
                             </li>
                         </ul>
                     </div>
                     <div class="footer_block col-sm-6 col-lg-auto m-sm-0" data-order="3">
-                        <h5 class="footer_block-header">Popular Courses:</h5>
+                        <h5 class="footer_block-header">Popular Programs:</h5>
                         <ul class="footer_block-list">
                             <li class="footer_block-list_item d-flex align-items-baseline">
                                 <span class="marker"></span>
-                                <a class="link" href="course.html">BCA</a>
+                                <a class="link" href="{% url 'courses' 'UG' %}">Arts & Designs Programs</a>
                             </li>
                             <li class="footer_block-list_item d-flex align-items-baseline">
                                 <span class="marker"></span>
-                                <a class="link" href="course.html">BBA</a>
+                                <a class="link" href="{% url 'courses' 'UG' %}">Medical Programs</a>
                             </li>
                             <li class="footer_block-list_item d-flex align-items-baseline">
                                 <span class="marker"></span>
-                                <a class="link" href="course.html">MBA</a>
+                                <a class="link" href="{% url 'courses' 'UG' %}">Engineering Programs</a>
                             </li>
                         </ul>
                     </div>
@@ -282,6 +284,7 @@
         <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
         <script src="{% static 'frontpage/js/common.min.js' %}"></script>
         <script src="{% static 'frontpage/js/reviews.min.js' %}"></script>
-        <script src="js/map.min.js"></script>
+        <script src="{% static 'frontpage/js/map.js' %}"></script>
+        <script src="{% static 'frontpage/js/courses.min.js' %}"></script>
     </body>
 </html>

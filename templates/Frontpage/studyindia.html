@@ -56,53 +56,28 @@
                 </li>
             </ul> -->
             <ul class="list_courses d-md-flex flex-wrap">
-                <li class="list_courses-card course-card col-12 col-md-6 col-xl-4" data-groups='["gamedev", "programming"]'>
-                    <div class="course-card_wrapper">
-                        <div class="d-flex align-items-start">
-                            <img style="border-top-left-radius: 12px; border-top-right-radius: 12px;" src="https://www.godrej-ananda.net.in/images/other/how-bangalore-got-its-name.webp" alt="">
-                        </div>
-                        <div class="pricing">
-                            <span class="pricing_price h5">Banglore</span>
-                        </div>
-                        <div class="bottom">
-                            <a class="bottom_btn btn btn--bordered btn--arrow" href="whychoose.html">
-                                Why Choose Banglore <i class="icon-arrow-right-solid icon"></i>
-                            </a>
-                        </div>
-                    </div>
-                </li>
 
-                <li class="list_courses-card course-card col-12 col-md-6 col-xl-4" data-groups='["gamedev", "programming"]'>
-                    <div class="course-card_wrapper">
-                        <div class="d-flex align-items-start">
-                            <img style="border-top-left-radius: 12px; border-top-right-radius: 12px;" src="https://www.godrej-ananda.net.in/images/other/how-bangalore-got-its-name.webp" alt="">
+                {% for place in places %}
+                    <li class="list_courses-card course-card col-12 col-md-6 col-xl-4" data-groups='["gamedev", "programming"]'>
+                        <div class="course-card_wrapper">
+                            <div class="d-flex align-items-start">
+                                {% if place.Image %}
+                                    <img style="border-top-left-radius: 12px; border-top-right-radius: 12px; max-height: 200px; object-fit: cover;" src="{{ place.Image.url }}" alt="">
+                                {% else %}
+                                    <img style="border-top-left-radius: 12px; border-top-right-radius: 12px; max-height: 200px; object-fit: cover;" src="{% static 'dashboard/images/no-image.jpg' %}" alt="">
+                                {% endif %}
+                            </div>
+                            <div class="pricing">
+                                <span class="pricing_price h5">{{ place.Name }}</span>
+                            </div>
+                            <div class="bottom">
+                                <a class="bottom_btn btn btn--bordered btn--arrow" href="">
+                                    Why Choose {{ place.Name }} <i class="icon-arrow-right-solid icon"></i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="pricing">
-                            <span class="pricing_price h5">Banglore</span>
-                        </div>
-                        <div class="bottom">
-                            <a class="bottom_btn btn btn--bordered btn--arrow" href="whychoose.html">
-                                Why Choose Banglore <i class="icon-arrow-right-solid icon"></i>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="list_courses-card course-card col-12 col-md-6 col-xl-4" data-groups='["gamedev", "programming"]'>
-                    <div class="course-card_wrapper">
-                        <div class="d-flex align-items-start">
-                            <img style="border-top-left-radius: 12px; border-top-right-radius: 12px;" src="https://www.godrej-ananda.net.in/images/other/how-bangalore-got-its-name.webp" alt="">
-                        </div>
-                        <div class="pricing">
-                            <span class="pricing_price h5">Banglore</span>
-                        </div>
-                        <div class="bottom">
-                            <a class="bottom_btn btn btn--bordered btn--arrow" href="whychoose.html">
-                                Why Choose Banglore <i class="icon-arrow-right-solid icon"></i>
-                            </a>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                {% endfor %}
 
                 <li style="display: none;"></li>
                 

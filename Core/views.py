@@ -1,13 +1,14 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from Core.models import Place,Agents,Course,Course_Addon,Collage,Student
+from Core.models import Place,Agents,Course,Course_Addon,Collage,Student,News
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from Accounts.models import Entry,Entry_Categories
 from datetime import datetime
 from django.db.models import Sum
+from Frontpage.models import Review,Enquiry
 
 now = datetime.now()
 
@@ -35,7 +36,7 @@ def dashboard(request):
 
 @login_required
 def places(request):
-    places = Place.objects.all()
+    places = Place.objects.all().order_by('-Location','-id')
     context = {
         'page' : 'masters',
         'places' : places
@@ -47,16 +48,49 @@ def places(request):
 @login_required
 def add_place(request):
     if request.method == 'POST':
+        location = request.POST.get('location')
         name = request.POST.get('name')
+        image = request.FILES.get('image')
 
         try:
-            Place.objects.create(Name=name)
+            Place.objects.create(Location=location,Name=name,Image=image)
             messages.success(request,'New place added Successfully ... !')
         
         except Exception as exception:
             messages.warning(request,exception)
 
-    return redirect('places')
+        return redirect('places')
+    
+    return render(request,'Dashboard/Core/place-add.html')
+
+#----------------------------------- EDIT PLACE -----------------------------------#
+
+@login_required
+def edit_place(request,place_id):
+    place = Place.objects.get(id=place_id)
+
+    if request.method == 'POST':
+        if len(request.FILES) > 0:
+            place.Image = request.FILES.get('image')
+
+        place.Location = request.POST.get('location')
+        place.Name = request.POST.get('name')
+
+        try:
+            place.save()
+            messages.success(request,'New place added Successfully ... !')
+            return redirect('places')
+        
+        except Exception as exception:
+            messages.warning(request,exception)
+            return redirect('edit-place',place_id=place.id)
+        
+    context = {
+        'page' : 'masters',
+        'place' : place
+    }
+    
+    return render(request,'Dashboard/Core/place-edit.html',context)
 
 #----------------------------------- DELETE PLACE -----------------------------------#
 
@@ -171,10 +205,11 @@ def courses(request):
 @login_required
 def add_course(request):
     if request.method == 'POST':
+        degree = request.POST.get('degree')
         name = request.POST.get('name')
 
         try:
-            Course.objects.create(Name=name)
+            Course.objects.create(Degree=degree,Name=name)
             messages.success(request,'New Course added Successfully ... !')
         
         except Exception as exception:
@@ -535,3 +570,104 @@ def delete_student(request):
         except Exception as exception:
             messages.warning(request,exception)
     return redirect('students')
+
+#----------------------------------- News List -----------------------------------#
+
+@login_required
+def news(request):
+    newses = News.objects.all().order_by('-id')
+    context = {
+        'page' : 'website',
+        'newses' : newses
+    }
+    return render(request,'Dashboard/News/news-list.html',context)
+
+#----------------------------------- Add News -----------------------------------#
+
+@login_required
+def add_news(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        sub_title = request.POST.get('sub_title')
+        image = request.FILES.get('image')
+        description = request.POST.get('description')
+
+        try:
+            News.objects.create(Title=title,Sub_Title=sub_title,Image=image,Description=description)
+            messages.success(request,'News added successfully ... !')
+            return redirect('news')
+        
+        except Exception as exception:
+            messages.warning(request,exception)
+            return redirect('add-news')
+        
+    context = {
+        'page' : 'website'
+    }
+    return render(request,'Dashboard/News/news-add.html',context)
+
+#----------------------------------- Edit News -----------------------------------#
+
+@login_required
+def edit_news(request,news_id):
+    news = News.objects.get(id=news_id)
+
+    if request.method == 'POST':
+        if len(request.FILES) > 0:
+            news.Image = request.FILES.get('image')
+
+        news.Title = request.POST.get('title')
+        news.Sub_Title = request.POST.get('sub_title')
+        news.Description = request.POST.get('description')
+
+        try:
+            news.save()
+            messages.success(request,'News details edited successfully ... !')
+            return redirect('news')
+        
+        except Exception as exception:
+            messages.warning(request,exception)
+            return redirect('edit-news',news_id=news.id)
+
+    context = {
+        'page' : 'news',
+        'news' : news
+    }
+    return render(request,'Dashboard/News/news-edit.html',context)
+
+#----------------------------------- DELETE NEWS -----------------------------------#
+
+@login_required
+def delete_news(request):
+    if request.method == 'POST':
+        news_id = request.POST.get('news_id')
+        news = News.objects.get(id=news_id)
+
+        try:
+            news.delete()
+            messages.success(request,'News deleated successfully ... !')
+        except Exception as exception:
+            messages.warning(request,exception)
+    return redirect('news')
+
+#----------------------------------- Enquiries -----------------------------------#
+
+@login_required
+def enquiries(request):
+    enquiries = Enquiry.objects.all().order_by('-Date')
+    context = {
+        'page' : 'website',
+        'enquiries' : enquiries
+    }
+    return render(request,'Dashboard/Core/enquiries.html',context)
+
+#----------------------------------- Reviews -----------------------------------#
+
+@login_required
+def reviews(request):
+    reviews = Review.objects.all().order_by('-Date')
+    context = {
+        'page' : 'website',
+        'reviews' : reviews
+    }
+    return render(request,'Dashboard/Core/reviews.html',context)

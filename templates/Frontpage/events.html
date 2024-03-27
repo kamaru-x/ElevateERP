@@ -12,7 +12,7 @@
         <div class="underlay"></div>
         <div class="container">
             <div class="content-wrapper">
-                <h1 class="page_main-header">Events and Lectures</h1>
+                <h1 class="page_main-header">News & Updates</h1>
                 <p class="page_main-text">
                     Donec accumsan, dolor ac malesuada rhoncus, leo arcu pellentesque dolor, nec tristique diam neque vitae sem.
                     Nulla a lectus sollicitudin, volutpat lacus id, eleifend ipsum.
@@ -28,206 +28,66 @@
 </header>
 <!-- events content start -->
 <main>
+
     <section class="event">
         <div class="container d-lg-flex justify-content-between">
             <div class="event_media">
                 <picture>
-                    <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                    <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
+                    {% if last_news.Image %}
+                        <img class="lazy" data-src="{{ last_news.Image.url }}" src="{{ last_news.Image.url }}" alt="media" />
+                    {% else %}
+                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
+                    {% endif %}
                 </picture>
                 <span class="event-date">
-                    <span class="day">23</span>
-                    <span class="month">Aug</span>
+                    <span class="day">{{ last_news.Date | date:'d' }}</span>
+                    <span class="month">{{ last_news.Date | date:'M' }}</span>
                 </span>
             </div>
             <div class="event_main">
-                <h3 class="event_main-title">Take the next step towards achieving personal and professional goals</h3>
-                <span class="event_main-price event-price text">Free for subscribers</span>
-                <p class="event_main-text">
-                    Vivamus sagittis nulla eget tempus dapibus. Duis volutpat neque ipsum, eget efficitur justo venenatis eget.
-                    Proin sodales cursus arcu, ac posuere purus lobortis nec. Maecenas quis est eget massa fringilla maximus sit
-                    amet vel est. Morbi quis orci nec mauris auctor iaculis. Maecenas tristique, purus in laoreet ultrices
-                </p>
-                <div class="event_main-timer timer d-flex justify-content-start">
-                    <div class="timer_block d-flex flex-column justify-content-center">
-                        <span class="timer_block-number" id="days">22</span>
-                        <span class="timer_block-text text text--sm">days</span>
-                    </div>
-                    <span class="timer_block-separator">:</span>
-                    <div class="timer_block d-flex flex-column justify-content-center">
-                        <span class="timer_block-number" id="hours">22</span>
-                        <span class="timer_block-text text text--sm">hours</span>
-                    </div>
-                    <span class="timer_block-separator">:</span>
-                    <div class="timer_block d-flex flex-column justify-content-center">
-                        <span class="timer_block-number" id="minutes">00</span>
-                        <span class="timer_block-text text text--sm">minutes</span>
-                    </div>
-                    <span class="timer_block-separator">:</span>
-                    <div class="timer_block d-flex flex-column justify-content-center">
-                        <span class="timer_block-number" id="seconds">59</span>
-                        <span class="timer_block-text text text--sm">seconds</span>
-                    </div>
-                </div>
+                <h3 class="event_main-title">{{ last_news.Title }}</h3>
+                <span class="event_main-price event-price text">{{ last_name.Sub_Title }}</span>
+                <p class="event_main-text">{{ last_news.Description }}</p>
+                
                 <a class="event_main-btn btn btn--gradient" href="#">
-                    <span class="text">Register</span>
+                    <span class="text">Read More</span>
                 </a>
             </div>
         </div>
     </section>
+
     <section class="list">
         <div class="container">
             <ul class="list_events d-md-flex flex-wrap">
-                <li class="list_events-card col-md-6 col-lg-4" data-aos="fade-up" data-order="1">
-                    <div class="card-wrapper d-flex flex-column">
-                        <div class="media">
-                            <picture>
-                                <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                            </picture>
-                            <span class="event-date">
-                                <span class="day">23</span>
-                                <span class="month">Aug</span>
-                            </span>
+                
+                {% for news in newses %}
+                    <li class="list_events-card col-md-6 col-lg-4" data-aos="fade-up" data-order="6">
+                        <div class="card-wrapper d-flex flex-column">
+                            <div class="media">
+                                <picture>
+                                    {% if news.Image %}
+                                        <img class="lazy" data-src="{{ news.Image.url }}" src="{{ news.Image.url }}" alt="media" />
+                                    {% else %}
+                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
+                                    {% endif %}
+                                </picture>
+                                <span class="event-date">
+                                    <span class="day">{{ news.Date | date:'d' }}</span>
+                                    <span class="month">{{ news.Date | date:'M' }}</span>
+                                </span>
+                            </div>
+                            <div class="main d-flex flex-column justify-content-between">
+                                <span class="main_price event-price">{{ news.Sub_Title }}</span>
+                                <h4 class="main_title">{{ news.Title }}</h4>
+                                <p class="main_text">{{ news.Description | slice:':75' }}...</p>
+                                <a class="main_btn btn btn--bordered btn--arrow" href="">
+                                    Read More <i class="icon-arrow-right-solid icon"></i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="main d-flex flex-column justify-content-between">
-                            <span class="main_price event-price">Free for subscribers</span>
-                            <h4 class="main_title">Webinar - Anti-Crisis Strategy for Business Success</h4>
-                            <p class="main_text">
-                                Vestibulum eget magna aliquet, ultrices arcu non, suscipit urna. Aliquam porta, lorem eu dictum
-                                rutrum
-                            </p>
-                            <a class="main_btn btn btn--bordered btn--arrow" href="#">
-                                sign up for a course <i class="icon-arrow-right-solid icon"></i>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="list_events-card col-md-6 col-lg-4" data-aos="fade-up" data-order="2">
-                    <div class="card-wrapper d-flex flex-column">
-                        <div class="media">
-                            <picture>
-                                <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                            </picture>
-                            <span class="event-date">
-                                <span class="day">01</span>
-                                <span class="month">Sept</span>
-                            </span>
-                        </div>
-                        <div class="main d-flex flex-column justify-content-between">
-                            <span class="main_price event-price">$ 20</span>
-                            <h4 class="main_title">Lection - Supply Chain Excellence Master</h4>
-                            <p class="main_text">
-                                Vestibulum eget magna aliquet, ultrices arcu non, suscipit urna. Aliquam porta, lorem eu dictum
-                                rutrum
-                            </p>
-                            <a class="main_btn btn btn--bordered btn--arrow" href="#">
-                                sign up for a course <i class="icon-arrow-right-solid icon"></i>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="list_events-card col-md-6 col-lg-4" data-aos="fade-up" data-order="3">
-                    <div class="card-wrapper d-flex flex-column">
-                        <div class="media">
-                            <picture>
-                                <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                            </picture>
-                            <span class="event-date">
-                                <span class="day">18</span>
-                                <span class="month">Feb</span>
-                            </span>
-                        </div>
-                        <div class="main d-flex flex-column justify-content-between">
-                            <span class="main_price event-price">Free for subscribers</span>
-                            <h4 class="main_title">Home office: an effective tool to ensure business</h4>
-                            <p class="main_text">
-                                Vestibulum eget magna aliquet, ultrices arcu non, suscipit urna. Aliquam porta, lorem eu dictum
-                                rutrum
-                            </p>
-                            <a class="main_btn btn btn--bordered btn--arrow" href="#">
-                                sign up for a course <i class="icon-arrow-right-solid icon"></i>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="list_events-card col-md-6 col-lg-4" data-aos="fade-up" data-order="4">
-                    <div class="card-wrapper d-flex flex-column">
-                        <div class="media">
-                            <picture>
-                                <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                            </picture>
-                            <span class="event-date">
-                                <span class="day">23</span>
-                                <span class="month">Aug</span>
-                            </span>
-                        </div>
-                        <div class="main d-flex flex-column justify-content-between">
-                            <span class="main_price event-price">Free for subscribers</span>
-                            <h4 class="main_title">Computer science curriculum that makes coding easy</h4>
-                            <p class="main_text">
-                                Vestibulum eget magna aliquet, ultrices arcu non, suscipit urna. Aliquam porta, lorem eu dictum
-                                rutrum
-                            </p>
-                            <a class="main_btn btn btn--bordered btn--arrow" href="#">
-                                sign up for a course <i class="icon-arrow-right-solid icon"></i>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="list_events-card col-md-6 col-lg-4" data-aos="fade-up" data-order="5">
-                    <div class="card-wrapper d-flex flex-column">
-                        <div class="media">
-                            <picture>
-                                <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                            </picture>
-                            <span class="event-date">
-                                <span class="day">01</span>
-                                <span class="month">Sept</span>
-                            </span>
-                        </div>
-                        <div class="main d-flex flex-column justify-content-between">
-                            <span class="main_price event-price">$ 20</span>
-                            <h4 class="main_title">A business process is a collection of linked tasks in Europe</h4>
-                            <p class="main_text">
-                                Vestibulum eget magna aliquet, ultrices arcu non, suscipit urna. Aliquam porta, lorem eu dictum
-                                rutrum
-                            </p>
-                            <a class="main_btn btn btn--bordered btn--arrow" href="#">
-                                sign up for a course <i class="icon-arrow-right-solid icon"></i>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="list_events-card col-md-6 col-lg-4" data-aos="fade-up" data-order="6">
-                    <div class="card-wrapper d-flex flex-column">
-                        <div class="media">
-                            <picture>
-                                <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                            </picture>
-                            <span class="event-date">
-                                <span class="day">18</span>
-                                <span class="month">Feb</span>
-                            </span>
-                        </div>
-                        <div class="main d-flex flex-column justify-content-between">
-                            <span class="main_price event-price">Free for subscribers</span>
-                            <h4 class="main_title">Machine learning is the science of getting computers to act</h4>
-                            <p class="main_text">
-                                Vestibulum eget magna aliquet, ultrices arcu non, suscipit urna. Aliquam porta, lorem eu dictum
-                                rutrum
-                            </p>
-                            <a class="main_btn btn btn--bordered btn--arrow" href="#">
-                                sign up for a course <i class="icon-arrow-right-solid icon"></i>
-                            </a>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                {% endfor %}
+
             </ul>
             <div class="pagination d-flex align-items-center justify-content-sm-end">
                 <ul class="pagination_pages d-flex">
@@ -251,71 +111,6 @@
                     <i class="icon-angle-right icon"></i>
                 </a>
             </div>
-        </div>
-    </section>
-    <section class="infoblock d-flex flex-column flex-lg-row flex-md-wrap">
-        <div class="infoblock_block col-lg-6 d-flex flex-column justify-content-center align-items-center" data-order="1">
-            <div class="content">
-                <h2 class="infoblock_block-header h1">Education – Your Door To The Future</h2>
-                <p class="infoblock_block-text">
-                    The best educational programs and opportunities for fast and effective learning. New professions, new
-                    opportunities and ways of working. You can learn more
-                </p>
-            </div>
-        </div>
-        <div class="infoblock_block col-lg-6" data-order="2">
-            <div class="cover">
-                <div class="cover_media">
-                    <picture>
-                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                    </picture>
-                </div>
-                <a class="cover_play" href="#">
-                    <lottie-player
-                        src="{% static 'frontpage/lottie/play.json' %}"
-                        background="transparent"
-                        speed=".5"
-                        style="width: 100%; height: 100%"
-                        loop
-                        autoplay
-                    ></lottie-player>
-                </a>
-                <span class="cover_duration">20:00</span>
-            </div>
-            <iframe
-                src="https://www.youtube.com/embed/XHOmBV4js_E?controls=0"
-                title="YouTube video player"
-                allowfullscreen
-            ></iframe>
-        </div>
-        <div class="infoblock_block col-lg-6" data-order="3">
-            <div class="parallax">
-                <div class="img">
-                    <picture>
-                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                    </picture>
-                </div>
-            </div>
-        </div>
-        <div
-            class="infoblock_block col-lg-6 infoblock_block--sale d-flex flex-column justify-content-center align-items-center"
-            data-order="4"
-        >
-            <div class="content d-flex flex-column flex-sm-row align-items-center align-items-sm-start">
-                <span class="content_percent">50%</span>
-                <div class="content_text d-flex flex-column align-items-center align-items-xl-start">
-                    <h3 class="title"><span class="percent">50%</span> Season sale</h3>
-                    <p class="text">Unlimited access to educational materials<span class="text_cut">and lectures</span></p>
-                </div>
-            </div>
-            <form class="form d-flex flex-column flex-sm-row" action="#" method="post" data-type="subscription">
-                <input class="field required" type="text" data-type="email" placeholder="Subscribe by e-mail" />
-                <button class="btn btn--gradient" type="submit">
-                    <span class="text">Get Started Now</span>
-                </button>
-            </form>
         </div>
     </section>
 </main>

@@ -207,176 +207,23 @@
                 <div class="reviews_slider">
                     <i class="icon-quote-left-solid icon"></i>
                     <div class="swiper-wrapper">
-                        <div class="reviews_slider-slide swiper-slide">
-                            <q class="quote">
-                                “Nulla sed suscipit lectus. Phasellus rhoncus vulputate odio et placerat. Aenean ut aliquam erat.
-                                Integer rutrum eleifend ante, a bibendum leo tristique id. Phasellus euismod sapien non ornare sagittis.
-                                Donec molestie eros dolor. Curabitur laoreet neque at magna pulvinar cursus. Nulla euismod orci in
-                                varius mollis”
-                            </q>
-                            <div class="author d-flex flex-column align-items-center">
-                                <span class="avatar">
-                                    <picture>
-                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                                    </picture>
-                                </span>
-                                <span class="name h5"> Milagros Bueno </span>
-                                <ul class="rating d-flex align-items-center">
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                </ul>
+
+                        {% for review in reviews %}
+                            <div class="reviews_slider-slide swiper-slide">
+                                <q class="quote">
+                                    “{{ review.Description | slice:':200' }}”
+                                </q>
+                                <div class="author d-flex flex-column align-items-center">
+                                    <span class="avatar">
+                                        <picture>
+                                            <img class="lazy" data-src="{% static 'dashboard/images/user.png' %}" src="{% static 'dashboard/images/user.png' %}" alt="media" />
+                                        </picture>
+                                    </span>
+                                    <span class="name h5"> {{ review.Name }} </span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="reviews_slider-slide swiper-slide">
-                            <q class="quote">
-                                “Donec molestie eros dolor. Nulla sed suscipit lectus. Phasellus rhoncus vulputate odio et placerat.
-                                Aenean ut aliquam erat. Integer rutrum eleifend ante, a bibendum leo tristique id. Phasellus euismod
-                                sapien non ornare sagittis. Curabitur laoreet neque at magna pulvinar cursus. Nulla euismod orci in
-                                varius mollis”
-                            </q>
-                            <div class="author d-flex flex-column align-items-center">
-                                <span class="avatar">
-                                    <picture>
-                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                                    </picture>
-                                </span>
-                                <span class="name h5"> Lisa Smith </span>
-                                <ul class="rating d-flex align-items-center">
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="reviews_slider-slide swiper-slide">
-                            <q class="quote">
-                                “Nulla sed suscipit lectus. Phasellus rhoncus vulputate odio et placerat. Aenean ut aliquam erat.
-                                Integer rutrum eleifend ante, a bibendum leo tristique id. Phasellus euismod sapien non ornare sagittis.
-                                Donec molestie eros dolor. Curabitur laoreet neque at magna pulvinar cursus. Nulla euismod orci in
-                                varius mollis”
-                            </q>
-                            <div class="author d-flex flex-column align-items-center">
-                                <span class="avatar">
-                                    <picture>
-                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                                    </picture>
-                                </span>
-                                <span class="name h5"> Alice Miller </span>
-                                <ul class="rating d-flex align-items-center">
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="reviews_slider-slide swiper-slide">
-                            <q class="quote">
-                                “Curabitur laoreet neque at magna pulvinar cursus. Nulla sed suscipit lectus. Phasellus rhoncus
-                                vulputate odio et placerat. Aenean ut aliquam erat. Integer rutrum eleifend ante, a bibendum leo
-                                tristique id. Phasellus euismod sapien non ornare sagittis. Donec molestie eros dolor. Nulla euismod
-                                orci in varius mollis”
-                            </q>
-                            <div class="author d-flex flex-column align-items-center">
-                                <span class="avatar">
-                                    <picture>
-                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                                    </picture>
-                                </span>
-                                <span class="name h5"> Amanda Rendall </span>
-                                <ul class="rating d-flex align-items-center">
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="reviews_slider-slide swiper-slide">
-                            <q class="quote">
-                                “Nulla sed suscipit lectus. Phasellus rhoncus vulputate odio et placerat. Aenean ut aliquam erat.
-                                Integer rutrum eleifend ante, a bibendum leo tristique id. Phasellus euismod sapien non ornare sagittis.
-                                Donec molestie eros dolor. Curabitur laoreet neque at magna pulvinar cursus. Nulla euismod orci in
-                                varius mollis”
-                            </q>
-                            <div class="author d-flex flex-column align-items-center">
-                                <span class="avatar">
-                                    <picture>
-                                        <source data-srcset="{% static 'frontpage/img/placeholder.jpg' %}" srcset="{% static 'frontpage/img/placeholder.jpg' %}" />
-                                        <img class="lazy" data-src="{% static 'frontpage/img/placeholder.jpg' %}" src="{% static 'frontpage/img/placeholder.jpg' %}" alt="media" />
-                                    </picture>
-                                </span>
-                                <span class="name h5"> Luke Grimes </span>
-                                <ul class="rating d-flex align-items-center">
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                    <li class="rating_star">
-                                        <i class="icon-star icon"></i>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        {% endfor %}
+                        
                     </div>
                     <div class="reviews_slider-controls d-flex align-items-center justify-content-between">
                         <a class="swiper-button-prev" href="#">

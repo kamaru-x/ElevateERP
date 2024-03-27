@@ -8,14 +8,25 @@ RANK = [
     ('Sub','Sub')
 ]
 
+TYPE = (
+    ('India','India'),
+    ('Abroad','Abroad')
+)
+
+DEGREE = (
+    ('UG','UG'),
+    ('PG','PG')
+)
+
 class Place(models.Model):
     Status = models.IntegerField(default=1)
     Name = models.CharField(max_length=100)
+    Location = models.CharField(max_length=25,choices=TYPE,default='India')
+    Image = models.ImageField(upload_to='Places',null=True)
     Added_Date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.Name
-    
 
 class Agents(models.Model):
     Status = models.IntegerField(default=1)
@@ -31,6 +42,7 @@ class Agents(models.Model):
 class Course(models.Model):
     Status = models.IntegerField(default=1)
     Added_Date = models.DateField(auto_now_add=True)
+    Degree = models.CharField(max_length=50,choices=DEGREE)
     Name = models.CharField(max_length=50)
 
     def __str__(self):
@@ -75,3 +87,13 @@ class Student(models.Model):
 
     def __str__(self):
         return self.Name
+    
+class News(models.Model):
+    Date = models.DateTimeField(auto_now_add=True)
+    Title = models.CharField(max_length=100)
+    Sub_Title = models.CharField(max_length=100)
+    Image = models.ImageField(upload_to='News',null=True)
+    Description = models.TextField()
+
+    def __str__(self):
+        return self.Title

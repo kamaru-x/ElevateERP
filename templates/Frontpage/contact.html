@@ -69,33 +69,25 @@
                         answer all your questions.
                     </p>
                 </div>
-                <form class="contacts_form-form" action="form.php" method="post" data-type="contacts">
+                <form class="contacts_form-form" action="." method="post" id="contact-form">
                     <div class="contacts_form-form_wrapper d-sm-flex justify-content-between">
-                        <input class="field required" type="text" data-type="email" placeholder="Email" id="contactsEmail" />
-                        <input class="field required" type="text" placeholder="Name" id="contactsName" />
+                        <input name="name" class="field required" type="text" placeholder="Name" id="name" />
+                        <input name="email" class="field required" type="text" data-type="email" placeholder="Email" id="email" />
                     </div>
                     <div class="contacts_form-form_wrapper d-sm-flex justify-content-between">
-                        <input class="field required" type="text" data-type="tel" placeholder="Phone number" id="contactsTel" />
-                        <input class="field required" type="text" placeholder="Subject" id="contactsSubject" />
+                        <input name="mobile" class="field required" type="text" data-type="tel" placeholder="Phone number" id="mobile" />
+                        <input name="subject" class="field required" type="text" placeholder="Subject" id="subject" />
                     </div>
                     <textarea
+                        name="description"
                         class="field required"
                         placeholder="Your message here"
                         data-type="message"
-                        id="contactsMessage"
+                        id="description"
                     ></textarea>
+                    <p id="success-msg" style="display: none; color: green;"> Enquiry Submited Successfully ... ! </p>
                     <div class="contacts_form-form_footer">
-                        <div class="wrapper d-flex flex-wrap align-items-center justify-content-center">
-                            <div class="checkbox">
-                                <input type="checkbox" name="dataProcessing" id="dataProcessing" checked />
-                                <label for="dataProcessing">
-                                    <i class="icon-check icon"></i>
-                                    I agree to the terms of data processing.
-                                </label>
-                            </div>
-                            <a class="link" href="#">Terms and Conditions</a>
-                        </div>
-                        <button class="btn btn--gradient" type="submit">
+                        <button class="btn btn--gradient" type="submit" id="submit-btn">
                             <span class="text">Send a Message</span>
                         </button>
                     </div>
@@ -104,4 +96,32 @@
         </section>
     </main>
     <!-- contacts content end -->
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+        $('#submit-btn').on('click',function(){
+            var name = $('#name').val()
+            var email = $('#email').val()
+            var mobile = $('#mobile').val()
+            var subject = $('#subject').val()
+            var description = $('#description').val()
+
+            $.ajax({
+                url : '{% url "contact" %}',
+                type : 'POST',
+                data : {
+                    'name' : name,
+                    'email' : email,
+                    'mobile' : mobile,
+                    'subject' : subject,
+                    'description' : description
+                },
+
+                success : function(response){
+                    $('#contact-form').trigger('reset')
+                    $('#success-msg').show()
+                }
+            })
+        })
+    </script>
 {% endblock content %}

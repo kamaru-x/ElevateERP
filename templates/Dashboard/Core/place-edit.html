@@ -1,0 +1,57 @@
+{% extends 'Dashboard/base.html' %}
+{% load static %}
+
+{% block page %} 
+    <li class="breadcrumb-item" aria-current="page">Place</li>
+    <li class="breadcrumb-item active" aria-current="page">Edit</li>
+{% endblock page %}
+
+{% block content %}
+
+<!-- BEGIN: Notification -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="intro-y col-span-11 alert alert-{{ message.tags }} alert-dismissible show flex items-center mb-6 mt-5 text-white" role="alert">
+            <span><i data-lucide="info" class="w-4 h-4 mr-2"></i></span>
+            <span>{{ message }}</span>
+            <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close"> <i data-lucide="x" class="w-4 h-4"></i> </button>
+        </div>
+    {% endfor %}
+{% endif %}
+<!-- BEGIN: Notification -->
+
+<div class="intro-y box py-5 sm:py-10 mt-5">
+
+    <h2 class="text-primary py-5" style="font-size: 30px; font-weight: 500; text-align: center;">Edit Place</h2>
+    
+    <div class="px-3 sm:px-10 mt-5 pt-5 border-t border-slate-200/60 dark:border-darkmode-400">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5"> 
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="input-wizard-2" class="form-label">Location</label>
+                    <select name="location" id="" class="form-control" required>
+                        <option value="{{ place.Location }}">{{ place.Location }}</option>
+                        <option value="India">India</option>
+                        <option value="Abroad">Abroad</option>
+                    </select>
+                </div>
+
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="modal-form-1" class="form-label">Place Name</label> 
+                    <input value="{{ place.Name }}" id="" name="name" type="text" class="form-control" placeholder="Enter Place Here" required> 
+                </div>
+
+                <div class="intro-y col-span-12 sm:col-span-6">
+                    <label for="modal-form-1" class="form-label">Image</label> 
+                        <input id="" name="image" type="file" class="form-control file">
+                </div>
+
+                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                    <button class="btn btn-primary w-24 ml-2" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
