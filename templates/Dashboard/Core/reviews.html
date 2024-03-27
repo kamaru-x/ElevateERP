@@ -27,6 +27,7 @@
                 <button class="btn btn-outline-secondary shadow-md mr-2">
                     <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export to Excel
                 </button>
+                <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#add-review"><button class="btn btn-primary shadow-md mr-2">Add New Review</button></a>
             </div>
         </div>
         <!-- BEGIN: Data List -->
@@ -64,7 +65,7 @@
                                 
                                 <td class="table-report__action">
                                     <div class="flex justify-center items-center">
-                                        <a onclick="delete_place('{{place.id}}')" class="flex items-center text-danger whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" title="delete">
+                                        <a onclick="delete_review('{{review.id}}')" class="flex items-center text-danger whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" title="delete">
                                             <i data-lucide="trash" class="w-4 h-4 mr-1"></i> 
                                         </a>
                                     </div>
@@ -97,9 +98,9 @@
     <!-- BEGIN: Delete Confirmation Modal -->
     <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="" method="post">
+            <form action="{% url 'delete-review' %}" method="post">
                 {% csrf_token %}
-                <input type="hidden" name="place_id" id="place_id">
+                <input type="hidden" name="review_id" id="review_id">
                 <div class="modal-content">
                     <div class="modal-body p-0">
                         <div class="p-5 text-center">
@@ -118,9 +119,46 @@
     </div>
     <!-- END: Delete Confirmation Modal -->
 
+    <!-- BEGIN: Entry Add Modal Content -->
+    <div id="add-review" class="modal" tabindex="-1" aria-hidden="true">
+        <form method="post" action="{% url 'add-review' %}" class="modal-dialog modal-xl">
+            {% csrf_token %}
+            <div class="modal-content">
+                <!-- BEGIN: Modal Header -->
+                <div class="modal-header">
+                    <h2 class="font-medium text-base mx-auto my-2">Add Review</h2>
+                </div> 
+                <!-- END: Modal Header -->
+
+                <!-- BEGIN: Modal Body -->
+                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                    
+                    <div class="col-span-12 sm:col-span-12"> 
+                        <label for="modal-form-1" class="form-label">Name</label> 
+                        <input type="text" name="name" id="" class="form-control" reviewholder="Enter Review Name Here">
+                    </div>
+
+                    <div class="col-span-12 sm:col-span-12"> 
+                        <label for="modal-form-1" class="form-label">Amount</label> 
+                        <textarea name="review" id="" cols="30" rows="10" class="form-control" reviewholder="Enter Review Here"></textarea>
+                    </div>
+                </div> 
+                <!-- END: Modal Body -->
+
+                <!-- BEGIN: Modal Footer -->
+                <div class="modal-footer text-center"> 
+                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20">Cancel</button> 
+                    <button type="submit" class="btn btn-primary w-20">Submit</button> 
+                </div> 
+                <!-- END: Modal Footer -->
+            </div>
+        </form>
+    </div> 
+    <!-- END: Entry Add Modal Content -->
+
     <script>
-        function delete_place(place_id){
-            $('#place_id').val(place_id)
+        function delete_review(review_id){
+            $('#review_id').val(review_id)
         }
     </script>
 {% endblock content %}

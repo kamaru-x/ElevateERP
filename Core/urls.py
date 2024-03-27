@@ -40,5 +40,7 @@ urlpatterns = [
     path('news/delete/',views.delete_news,name='delete-news'),
 
     path('enquiries/',views.enquiries,name='enquiries'),
-    path('reviews/',views.reviews,name='reviews')
+    path('reviews/',views.reviews,name='reviews'),
+    path('review/add/',views.add_review,name='add-review'),
+    path('review/delete/',views.delete_review,name='delete-review')
 ]

@@ -671,3 +671,34 @@ def reviews(request):
         'reviews' : reviews
     }
     return render(request,'Dashboard/Core/reviews.html',context)
+
+#----------------------------------- Review add -----------------------------------#
+
+@login_required
+def add_review(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        review = request.POST.get('review')
+
+        try:
+            Review.objects.create(Name=name,Description=review)
+            messages.success(request, 'Review Added Successfully ... !')
+        except Exception as exception:
+            messages.warning(request,exception)
+
+    return redirect('reviews')
+
+#----------------------------------- Review Delete -----------------------------------#
+
+@login_required
+def delete_review(request):
+    if request.method == 'POST':
+        review_id = request.POST.get('review_id')
+        review = Review.objects.get(id=review_id)
+
+        try:
+            review.delete()
+            messages.success(request,'Review deleated successfully ... !')
+        except Exception as exception:
+            messages.warning(request,exception)
+    return redirect('reviews')
