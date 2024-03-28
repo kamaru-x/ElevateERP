@@ -29,7 +29,8 @@ urlpatterns = [
     path('',include('U_Auth.urls')),
     path('',include('ErrHandler.urls')),
     path('NVA/',include('Core.urls')),
-    path('Accounts/',include('Accounts.urls')),
+    path('NVA/Accounts/',include('Accounts.urls')),
+    path('NVA/Leads/',include('Leads.urls')),
 
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),

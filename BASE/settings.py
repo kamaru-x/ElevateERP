@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'Core', # to handle functionalities
     'Accounts', # to handle accounts functionalities
     'Frontpage', # to handle frontpage website 
+    'Leads',
 ]
 
 MIDDLEWARE = [
@@ -124,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

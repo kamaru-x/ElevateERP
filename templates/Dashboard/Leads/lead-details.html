@@ -1,0 +1,183 @@
+{% extends 'Dashboard/base.html' %}
+{% load static %}
+
+{% block page %} 
+    <li class="breadcrumb-item active" aria-current="page">Lead Details</li>
+{% endblock page %}
+
+{% block content %}
+
+<!-- BEGIN: Notification -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="intro-y col-span-11 alert alert-{{ message.tags }} alert-dismissible show flex items-center mb-6 mt-5 text-white" role="alert">
+            <span><i data-lucide="info" class="w-4 h-4 mr-2"></i></span>
+            <span>{{ message }}</span>
+            <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close"> <i data-lucide="x" class="w-4 h-4"></i> </button>
+        </div>
+    {% endfor %}
+{% endif %}
+<!-- BEGIN: Notification -->
+
+<!-- BEGIN: Content -->
+    <div class="">
+        <div class="intro-y flex items-center mt-10">
+            <h1 class="font-medium mx-auto text-primary mb-5" style="font-size: 30px;">Lead Details</h1>
+        </div>
+        <h1 class="font-medium text-center text-primary mb-5" style="font-size: 20px;">{{ lead.lead }}</h1>
+        <!-- BEGIN: Profile Info -->
+        <div class="intro-y box px-5 pt-5 mt-5">
+            <div class="flex flex-col lg:flex-row border-b border-slate-200/60 dark:border-darkmode-400 pb-5 -mx-5">
+                <div class="mt-6 lg:mt-0 flex-1 px-5 border-l border-r border-slate-200/60 dark:border-darkmode-400 border-t lg:border-t-0 pt-5 lg:pt-0">
+                    <div class="font-medium text-center lg:mt-3">Student Details</div>
+                    <div class="flex flex-col justify-center items-center mt-4">
+                        <div class="truncate sm:whitespace-normal flex items-center"><i data-lucide="user" class="w-4 h-4 mr-2"></i> Name : {{ lead.Name }} </div>
+                        <div class="truncate sm:whitespace-normal flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-2"></i> Mobile : {{ lead.Mobile }} </div>
+                        <div class="truncate sm:whitespace-normal flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-2"></i> Place : {{ lead.Place }} </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 lg:mt-0 flex-1 px-5 border-l border-r border-slate-200/60 dark:border-darkmode-400 border-t lg:border-t-0 pt-5 lg:pt-0">
+                    <div class="font-medium text-center lg:mt-3">Consultant Details</div>
+                    <div class="flex flex-col justify-center items-center mt-4">
+                        <div class="truncate sm:whitespace-normal flex items-center"> <i data-lucide="user" class="w-4 h-4 mr-2"></i> {{ lead.Staff.first_name }} </div>
+                        <div class="truncate sm:whitespace-normal flex items-center mt-3"> <i data-lucide="phone" class="w-4 h-4 mr-2"></i> {{ lead.Staff.Mobile }} </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-link-tabs flex-col sm:flex-row justify-center lg:justify-start text-center" role="tablist" >
+                <li id="timeline-tab" class="nav-item" role="presentation">
+                    <a href="javascript:;" class="nav-link py-4 flex items-center active" data-tw-target="#timeline" aria-controls="timeline" aria-selected="true" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="clock"></i> Timeline </a>
+                </li>
+                <!-- <li id="task-tab" class="nav-item" role="presentation">
+                    <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#task" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="file"></i> Tasks </a>
+                </li>
+                <li id="accounts-tab" class="nav-item" role="presentation">
+                    <a href="javascript:;" class="nav-link py-4 flex items-center" data-tw-target="#accounts" aria-selected="false" role="tab" > <i class="w-4 h-4 mr-2" data-lucide="dollar-sign"></i> Accounts </a>
+                </li> -->
+            </ul>
+        </div>
+        <!-- END: Profile Info -->
+
+        <div class="tab-content mt-5">
+            <div id="timeline" class="tab-pane active" role="tabpanel" aria-labelledby="timeline-tab">
+                <div class="col-span-12 md:col-span-12 xl:col-span-4 2xl:col-span-12 mt-3">
+                    <div class="intro-x flex items-center h-10">
+                        <h2 class="text-lg font-medium truncate mx-auto text-primary" style="font-size: 35px;"> Timeline </h2>
+                    </div>
+
+                    <div class="mt-5 relative before:block before:absolute before:w-px before:h-[85%] before:bg-slate-200 before:dark:bg-darkmode-400 before:ml-5 before:mt-5">
+                        <div class="intro-x relative flex items-center mb-3">
+                            <div class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5">
+                                <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
+                                    <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#add-timeline">
+                                        <img alt="" src="https://static.vecteezy.com/system/resources/previews/009/392/103/non_2x/button-plus-icon-sign-symbol-design-free-png.png">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
+                                <div class="flex items-center mx-auto">
+                                    <div class="font-medium text-primary">ADD A TIMELINE</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% for timeline in timelines %}
+                            <div class="intro-x relative flex items-center mb-3">
+                                <div class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5">
+                                    <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
+                                        <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#">
+                                            <img alt="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-xyf6S7TyyHcIxoBN66TeSsBhmuJVUPp2EQ&usqp=CAU">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
+                                    <div class="flex items-center">
+                                        <div class="font-medium">{{ timeline.Date | date:'d M Y' }}</div>
+                                        <!-- <div class="text-xs text-slate-500 ml-auto">07:00 PM</div> -->
+                                    </div>
+                                    <div class="text-slate-500 mt-2 text-{{ timeline.Color }}">{{ timeline.Title }}</div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="task" class="tab-pane" role="tabpanel" aria-labelledby="task-tab">
+
+                <div class="grid grid-cols-12 gap-6 mt-3">
+                    
+                </div>
+            </div>
+
+            <div id="accounts" class="tab-pane" role="tabpanel" aria-labelledby="task-tab">
+
+                <div class="grid grid-cols-12 gap-6 mt-3">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- END: Content -->
+
+<!-- BEGIN: Modal Content -->
+<div id="add-timeline" class="modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="{% url 'add-timeline' lead.id %}" method="post">
+            {% csrf_token %}
+            <div class="modal-content">
+                <!-- BEGIN: Modal Header -->
+                <div class="modal-header">
+                    <h2 class="font-medium text-base mr-auto">Add New Timeline</h2>
+                </div> 
+                <!-- END: Modal Header -->
+                <!-- BEGIN: Modal Body -->
+                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+
+                    <div class="col-span-12 sm:col-span-12"> 
+                        <label for="modal-form-1" class="form-label">Date</label> 
+                        <input value="{{ today | date:'Y-m-d H:i:s' }}" id="modal-form-1" name="date" type="datetime-local" class="form-control"> 
+                    </div>
+
+                    <div class="col-span-12 sm:col-span-12"> 
+                        <label for="modal-form-1" class="form-label">Title</label> 
+                        <textarea name="title" id="" cols="30" rows="3" class="form-control" placeholder="Enter Timeline Here"></textarea>
+                    </div>
+
+                    <div class="col-span-12 sm:col-span-12"> 
+                        <label for="modal-form-1" class="form-label">Color</label> 
+                        <select name="color" id="" class="form-control">
+                            <option value="">Select Timeline Color</option>
+                            <option value="primary">Primary</option>
+                            <option value="success">Green</option>
+                            <option value="warning">Yellow</option>
+                            <option value="danger">Red</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- END: Modal Body -->
+                <!-- BEGIN: Modal Footer -->
+                <div class="modal-footer"> 
+                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button> 
+                    <button type="submit" class="btn btn-primary w-20">Create</button> 
+                </div> 
+                <!-- END: Modal Footer -->
+            </div>
+        </form>
+    </div>
+</div> 
+<!-- END: Modal Content -->
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+        function manage_timeline(timeline_id){
+            alert(timeline_id)
+        }
+    })
+</script>
+
+{% endblock content %}
