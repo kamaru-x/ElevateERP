@@ -15,13 +15,14 @@ TYPE = (
 
 DEGREE = (
     ('UG','UG'),
-    ('PG','PG')
+    ('PG','PG'),
+    ('Diploma','Diploma'),
 )
 
 DEPARTMENT = (
     ('Arts','Arts'),
     ('Medical','Medical'),
-    ('Nusring','Nusring'),
+    ('Nursing','Nursing'),
     ('Pharmacy','Pharmacy'),
     ('Engineering','Engineering'),
     ('Physiotherapy','Physiotherapy'),

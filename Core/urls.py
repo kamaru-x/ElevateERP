@@ -16,6 +16,7 @@ urlpatterns = [
 
     path('courses/',views.courses,name='courses'),
     path('course/add/',views.add_course,name='add-course'),
+    path('course/edit/<str:course_id>',views.edit_course,name='edit-course'),
     path('course/addons/<str:course_id>/',views.course_addons,name='course-addons'),
     path('course/addon/add/',views.add_addon,name='add-addon'),
     path('corse/addon/delete/',views.delete_addon,name='delete-addon'),

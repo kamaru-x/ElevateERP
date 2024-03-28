@@ -198,7 +198,7 @@ def courses(request):
         'page' : 'courses',
         'courses' : courses
     }
-    return render(request,'Dashboard/Core/courses.html',context)
+    return render(request,'Dashboard/Core/Courses/courses.html',context)
 
 #----------------------------------- ADD COURSE -----------------------------------#
 
@@ -216,7 +216,39 @@ def add_course(request):
         except Exception as exception:
             messages.warning(request,exception)
 
-    return redirect('courses')
+        return redirect('courses')
+    
+    context = {
+        'page' : 'courses'
+    }
+    
+    return render(request,'Dashboard/Core/Courses/course-add.html',context)
+
+#----------------------------------- EDIT COURSE -----------------------------------#
+
+@login_required
+def edit_course(request,course_id):
+    course = Course.objects.get(id=course_id)
+    if request.method == 'POST':
+        course.Degree = request.POST.get('degree')
+        course.Department = request.POST.get('department')
+        course.Name = request.POST.get('name')
+
+        try:
+            course.save()
+            messages.success(request,'Course details edited successfully ... !')
+            return redirect('courses')
+        
+        except Exception as exception:
+            messages.warning(request,exception)
+            return redirect('edit-course',course_id=course.id)
+        
+    context = {
+        'page' : 'courses',
+        'course' : course
+    }
+        
+    return render(request,'Dashboard/Core/Courses/course-edit.html',context)
 
 #----------------------------------- DELETE COURSE -----------------------------------#
 
@@ -245,7 +277,7 @@ def course_addons(request,course_id):
         'course' : course,
         'addons' : addons
     }
-    return render(request,'Dashboard/Core/course-details.html',context)
+    return render(request,'Dashboard/Core/Courses/course-details.html',context)
 
 #----------------------------------- ADD ADDON -----------------------------------#
 

@@ -1,0 +1,64 @@
+{% extends 'Dashboard/base.html' %}
+{% load static %}
+
+{% block page %} 
+    <li class="breadcrumb-item" aria-current="page">Course</li>
+    <li class="breadcrumb-item active" aria-current="page">Add</li>
+{% endblock page %}
+
+{% block content %}
+
+<!-- BEGIN: Notification -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="intro-y col-span-11 alert alert-{{ message.tags }} alert-dismissible show flex items-center mb-6 mt-5 text-white" role="alert">
+            <span><i data-lucide="info" class="w-4 h-4 mr-2"></i></span>
+            <span>{{ message }}</span>
+            <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close"> <i data-lucide="x" class="w-4 h-4"></i> </button>
+        </div>
+    {% endfor %}
+{% endif %}
+<!-- BEGIN: Notification -->
+
+<div class="intro-y box py-5 sm:py-10 mt-5">
+
+    <h2 class="text-primary py-5" style="font-size: 30px; font-weight: 500; text-align: center;">Add Course</h2>
+    
+    <div class="px-3 sm:px-10 mt-5 pt-5 border-t border-slate-200/60 dark:border-darkmode-400">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5"> 
+                <div class="intro-y col-span-12 sm:col-span-4">
+                    <label for="modal-form-1" class="form-label">Degree</label> 
+                    <select name="degree" id="" class="form-control">
+                        <option value="UG">UG</option>
+                        <option value="PG">PG</option>
+                        <option value="Diploma">Diploma</option>
+                    </select>
+                </div>
+
+                <div class="intro-y col-span-12 sm:col-span-4">
+                    <label for="modal-form-1" class="form-label">Department</label> 
+                    <select name="department" id="" class="form-control">
+                        <option value="Art">Art</option>
+                        <option value="Medical">Medical</option>
+                        <option value="Nursing">Nursing</option>
+                        <option value="Pharmacy">Pharmacy</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Physiotherapy">Physiotherapy</option>
+                    </select>
+                </div>
+
+                <div class="intro-y col-span-12 sm:col-span-4">
+                    <label for="modal-form-1" class="form-label">Course Name</label> 
+                    <input id="" name="name" type="text" class="form-control" placeholder="Enter course Here"> 
+                </div>
+
+                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                    <button class="btn btn-primary w-24 ml-2" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
